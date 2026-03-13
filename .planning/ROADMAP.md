@@ -29,7 +29,13 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Headings render in the pixel font (DotGothic16 or equivalent) at 18px minimum; all body copy renders in monospace (JetBrains Mono or equivalent) — no pixel font appears at body scale
   4. A Panel component (chunky border, hard drop-shadow, inner highlight) is visible on the page and can be reused as a wrapper in all future sections
   5. Pushing to git deploys the site to Vercel automatically with no manual steps required
-**Plans**: TBD
+**Plans**: 4 plans
+
+Plans:
+- [ ] 01-01-PLAN.md — Scaffold Astro + Tailwind v4, install Playwright smoke tests
+- [ ] 01-02-PLAN.md — Design token system + Layout.astro (FOUC, fonts, base styles)
+- [ ] 01-03-PLAN.md — Panel primitive + ThemeToggle client island
+- [ ] 01-04-PLAN.md — Git init, push to GitHub, connect Vercel, verify deployment
 
 ### Phase 2: Static Sections
 **Goal**: All six content sections exist as navigable, responsive, accessible static pages with placeholder content — a visitor can scroll the complete site and understand its structure
@@ -70,7 +76,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Design System | 0/TBD | Not started | - |
+| 1. Design System | 0/4 | Not started | - |
 | 2. Static Sections | 0/TBD | Not started | - |
 | 3. Interactive Layer | 0/TBD | Not started | - |
 | 4. Content and Launch | 0/TBD | Not started | - |
