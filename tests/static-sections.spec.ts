@@ -36,7 +36,7 @@ test.describe('Phase 2 — Static Sections', () => {
   test('HERO-02: section#hero contains portrait placeholder', async ({ page }) => {
     const hero = page.locator('section#hero');
     const portrait = hero.locator('[class*="portrait"], [data-portrait], [class*="trainer-portrait"]');
-    await expect(portrait).toBeVisible();
+    await expect(portrait.first()).toBeVisible();
   });
 
   // HERO-03 — section#hero contains heading and paragraph outside trainer card
