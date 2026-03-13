@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: completed
-stopped_at: Completed 02-01-PLAN.md
-last_updated: "2026-03-13T17:43:49.324Z"
-last_activity: 2026-03-14 — Phase 1 complete; deploy deferred
+status: in_progress
+stopped_at: Completed 02-02-PLAN.md
+last_updated: "2026-03-14T01:05:00.000Z"
+last_activity: 2026-03-14 — Phase 2 Plan 02 complete; nav + hero + about + all section stubs created
 progress:
   total_phases: 4
   completed_phases: 1
   total_plans: 9
-  completed_plans: 5
-  percent: 25
+  completed_plans: 6
+  percent: 33
 ---
 
 # Project State
@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-13)
 
 **Core value:** A memorable, interactive portfolio that makes visitors feel like they're embarking on an adventure — not just reading a résumé.
-**Current focus:** Phase 1 — Design System
+**Current focus:** Phase 2 — Static Sections
 
 ## Current Position
 
-Phase: 1 of 4 (Design System) — COMPLETE
-Plan: 4 of 4 complete
-Status: Phase 1 complete — ready to start Phase 2
-Last activity: 2026-03-14 — Phase 1 complete; deploy deferred
+Phase: 2 of 4 (Static Sections) — IN PROGRESS
+Plan: 2 of 5 complete
+Status: Plan 02-02 complete — JourneyNav, Hero, About, and all section stubs created
+Last activity: 2026-03-14 — JourneyNav sidebar, HeroSection trainer card, AboutSection, and all remaining section stubs built ahead of schedule
 
-Progress: [██░░░░░░░░] 25%
+Progress: [███░░░░░░░] 33%
 
 ## Performance Metrics
 
@@ -55,6 +55,7 @@ Progress: [██░░░░░░░░] 25%
 | Phase 01-design-system P03 | 4 | 2 tasks | 4 files |
 | Phase 01-design-system P04 | 5min | 1 tasks | 1 files |
 | Phase 02-static-sections P01 | 12min | 2 tasks | 4 files |
+| Phase 02-static-sections P02 | 15min | 2 tasks | 10 files |
 
 ## Accumulated Context
 
@@ -76,6 +77,9 @@ Recent decisions affecting current work:
 - [Phase 01-design-system]: ThemeToggle.astro uses regular script block (not is:inline) — Astro bundles as ESM module for client-side execution
 - [Phase 01-design-system]: GitHub push and Vercel connection deferred by user — DS-07 not yet satisfied; to be completed before needing a public URL
 - [Phase 02-static-sections]: astro-icon auto-registered via npx astro add; 21 stubs intentionally red (Nyquist compliance); scroll-behavior: smooth added to global.css with prefers-reduced-motion override
+- [Phase 02-static-sections]: Layout.astro now owns <main> — pages slot content without their own <main> wrapper; prevents A11Y-01 nested-main failure
+- [Phase 02-static-sections]: nav sidebar uses width:max-content — accommodates "SAVE POINT" label without hardcoded pixel width
+- [Phase 02-static-sections]: Linter created all remaining section stubs (Experience, Projects, Skills, Contact) ahead of schedule — high-quality, accepted as complete
 
 ### Pending Todos
 
@@ -87,9 +91,10 @@ None yet.
 - [Research]: Verify DotGothic16 and JetBrains Mono availability on Google Fonts before Phase 1 font decisions
 - [Research]: Confirm Tailwind v4 + Astro integration path (official docs may have updated guidance)
 - [Phase 3]: DialogueSystem island — resolve Preact vs vanilla JS before Phase 3 planning (see research/SUMMARY.md)
+- [Phase 02 Plans 03-04]: All section stubs already created by linter — Plans 03-04 may find their primary work already done; verify with `npm run build` and Playwright before executing
 
 ## Session Continuity
 
-Last session: 2026-03-13T17:43:49.322Z
-Stopped at: Completed 02-01-PLAN.md
+Last session: 2026-03-14T01:05:00.000Z
+Stopped at: Completed 02-02-PLAN.md
 Resume file: None

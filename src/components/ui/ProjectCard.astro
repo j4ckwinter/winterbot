@@ -1,0 +1,109 @@
+---
+import Panel from '../Panel.astro';
+
+interface Props {
+  dexNumber: string;
+  name: string;
+  description: string;
+  tags: string[];
+  githubUrl: string;
+  liveUrl?: string;
+}
+
+const { dexNumber, name, description, tags, githubUrl, liveUrl } = Astro.props;
+---
+
+<Panel class="project-card">
+  <div class="card-header">
+    <h3 class="card-name">{name}</h3>
+    <span class="dex-number" aria-label={`Dex entry ${dexNumber}`}>{dexNumber}</span>
+  </div>
+  <hr class="card-divider" />
+  <p class="card-description">{description}</p>
+  <ul class="tag-list" aria-label="Technologies used">
+    {tags.map((tag) => <li class="tag">{tag}</li>)}
+  </ul>
+  <div class="card-links">
+    <a href={githubUrl} class="card-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+    {liveUrl && <a href={liveUrl} class="card-link card-link--live" target="_blank" rel="noopener noreferrer">Live</a>}
+  </div>
+</Panel>
+
+<style>
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .card-name {
+    font-family: 'DotGothic16', monospace;
+    font-size: 1rem;
+    color: var(--color-text);
+    margin: 0;
+  }
+
+  .dex-number {
+    font-family: 'DotGothic16', monospace;
+    font-size: 0.75rem;
+    color: var(--color-accent-secondary);
+    opacity: 0.8;
+  }
+
+  .card-divider {
+    border: none;
+    border-top: 1px solid var(--color-border);
+    margin: 0.75rem 0;
+  }
+
+  .card-description {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--color-text);
+    margin-bottom: 1rem;
+  }
+
+  .tag-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0;
+    margin: 0;
+  }
+
+  .tag {
+    font-family: 'DotGothic16', monospace;
+    font-size: 0.65rem;
+    background: var(--color-accent-secondary);
+    color: var(--color-surface);
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+  }
+
+  .card-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .card-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--color-accent-primary);
+    text-decoration: underline;
+  }
+
+  .card-link:focus-visible {
+    outline: 3px solid var(--color-accent-primary);
+    outline-offset: 3px;
+  }
+
+  .card-link--live {
+    color: var(--color-accent-secondary);
+  }
+
+  :global(.project-card) {
+    cursor: pointer;
+  }
+</style>

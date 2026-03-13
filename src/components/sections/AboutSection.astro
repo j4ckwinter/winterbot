@@ -1,0 +1,37 @@
+---
+import Panel from '../Panel.astro';
+---
+
+<section id="about" aria-labelledby="about-heading">
+  <h2 id="about-heading" class="section-heading">Origin Story</h2>
+  <Panel>
+    <p>A frontend engineer spawned in the wild, trained through years of production battles. Specializes in crafting interfaces that feel alive — fast, accessible, and worth exploring. Armed with a full stack of modern tools and a hunger for pixel-perfect execution.</p>
+    <p>Veteran of countless sprint reviews, debug marathons, and late-night deploy runs. When not hunting performance regressions or wrangling design tokens, can be found building side projects that push the boundaries of what a browser can do.</p>
+  </Panel>
+</section>
+
+<style>
+  section#about {
+    padding: 4rem 0 2rem;
+  }
+
+  .section-heading {
+    font-family: 'DotGothic16', monospace;
+    color: var(--color-surface);
+    font-size: 1.5rem;
+    letter-spacing: 0.08em;
+    margin: 0 0 1.5rem;
+  }
+
+  section#about :global(.panel) p {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--color-text);
+    font-size: 0.9rem;
+    line-height: 1.7;
+    margin: 0 0 1rem;
+  }
+
+  section#about :global(.panel) p:last-child {
+    margin-bottom: 0;
+  }
+</style>

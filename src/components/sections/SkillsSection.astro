@@ -1,0 +1,170 @@
+---
+import { Icon } from 'astro-icon/components';
+
+type Category = 'all' | 'frontend' | 'backend' | 'tools';
+
+interface Skill {
+  name: string;
+  icon: string;
+  tooltip: string;
+  category: Category;
+}
+
+const skills: Skill[] = [
+  // Frontend
+  { name: 'TypeScript', icon: 'devicon:typescript',    tooltip: 'Expert • 5+ years',    category: 'frontend' },
+  { name: 'React',      icon: 'devicon:react',         tooltip: 'Expert • 5+ years',    category: 'frontend' },
+  { name: 'Astro',      icon: 'devicon:astro',         tooltip: 'Proficient • 2 years', category: 'frontend' },
+  { name: 'CSS',        icon: 'devicon:css3',          tooltip: 'Expert • 8+ years',    category: 'frontend' },
+  { name: 'HTML',       icon: 'devicon:html5',         tooltip: 'Expert • 8+ years',    category: 'frontend' },
+  // Backend
+  { name: 'Node.js',    icon: 'devicon:nodejs',        tooltip: 'Proficient • 4 years', category: 'backend' },
+  { name: 'GraphQL',    icon: 'simple-icons:graphql',  tooltip: 'Proficient • 3 years', category: 'backend' },
+  { name: 'PostgreSQL', icon: 'devicon:postgresql',    tooltip: 'Familiar • 2 years',   category: 'backend' },
+  // Tools
+  { name: 'Git',        icon: 'devicon:git',           tooltip: 'Expert • 8+ years',    category: 'tools' },
+  { name: 'Vite',       icon: 'devicon:vitejs',        tooltip: 'Proficient • 3 years', category: 'tools' },
+  { name: 'Playwright', icon: 'devicon:playwright',    tooltip: 'Proficient • 2 years', category: 'tools' },
+  { name: 'Figma',      icon: 'devicon:figma',         tooltip: 'Familiar • 3 years',   category: 'tools' },
+];
+
+const tabs: { id: Category; label: string }[] = [
+  { id: 'all',      label: 'ALL' },
+  { id: 'frontend', label: 'FRONTEND' },
+  { id: 'backend',  label: 'BACKEND' },
+  { id: 'tools',    label: 'TOOLS' },
+];
+---
+
+<section id="skills" aria-labelledby="skills-heading">
+  <h2 id="skills-heading" class="section-heading">Inventory</h2>
+
+  <!-- Tab list — JS filter wired in Phase 3; all skills visible by default -->
+  <div role="tablist" aria-label="Skill categories" class="tab-list">
+    {tabs.map((tab, i) => (
+      <button
+        role="tab"
+        aria-selected={i === 0 ? 'true' : 'false'}
+        aria-controls="skills-panel"
+        id={`tab-${tab.id}`}
+        class:list={['tab-btn', { 'tab-btn--active': i === 0 }]}
+        data-category={tab.id}
+      >
+        {tab.label}
+      </button>
+    ))}
+  </div>
+
+  <!-- Tab panel -->
+  <div role="tabpanel" id="skills-panel" aria-labelledby="tab-all">
+    <ul class="skills-grid" aria-label="Skills inventory">
+      {skills.map((skill) => (
+        <li
+          class="skill-slot"
+          data-category={skill.category}
+          data-tooltip={skill.tooltip}
+          tabindex="0"
+          aria-label={`${skill.name} — ${skill.tooltip}`}
+        >
+          <Icon name={skill.icon} width="32" height="32" aria-hidden="true" />
+          <span class="skill-label">{skill.name}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .section-heading {
+    font-family: 'DotGothic16', monospace;
+    color: var(--color-surface);
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .tab-list {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .tab-btn {
+    font-family: 'DotGothic16', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    background: transparent;
+    border: 2px solid var(--color-border);
+    color: var(--color-surface);
+    padding: 0.4rem 0.8rem;
+    cursor: pointer;
+    border-radius: 4px;
+    opacity: 0.6;
+  }
+  .tab-btn:hover { opacity: 1; }
+  .tab-btn--active {
+    background: var(--color-accent-primary);
+    border-color: var(--color-accent-primary);
+    color: var(--color-surface);
+    opacity: 1;
+  }
+  .tab-btn:focus-visible {
+    outline: 3px solid var(--color-accent-primary);
+    outline-offset: 3px;
+  }
+  .skills-grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 0.75rem;
+  }
+  /* Skill slot — Panel-like inset shadow per SKILL-04 */
+  .skill-slot {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    aspect-ratio: 1;
+    background: var(--color-surface);
+    border: 3px solid var(--color-border);
+    border-radius: 6px;
+    box-shadow: inset 3px 3px 0px var(--color-shadow);
+    padding: 0.75rem;
+    cursor: default;
+  }
+  .skill-slot:focus-visible {
+    outline: 3px solid var(--color-accent-primary);
+    outline-offset: 3px;
+  }
+  .skill-label {
+    font-family: 'DotGothic16', monospace;
+    font-size: 0.6rem;
+    color: var(--color-text);
+    text-align: center;
+    line-height: 1.2;
+  }
+  /* CSS-only tooltip (A11Y: also works on focus-visible for keyboard users) */
+  .skill-slot::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--color-border);
+    color: var(--color-surface);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 10;
+    transition: opacity 0.15s;
+  }
+  .skill-slot:hover::before,
+  .skill-slot:focus-visible::before {
+    opacity: 1;
+  }
+</style>

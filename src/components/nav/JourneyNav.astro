@@ -1,0 +1,97 @@
+---
+const sections = [
+  { id: 'hero',       label: 'START',      defaultActive: true },
+  { id: 'about',      label: 'ORIGIN',     defaultActive: false },
+  { id: 'experience', label: 'QUEST LOG',  defaultActive: false },
+  { id: 'projects',   label: 'DEX',        defaultActive: false },
+  { id: 'skills',     label: 'INVENTORY',  defaultActive: false },
+  { id: 'contact',    label: 'SAVE POINT', defaultActive: false },
+];
+---
+
+<nav class="journey-nav" aria-label="Site sections">
+  <ul>
+    {sections.map((s) => (
+      <li>
+        <a
+          href={`#${s.id}`}
+          class:list={['nav-marker', { 'is-active': s.defaultActive }]}
+          aria-current={s.defaultActive ? 'location' : undefined}
+        >
+          <span class="diamond" aria-hidden="true">{s.defaultActive ? '◆' : '◇'}</span>
+          <span class="label">{s.label}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>
+
+<style>
+  .journey-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: max-content;
+    padding: 2rem 0.75rem;
+    display: flex;
+    align-items: flex-start;
+    z-index: 100;
+  }
+
+  .journey-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  /* Dashed vertical connector line */
+  .journey-nav ul::before {
+    content: '';
+    position: absolute;
+    left: 0.5rem;
+    top: 1.5rem;
+    bottom: 1.5rem;
+    border-left: 2px dashed var(--color-border);
+  }
+
+  .nav-marker {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: var(--color-surface);
+    font-family: 'DotGothic16', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    opacity: 0.6;
+    transition: opacity 0.15s;
+  }
+
+  .nav-marker:hover,
+  .nav-marker:focus-visible {
+    opacity: 1;
+  }
+
+  .nav-marker.is-active {
+    opacity: 1;
+    color: var(--color-accent-primary);
+  }
+
+  .nav-marker:focus-visible {
+    outline: 3px solid var(--color-accent-primary);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* Hide on mobile */
+  @media (max-width: 640px) {
+    .journey-nav {
+      display: none;
+    }
+  }
+</style>

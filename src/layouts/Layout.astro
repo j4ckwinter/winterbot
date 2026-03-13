@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import ThemeToggle from '../components/ThemeToggle.astro';
+import JourneyNav from '../components/nav/JourneyNav.astro';
 
 interface Props {
   title?: string;
@@ -30,9 +31,36 @@ const { title = 'WinterBot Portfolio' } = Astro.props;
     />
   </head>
   <body>
+    <JourneyNav />
     <header>
       <ThemeToggle client:load />
     </header>
-    <slot />
+    <main>
+      <slot />
+    </main>
   </body>
 </html>
+
+<style>
+  header {
+    margin-left: 8rem;
+    padding: 0 1.5rem;
+  }
+
+  main {
+    margin-left: 8rem;
+    padding: 0 1.5rem;
+  }
+
+  @media (max-width: 640px) {
+    header {
+      margin-left: 0;
+      padding: 0 1rem;
+    }
+
+    main {
+      margin-left: 0;
+      padding: 0 1rem;
+    }
+  }
+</style>

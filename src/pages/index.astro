@@ -1,14 +1,17 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Panel from '../components/Panel.astro';
+import HeroSection from '../components/sections/HeroSection.astro';
+import AboutSection from '../components/sections/AboutSection.astro';
+import ExperienceSection from '../components/sections/ExperienceSection.astro';
+import ProjectsSection from '../components/sections/ProjectsSection.astro';
+import SkillsSection from '../components/sections/SkillsSection.astro';
+import ContactSection from '../components/sections/ContactSection.astro';
 ---
 <Layout title="WinterBot Portfolio">
-  <main>
-    <h1>WinterBot</h1>
-    <p>A portfolio crafted for adventure.</p>
-    <Panel>
-      <h2>Design System</h2>
-      <p>Fire and Leaf themes active.</p>
-    </Panel>
-  </main>
+  <HeroSection />
+  <AboutSection />
+  <ExperienceSection />
+  <ProjectsSection />
+  <SkillsSection />
+  <ContactSection />
 </Layout>
