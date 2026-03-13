@@ -47,7 +47,14 @@ Plans:
   3. The Experience, Projects, and Skills sections each render their themed layout — quest log timeline, dex-entry card grid, and inventory slot grid respectively — with placeholder entries
   4. The Contact section is visibly labeled "Rest Area / Save Point" and includes email, GitHub, and LinkedIn links
   5. The full page is usable on a 320px-wide mobile viewport, and all interactive elements are reachable by keyboard with visible focus indicators
-**Plans**: TBD
+**Plans**: 5 plans
+
+Plans:
+- [ ] 02-01-PLAN.md — Install astro-icon, write failing Playwright stubs, add smooth scroll
+- [ ] 02-02-PLAN.md — JourneyNav sidebar + Layout.astro update + Hero + About sections
+- [ ] 02-03-PLAN.md — Experience quest log timeline + Projects dex-entry grid
+- [ ] 02-04-PLAN.md — Skills inventory slots + Contact Rest Area section
+- [ ] 02-05-PLAN.md — Wire index.astro, full test suite, visual checkpoint
 
 ### Phase 3: Interactive Layer
 **Goal**: The site feels alive — the dialogue box reacts to scroll, the theme toggle works flawlessly, scroll-triggered animations reveal content, and every interactive behavior respects reduced-motion preferences
@@ -77,6 +84,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Design System | 4/4 | Complete   | 2026-03-13 |
-| 2. Static Sections | 0/TBD | Not started | - |
+| 2. Static Sections | 0/5 | Not started | - |
 | 3. Interactive Layer | 0/TBD | Not started | - |
 | 4. Content and Launch | 0/TBD | Not started | - |
