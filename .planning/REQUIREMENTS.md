@@ -43,7 +43,7 @@
 
 - [x] **PROJ-01**: Projects section renders as a grid of collectible dex-entry style cards
 - [x] **PROJ-02**: Each project card shows: dex entry number (`#001` style), project name, tech tags, description, and links to live site and GitHub
-- [ ] **PROJ-03**: Project cards have a hover interaction (lift/shadow animation)
+- [x] **PROJ-03**: Project cards have a hover interaction (lift/shadow animation)
 - [x] **PROJ-04**: Project cards use the established design system tokens and Panel aesthetic
 
 ### Skills
@@ -51,13 +51,13 @@
 - [x] **SKILL-01**: Skills section renders as an inventory slot grid where each slot represents a technology or skill
 - [x] **SKILL-02**: Skills are grouped into categories with a tab or toggle to filter by category
 - [x] **SKILL-03**: Each skill slot shows an icon and label; hovering reveals a tooltip or expanded state
-- [ ] **SKILL-04**: Inventory grid uses the established Panel primitive with inset shadow styling
+- [x] **SKILL-04**: Inventory grid uses the established Panel primitive with inset shadow styling
 
 ### Contact
 
 - [x] **CONT-01**: Contact section is styled as a "Rest Area / Save Point" with that exact wording
 - [x] **CONT-02**: Contact section includes links to email, GitHub, and LinkedIn
-- [ ] **CONT-03**: Contact section uses warm, inviting styling distinct from other section panels
+- [x] **CONT-03**: Contact section uses warm, inviting styling distinct from other section panels
 
 ### Dialogue System
 
@@ -71,7 +71,7 @@
 ### Accessibility & Performance
 
 - [x] **A11Y-01**: All sections use semantic HTML landmarks (`<main>`, `<section>`, `<nav>`, `<header>`, `<footer>`)
-- [ ] **A11Y-02**: All interactive elements are keyboard navigable with visible focus indicators
+- [x] **A11Y-02**: All interactive elements are keyboard navigable with visible focus indicators
 - [x] **A11Y-03**: Images and decorative elements have appropriate alt text or are marked as presentational
 - [ ] **PERF-01**: Site ships zero runtime JavaScript for static sections — only the ThemeToggle and DialogueSystem components load client-side JS
 - [ ] **PERF-02**: Site is fully responsive and usable on mobile viewports (320px minimum)
@@ -129,17 +129,17 @@ Which phases cover which requirements. Updated during roadmap creation.
 | EXP-03 | Phase 2 | Complete |
 | PROJ-01 | Phase 2 | Complete |
 | PROJ-02 | Phase 2 | Complete |
-| PROJ-03 | Phase 2 | Pending |
+| PROJ-03 | Phase 2 | Complete |
 | PROJ-04 | Phase 2 | Complete |
 | SKILL-01 | Phase 2 | Complete |
 | SKILL-02 | Phase 2 | Complete |
 | SKILL-03 | Phase 2 | Complete |
-| SKILL-04 | Phase 2 | Pending |
+| SKILL-04 | Phase 2 | Complete |
 | CONT-01 | Phase 2 | Complete |
 | CONT-02 | Phase 2 | Complete |
-| CONT-03 | Phase 2 | Pending |
+| CONT-03 | Phase 2 | Complete |
 | A11Y-01 | Phase 2 | Complete |
-| A11Y-02 | Phase 2 | Pending |
+| A11Y-02 | Phase 2 | Complete |
 | A11Y-03 | Phase 2 | Complete |
 | EXP-04 | Phase 3 | Pending |
 | DLG-01 | Phase 3 | Pending |

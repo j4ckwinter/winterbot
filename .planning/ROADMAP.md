@@ -13,7 +13,7 @@ Four phases that build layer by layer: first the token system and theme infrastr
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Design System** - Establish the token system, Fire/Leaf themes, typography rules, Panel primitive, and Vercel deploy pipeline (completed 2026-03-13)
-- [ ] **Phase 2: Static Sections** - Build all six content sections as static Astro components with placeholder data, navigation, and semantic markup
+- [x] **Phase 2: Static Sections** - Build all six content sections as static Astro components with placeholder data, navigation, and semantic markup (completed 2026-03-13)
 - [ ] **Phase 3: Interactive Layer** - Add the DialogueSystem island, scroll-triggered animations, and journey nav interactivity
 - [ ] **Phase 4: Content and Launch** - Wire in real personal content, audit performance and accessibility, and ship
 
@@ -84,6 +84,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Design System | 4/4 | Complete   | 2026-03-13 |
-| 2. Static Sections | 4/5 | In progress | - |
+| 2. Static Sections | 5/5 | Complete   | 2026-03-13 |
 | 3. Interactive Layer | 0/TBD | Not started | - |
 | 4. Content and Launch | 0/TBD | Not started | - |

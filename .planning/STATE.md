@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: in_progress
-stopped_at: Completed 02-04-PLAN.md
-last_updated: "2026-03-14T00:53:00Z"
-last_activity: 2026-03-14 — Phase 2 Plan 04 complete; SkillsSection + ContactSection verified, 6/6 Playwright tests green
+status: verifying
+stopped_at: Completed 02-05-PLAN.md
+last_updated: "2026-03-13T23:15:29.214Z"
+last_activity: 2026-03-14 — Plans 02-03 and 02-04 ran in parallel; all Wave 2 sections confirmed complete; only 02-05 wiring remains
 progress:
   total_phases: 4
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 9
-  completed_plans: 8
+  completed_plans: 9
   percent: 50
 ---
 
@@ -58,6 +58,7 @@ Progress: [█████░░░░░] 50%
 | Phase 02-static-sections P02 | 15min | 2 tasks | 10 files |
 | Phase 02-static-sections P03 | 15min | 2 tasks | 4 files |
 | Phase 02-static-sections P04 | 15min | 2 tasks | 3 files |
+| Phase 02-static-sections P05 | 20min | 2 tasks | 7 files |
 
 ## Accumulated Context
 
@@ -88,6 +89,7 @@ Recent decisions affecting current work:
 - [Phase 02-static-sections]: exp-entry class added alongside timeline-entry on ExperienceSection <li> elements — required for EXP-02 Playwright test [class*="exp-entry"] selector
 - [Phase 02-static-sections]: ProjectCard uses Panel wrapper — consistent styling, dex-entry pattern established for reuse
 - [Phase 02-static-sections]: Project card hover is cursor:pointer only in Phase 2 — lift/transform deferred to Phase 3 (locked decision)
+- [Phase 02-static-sections]: Standardized all section vertical spacing to padding-block: 4rem — Hero and About were asymmetric, Skills and Contact had none
 
 ### Pending Todos
 
@@ -103,6 +105,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-14T00:53:00Z
-Stopped at: Completed 02-04-PLAN.md
+Last session: 2026-03-13T23:15:29.213Z
+Stopped at: Completed 02-05-PLAN.md
 Resume file: None
