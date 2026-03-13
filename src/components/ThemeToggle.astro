@@ -1,0 +1,61 @@
+---
+// ThemeToggle — Astro island (client:load) for Fire/Leaf theme switching
+// This is the only client-side JS shipped in Phase 1
+---
+
+<button id="theme-toggle" aria-label="Switch to Leaf theme">
+  THEME: FIRE
+</button>
+
+<script>
+  const btn = document.getElementById('theme-toggle') as HTMLButtonElement;
+
+  function getTheme(): string {
+    return document.documentElement.getAttribute('data-theme') || 'fire';
+  }
+
+  function updateButton(theme: string): void {
+    if (theme === 'fire') {
+      btn.textContent = 'THEME: FIRE';
+      btn.setAttribute('aria-label', 'Switch to Leaf theme');
+    } else {
+      btn.textContent = 'THEME: LEAF';
+      btn.setAttribute('aria-label', 'Switch to Fire theme');
+    }
+  }
+
+  // Sync label to current theme on load
+  updateButton(getTheme());
+
+  btn.addEventListener('click', () => {
+    const current = getTheme();
+    const next = current === 'fire' ? 'leaf' : 'fire';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    updateButton(next);
+  });
+</script>
+
+<style>
+  button {
+    font-family: var(--font-heading);
+    font-size: 0.875rem;
+    background: var(--color-surface);
+    color: var(--color-text);
+    border: 2px solid var(--color-border);
+    border-radius: 4px;
+    padding: 0.4rem 0.8rem;
+    box-shadow: 2px 2px 0px var(--color-shadow);
+    cursor: pointer;
+    letter-spacing: 0.05em;
+  }
+
+  button:hover {
+    background: var(--color-accent-secondary);
+  }
+
+  button:active {
+    box-shadow: none;
+    transform: translate(2px, 2px);
+  }
+</style>

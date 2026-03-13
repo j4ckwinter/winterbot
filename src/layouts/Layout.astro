@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import ThemeToggle from '../components/ThemeToggle.astro';
 
 interface Props {
   title?: string;
@@ -29,6 +30,9 @@ const { title = 'WinterBot Portfolio' } = Astro.props;
     />
   </head>
   <body>
+    <header>
+      <ThemeToggle client:load /><!-- client:load included per plan spec; Astro bundles the <script> block automatically -->
+    </header>
     <slot />
   </body>
 </html>
