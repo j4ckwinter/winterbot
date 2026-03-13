@@ -22,3 +22,16 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# VS Code local settings
+.vscode/
+
+# Playwright test artifacts
+test-results/
+playwright-report/
+
+# Local editor/tool config
+.claude/settings.local.json
+
+# Design reference files
+inspiration.html
