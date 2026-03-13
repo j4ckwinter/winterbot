@@ -7,12 +7,12 @@
 
 ### Design System
 
-- [ ] **DS-01**: Site renders with Fire mode (warm red/orange palette) and Leaf mode (green/earth palette) as the two selectable themes
-- [ ] **DS-02**: Theme applies without flash-of-wrong-theme on page load (blocking inline script reads `localStorage` and sets `data-theme` before first paint)
-- [ ] **DS-03**: All color tokens are WCAG AA compliant (4.5:1 for normal text, 3:1 for large text) and do not directly match Nintendo FireRed/LeafGreen palette values
-- [ ] **DS-04**: Pixel font (DotGothic16 or equivalent) is used for headings and decorative elements only — minimum 18px — never for body copy
-- [ ] **DS-05**: Body copy uses a monospace font (JetBrains Mono or equivalent) at readable scale
-- [ ] **DS-06**: A Panel primitive component (chunky 3-4px border, hard drop-shadow offset, inner highlight ring) is used consistently for all UI cards and sections
+- [x] **DS-01**: Site renders with Fire mode (warm red/orange palette) and Leaf mode (green/earth palette) as the two selectable themes
+- [x] **DS-02**: Theme applies without flash-of-wrong-theme on page load (blocking inline script reads `localStorage` and sets `data-theme` before first paint)
+- [x] **DS-03**: All color tokens are WCAG AA compliant (4.5:1 for normal text, 3:1 for large text) and do not directly match Nintendo FireRed/LeafGreen palette values
+- [x] **DS-04**: Pixel font (DotGothic16 or equivalent) is used for headings and decorative elements only — minimum 18px — never for body copy
+- [x] **DS-05**: Body copy uses a monospace font (JetBrains Mono or equivalent) at readable scale
+- [x] **DS-06**: A Panel primitive component (chunky 3-4px border, hard drop-shadow offset, inner highlight ring) is used consistently for all UI cards and sections
 - [ ] **DS-07**: Site deploys to Vercel from git push with zero manual steps
 
 ### Navigation
@@ -109,12 +109,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| DS-01 | Phase 1 | Pending |
-| DS-02 | Phase 1 | Pending |
-| DS-03 | Phase 1 | Pending |
-| DS-04 | Phase 1 | Pending |
-| DS-05 | Phase 1 | Pending |
-| DS-06 | Phase 1 | Pending |
+| DS-01 | Phase 1 | Complete |
+| DS-02 | Phase 1 | Complete |
+| DS-03 | Phase 1 | Complete |
+| DS-04 | Phase 1 | Complete |
+| DS-05 | Phase 1 | Complete |
+| DS-06 | Phase 1 | Complete |
 | DS-07 | Phase 1 | Pending |
 | NAV-01 | Phase 2 | Pending |
 | NAV-02 | Phase 2 | Pending |
