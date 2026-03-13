@@ -1,1 +1,56 @@
 @import "tailwindcss";
+
+@theme {
+  --color-world: #8B3A2A;
+  --color-surface: #F9EFE5;
+  --color-border: #66203D;
+  --color-text: #66203D;
+  --color-accent-primary: #A03020;
+  --color-accent-secondary: #D4854A;
+  --color-shadow: rgba(102, 32, 61, 0.4);
+
+  --font-heading: 'DotGothic16', sans-serif;
+  --font-body: 'JetBrains Mono', monospace;
+}
+
+[data-theme="leaf"] {
+  --color-world: #5A6B3A;
+  --color-surface: #EFF5E8;
+  --color-accent-primary: #3D5A24;
+  --color-accent-secondary: #8FA84A;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--color-world);
+  background-image:
+    radial-gradient(circle at 25px 25px, rgba(255, 255, 255, 0.05) 2px, transparent 0),
+    radial-gradient(circle at 75px 75px, rgba(255, 255, 255, 0.05) 2px, transparent 0);
+  background-size: 100px 100px;
+  font-family: var(--font-body);
+  line-height: 1.6;
+  color: var(--color-surface);
+}
+
+h1 {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+}
+
+h2 {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
+}
+
+/* WCAG RULE: --color-text (#66203D) is ONLY valid on --color-surface backgrounds.
+   ANY text on --color-world MUST use color: var(--color-surface) or #FFFFFF. */
