@@ -109,24 +109,53 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| DS-01 through DS-07 | Phase 1 | Pending |
-| NAV-01, NAV-02 | Phase 2 | Pending |
-| HERO-01 through HERO-04 | Phase 2 | Pending |
-| ABOUT-01, ABOUT-02 | Phase 2 | Pending |
-| EXP-01, EXP-02, EXP-03 | Phase 2 | Pending |
-| PROJ-01 through PROJ-04 | Phase 2 | Pending |
-| SKILL-01 through SKILL-04 | Phase 2 | Pending |
-| CONT-01 through CONT-03 | Phase 2 | Pending |
+| DS-01 | Phase 1 | Pending |
+| DS-02 | Phase 1 | Pending |
+| DS-03 | Phase 1 | Pending |
+| DS-04 | Phase 1 | Pending |
+| DS-05 | Phase 1 | Pending |
+| DS-06 | Phase 1 | Pending |
+| DS-07 | Phase 1 | Pending |
+| NAV-01 | Phase 2 | Pending |
+| NAV-02 | Phase 2 | Pending |
+| HERO-01 | Phase 2 | Pending |
+| HERO-02 | Phase 2 | Pending |
+| HERO-03 | Phase 2 | Pending |
+| HERO-04 | Phase 2 | Pending |
+| ABOUT-01 | Phase 2 | Pending |
+| ABOUT-02 | Phase 2 | Pending |
+| EXP-01 | Phase 2 | Pending |
+| EXP-02 | Phase 2 | Pending |
+| EXP-03 | Phase 2 | Pending |
+| PROJ-01 | Phase 2 | Pending |
+| PROJ-02 | Phase 2 | Pending |
+| PROJ-03 | Phase 2 | Pending |
+| PROJ-04 | Phase 2 | Pending |
+| SKILL-01 | Phase 2 | Pending |
+| SKILL-02 | Phase 2 | Pending |
+| SKILL-03 | Phase 2 | Pending |
+| SKILL-04 | Phase 2 | Pending |
+| CONT-01 | Phase 2 | Pending |
+| CONT-02 | Phase 2 | Pending |
+| CONT-03 | Phase 2 | Pending |
+| A11Y-01 | Phase 2 | Pending |
+| A11Y-02 | Phase 2 | Pending |
+| A11Y-03 | Phase 2 | Pending |
 | EXP-04 | Phase 3 | Pending |
-| DLG-01 through DLG-06 | Phase 3 | Pending |
-| A11Y-01 through A11Y-03 | Phase 2 | Pending |
-| PERF-01, PERF-02 | Phase 1–3 | Pending |
+| DLG-01 | Phase 3 | Pending |
+| DLG-02 | Phase 3 | Pending |
+| DLG-03 | Phase 3 | Pending |
+| DLG-04 | Phase 3 | Pending |
+| DLG-05 | Phase 3 | Pending |
+| DLG-06 | Phase 3 | Pending |
+| PERF-01 | Phase 4 | Pending |
+| PERF-02 | Phase 4 | Pending |
 
 **Coverage:**
-- v1 requirements: 37 total
-- Mapped to phases: 37
-- Unmapped: 0 ✓
+- v1 requirements: 41 total
+- Mapped to phases: 41
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-13*
-*Last updated: 2026-03-13 after initial definition*
+*Last updated: 2026-03-13 after roadmap creation*
