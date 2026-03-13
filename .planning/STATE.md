@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Completed 01-design-system 01-02-PLAN.md
-last_updated: "2026-03-13T16:56:13.514Z"
+stopped_at: Completed 01-design-system 01-03-PLAN.md
+last_updated: "2026-03-13T16:58:20.047Z"
 last_activity: 2026-03-13 — Roadmap created; 41 requirements mapped to 4 phases
 progress:
   total_phases: 4
   completed_phases: 0
   total_plans: 4
-  completed_plans: 2
+  completed_plans: 3
   percent: 0
 ---
 
@@ -52,6 +52,7 @@ Progress: [░░░░░░░░░░] 0%
 *Updated after each plan completion*
 | Phase 01-design-system P01 | 4 | 2 tasks | 7 files |
 | Phase 01-design-system P02 | 2 | 2 tasks | 4 files |
+| Phase 01-design-system P03 | 4 | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -69,6 +70,8 @@ Recent decisions affecting current work:
 - [Phase 01-design-system]: @theme block used for Tailwind v4 tokens — generates CSS vars AND utility classes; [data-theme=leaf] uses plain CSS var reassignment
 - [Phase 01-design-system]: FOUC script uses is:inline directive to render as synchronous blocking script before first paint
 - [Phase 01-design-system]: Panel and ThemeToggle components created during Plan 02 execution (ahead of Plan 03 schedule)
+- [Phase 01-design-system]: Panel.astro uses scoped style not Tailwind utilities — ::before pseudo-element requires position:absolute which Tailwind cannot express
+- [Phase 01-design-system]: ThemeToggle.astro uses regular script block (not is:inline) — Astro bundles as ESM module for client-side execution
 
 ### Pending Todos
 
@@ -83,6 +86,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-13T16:56:02.736Z
-Stopped at: Completed 01-design-system 01-02-PLAN.md
+Last session: 2026-03-13T16:58:20.046Z
+Stopped at: Completed 01-design-system 01-03-PLAN.md
 Resume file: None

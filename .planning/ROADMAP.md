@@ -76,7 +76,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Design System | 2/4 | In Progress|  |
+| 1. Design System | 3/4 | In Progress|  |
 | 2. Static Sections | 0/TBD | Not started | - |
 | 3. Interactive Layer | 0/TBD | Not started | - |
 | 4. Content and Launch | 0/TBD | Not started | - |
