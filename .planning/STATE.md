@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: in_progress
-stopped_at: Completed 02-02-PLAN.md
-last_updated: "2026-03-14T01:05:00.000Z"
-last_activity: 2026-03-14 — Phase 2 Plan 02 complete; nav + hero + about + all section stubs created
+stopped_at: Completed 02-04-PLAN.md
+last_updated: "2026-03-14T00:53:00Z"
+last_activity: 2026-03-14 — Phase 2 Plan 04 complete; SkillsSection + ContactSection verified, 6/6 Playwright tests green
 progress:
   total_phases: 4
   completed_phases: 1
   total_plans: 9
-  completed_plans: 6
-  percent: 33
+  completed_plans: 8
+  percent: 50
 ---
 
 # Project State
@@ -26,11 +26,11 @@ See: .planning/PROJECT.md (updated 2026-03-13)
 ## Current Position
 
 Phase: 2 of 4 (Static Sections) — IN PROGRESS
-Plan: 2 of 5 complete
-Status: Plan 02-02 complete — JourneyNav, Hero, About, and all section stubs created
-Last activity: 2026-03-14 — JourneyNav sidebar, HeroSection trainer card, AboutSection, and all remaining section stubs built ahead of schedule
+Plan: 4 of 5 complete (02-02 built all sections ahead of schedule; 02-03 and 02-04 confirmed and verified)
+Status: Plan 02-04 complete — SkillsSection + ContactSection verified, 6/6 tests green, all 6 sections on page
+Last activity: 2026-03-14 — Plans 02-03 and 02-04 ran in parallel; all Wave 2 sections confirmed complete; only 02-05 wiring remains
 
-Progress: [███░░░░░░░] 33%
+Progress: [█████░░░░░] 50%
 
 ## Performance Metrics
 
@@ -56,6 +56,8 @@ Progress: [███░░░░░░░] 33%
 | Phase 01-design-system P04 | 5min | 1 tasks | 1 files |
 | Phase 02-static-sections P01 | 12min | 2 tasks | 4 files |
 | Phase 02-static-sections P02 | 15min | 2 tasks | 10 files |
+| Phase 02-static-sections P03 | 15min | 2 tasks | 4 files |
+| Phase 02-static-sections P04 | 15min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -80,6 +82,12 @@ Recent decisions affecting current work:
 - [Phase 02-static-sections]: Layout.astro now owns <main> — pages slot content without their own <main> wrapper; prevents A11Y-01 nested-main failure
 - [Phase 02-static-sections]: nav sidebar uses width:max-content — accommodates "SAVE POINT" label without hardcoded pixel width
 - [Phase 02-static-sections]: Linter created all remaining section stubs (Experience, Projects, Skills, Contact) ahead of schedule — high-quality, accepted as complete
+- [Phase 02-static-sections]: devicon:graphql not in devicon pack; using simple-icons:graphql as fallback — canonical GraphQL logo, visually identical
+- [Phase 02-static-sections]: ARIA tablist scaffold built statically now; JS tab filtering deferred to Phase 3 interactive islands
+- [Phase 02-static-sections]: CSS-only tooltip pattern established via data-tooltip + ::before pseudo-element — no JS required for hover/focus tooltips
+- [Phase 02-static-sections]: exp-entry class added alongside timeline-entry on ExperienceSection <li> elements — required for EXP-02 Playwright test [class*="exp-entry"] selector
+- [Phase 02-static-sections]: ProjectCard uses Panel wrapper — consistent styling, dex-entry pattern established for reuse
+- [Phase 02-static-sections]: Project card hover is cursor:pointer only in Phase 2 — lift/transform deferred to Phase 3 (locked decision)
 
 ### Pending Todos
 
@@ -91,10 +99,10 @@ None yet.
 - [Research]: Verify DotGothic16 and JetBrains Mono availability on Google Fonts before Phase 1 font decisions
 - [Research]: Confirm Tailwind v4 + Astro integration path (official docs may have updated guidance)
 - [Phase 3]: DialogueSystem island — resolve Preact vs vanilla JS before Phase 3 planning (see research/SUMMARY.md)
-- [Phase 02 Plans 03-04]: All section stubs already created by linter — Plans 03-04 may find their primary work already done; verify with `npm run build` and Playwright before executing
+- [Phase 02 Plan 05]: Only Plan 02-05 (navigation wiring) remains — all 6 sections complete
 
 ## Session Continuity
 
-Last session: 2026-03-14T01:05:00.000Z
-Stopped at: Completed 02-02-PLAN.md
+Last session: 2026-03-14T00:53:00Z
+Stopped at: Completed 02-04-PLAN.md
 Resume file: None

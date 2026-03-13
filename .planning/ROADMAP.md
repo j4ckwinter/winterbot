@@ -52,8 +52,8 @@ Plans:
 Plans:
 - [x] 02-01-PLAN.md — Install astro-icon, write failing Playwright stubs, add smooth scroll
 - [x] 02-02-PLAN.md — JourneyNav sidebar + Layout.astro update + Hero + About sections
-- [ ] 02-03-PLAN.md — Experience quest log timeline + Projects dex-entry grid
-- [ ] 02-04-PLAN.md — Skills inventory slots + Contact Rest Area section
+- [x] 02-03-PLAN.md — Experience quest log timeline + Projects dex-entry grid
+- [x] 02-04-PLAN.md — Skills inventory slots + Contact Rest Area section
 - [ ] 02-05-PLAN.md — Wire index.astro, full test suite, visual checkpoint
 
 ### Phase 3: Interactive Layer
@@ -84,6 +84,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Design System | 4/4 | Complete   | 2026-03-13 |
-| 2. Static Sections | 2/5 | In progress | - |
+| 2. Static Sections | 4/5 | In progress | - |
 | 3. Interactive Layer | 0/TBD | Not started | - |
 | 4. Content and Launch | 0/TBD | Not started | - |
