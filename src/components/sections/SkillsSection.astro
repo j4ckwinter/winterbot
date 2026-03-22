@@ -86,6 +86,7 @@ const tabs: { id: Category; label: string }[] = [
   }
   .tab-list {
     display: flex;
+    flex-wrap: wrap;
     gap: 0.5rem;
     margin-bottom: 1.5rem;
   }
@@ -171,3 +172,32 @@ const tabs: { id: Category; label: string }[] = [
     opacity: 1;
   }
 </style>
+
+<script>
+  const tabs = document.querySelectorAll<HTMLButtonElement>('.tab-btn[role="tab"]');
+  const slots = document.querySelectorAll<HTMLLIElement>('.skill-slot');
+  const panel = document.getElementById('skills-panel');
+
+  function activateTab(category: string) {
+    tabs.forEach(tab => {
+      const isActive = tab.dataset.category === category;
+      tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      tab.classList.toggle('tab-btn--active', isActive);
+    });
+
+    if (panel) {
+      panel.setAttribute('aria-labelledby', `tab-${category}`);
+    }
+
+    slots.forEach(slot => {
+      const match = category === 'all' || slot.dataset.category === category;
+      slot.style.display = match ? '' : 'none';
+    });
+  }
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      activateTab(tab.dataset.category ?? 'all');
+    });
+  });
+</script>
