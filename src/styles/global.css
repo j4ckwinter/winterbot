@@ -2,6 +2,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* PERF-02: prevent horizontal scroll at narrow viewports */
+  overflow-x: clip;
 }
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -36,6 +38,8 @@ html {
 }
 
 body {
+  /* PERF-02: clip horizontal overflow so box-shadows on panels don't cause scrollWidth > viewport */
+  overflow-x: clip;
   background-color: var(--color-world);
   background-image:
     radial-gradient(circle at 25px 25px, rgba(255, 255, 255, 0.05) 2px, transparent 0),
