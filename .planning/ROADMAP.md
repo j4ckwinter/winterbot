@@ -54,7 +54,7 @@ Plans:
 - [x] 02-02-PLAN.md — JourneyNav sidebar + Layout.astro update + Hero + About sections
 - [x] 02-03-PLAN.md — Experience quest log timeline + Projects dex-entry grid
 - [x] 02-04-PLAN.md — Skills inventory slots + Contact Rest Area section
-- [ ] 02-05-PLAN.md — Wire index.astro, full test suite, visual checkpoint
+- [x] 02-05-PLAN.md — Wire index.astro, full test suite, visual checkpoint
 
 ### Phase 3: Interactive Layer
 **Goal**: The site feels alive — the dialogue box reacts to scroll, the theme toggle works flawlessly, scroll-triggered animations reveal content, and every interactive behavior respects reduced-motion preferences
@@ -84,6 +84,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Design System | 4/4 | Complete   | 2026-03-13 |
-| 2. Static Sections | 5/5 | Complete   | 2026-03-13 |
+| 2. Static Sections | 6/6 | Complete   | 2026-03-22 |
 | 3. Interactive Layer | 0/TBD | Not started | - |
 | 4. Content and Launch | 0/TBD | Not started | - |
