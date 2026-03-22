@@ -37,7 +37,7 @@
 - [x] **EXP-01**: Experience section renders as a vertical quest log timeline with distinct entry markers per role
 - [x] **EXP-02**: Each timeline entry shows: company name, role title, date range, and 3–5 achievement bullet points
 - [x] **EXP-03**: Completed quest markers are visually distinct from current/active entries
-- [ ] **EXP-04**: Timeline entries animate in on scroll (scroll-triggered reveal), respecting `prefers-reduced-motion`
+- [x] **EXP-04**: Timeline entries animate in on scroll (scroll-triggered reveal), respecting `prefers-reduced-motion`
 
 ### Projects
 
@@ -141,7 +141,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | A11Y-01 | Phase 2 | Complete |
 | A11Y-02 | Phase 2 | Complete |
 | A11Y-03 | Phase 2 | Complete |
-| EXP-04 | Phase 3 | Pending |
+| EXP-04 | Phase 3 | Complete |
 | DLG-01 | Phase 3 | Pending |
 | DLG-02 | Phase 3 | Pending |
 | DLG-03 | Phase 3 | Pending |

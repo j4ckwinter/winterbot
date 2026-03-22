@@ -68,7 +68,7 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 03-01-PLAN.md — Install Preact, write failing Playwright stubs, implement EXP-04 scroll-reveal
+- [x] 03-01-PLAN.md — Install Preact, write failing Playwright stubs, implement EXP-04 scroll-reveal
 - [ ] 03-02-PLAN.md — Build DialogueSystem Preact island with avatar, wire JourneyNav observer + Layout
 
 ### Phase 4: Content and Launch
@@ -89,5 +89,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 |-------|----------------|--------|-----------|
 | 1. Design System | 4/4 | Complete   | 2026-03-13 |
 | 2. Static Sections | 6/6 | Complete   | 2026-03-22 |
-| 3. Interactive Layer | 0/2 | In progress | - |
+| 3. Interactive Layer | 1/2 | In Progress|  |
 | 4. Content and Launch | 0/TBD | Not started | - |
