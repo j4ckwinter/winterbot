@@ -57,7 +57,7 @@ Source: global.css body styles, Panel.astro padding (2rem = 32px), ExperienceSec
 | Role | Size | Weight | Line Height | Font | Usage |
 |------|------|--------|-------------|------|-------|
 | Body | 16px (1rem) | 400 (regular) | 1.6 | JetBrains Mono | Dialogue text, achievement bullets, general copy |
-| Label | 13px (0.85rem) | 400 (regular) | 1.4 | JetBrains Mono | Speaker name tag ("GUIDE"), nav marker labels |
+| Label | 13px (0.85rem) | 400 (regular) | 1.4 | JetBrains Mono | Speaker name tag ("GUIDE"), nav marker labels, `[A]` prompt indicator |
 | Heading | 18px (1.125rem) | 400* | 1.2 | DotGothic16 | Section headings (h3 scale, e.g. dialogue box title area) |
 | Display | 24px (1.5rem) | 400* | 1.2 | DotGothic16 | Section headings (h2 scale, "Quest Log" etc.) |
 
@@ -115,7 +115,7 @@ New components introduced in Phase 3:
 - Speaker name tag: above text body, `font-family: DotGothic16; font-size: 13px; color: var(--color-accent-primary)`; reads "GUIDE"
 - Text body: `font-family: JetBrains Mono; font-size: 16px; line-height: 1.6; color: var(--color-text)`
 - Blinking cursor `▌`: appended to text when typewriter is complete; blink via CSS animation `opacity 0.6s step-end infinite`
-- `[A]` prompt indicator: bottom-right corner of text area, `font-family: DotGothic16; font-size: 11px; color: var(--color-accent-secondary); opacity: 0.7`
+- `[A]` prompt indicator: bottom-right corner of text area, `font-family: DotGothic16; font-size: 13px; color: var(--color-accent-secondary); opacity: 0.7`
 
 **States:**
 - `typing` — characters rendering one by one, no cursor shown yet
