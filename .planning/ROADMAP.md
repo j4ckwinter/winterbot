@@ -81,7 +81,7 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 04-01-PLAN.md — Implement skill tab filtering and mobile flex-wrap fix
+- [x] 04-01-PLAN.md — Implement skill tab filtering and mobile flex-wrap fix
 - [ ] 04-02-PLAN.md — Playwright tests for PERF-01, PERF-02, and skill tab verification
 
 ## Progress
@@ -94,4 +94,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | 1. Design System | 4/4 | Complete   | 2026-03-13 |
 | 2. Static Sections | 6/6 | Complete   | 2026-03-22 |
 | 3. Interactive Layer | 2/2 | Complete   | 2026-03-22 |
-| 4. Content and Launch | 0/2 | Not started | - |
+| 4. Content and Launch | 1/2 | In Progress|  |
