@@ -65,7 +65,11 @@ Plans:
   2. A guide avatar appears alongside the dialogue box and changes expression or state based on which section is active
   3. Clicking the dialogue box instantly reveals the full current message (typewriter skip); on systems with prefers-reduced-motion set, text appears immediately without animation
   4. Experience timeline entries animate in as the user scrolls to them; on systems with prefers-reduced-motion set, entries appear immediately without animation
-**Plans**: TBD
+**Plans**: 2 plans
+
+Plans:
+- [ ] 03-01-PLAN.md — Install Preact, write failing Playwright stubs, implement EXP-04 scroll-reveal
+- [ ] 03-02-PLAN.md — Build DialogueSystem Preact island with avatar, wire JourneyNav observer + Layout
 
 ### Phase 4: Content and Launch
 **Goal**: The site is ready to share — real personal content is in place, performance passes a Lighthouse audit, accessibility is complete, and the aesthetic serves the professional signal rather than overwhelming it
@@ -85,5 +89,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 |-------|----------------|--------|-----------|
 | 1. Design System | 4/4 | Complete   | 2026-03-13 |
 | 2. Static Sections | 6/6 | Complete   | 2026-03-22 |
-| 3. Interactive Layer | 0/TBD | Not started | - |
+| 3. Interactive Layer | 0/2 | In progress | - |
 | 4. Content and Launch | 0/TBD | Not started | - |
