@@ -73,7 +73,7 @@
 - [x] **A11Y-01**: All sections use semantic HTML landmarks (`<main>`, `<section>`, `<nav>`, `<header>`, `<footer>`)
 - [x] **A11Y-02**: All interactive elements are keyboard navigable with visible focus indicators
 - [x] **A11Y-03**: Images and decorative elements have appropriate alt text or are marked as presentational
-- [ ] **PERF-01**: Site ships zero runtime JavaScript for static sections — only the ThemeToggle and DialogueSystem components load client-side JS
+- [x] **PERF-01**: Site ships zero runtime JavaScript for static sections — only the ThemeToggle and DialogueSystem components load client-side JS
 - [x] **PERF-02**: Site is fully responsive and usable on mobile viewports (320px minimum)
 
 ## v2 Requirements
@@ -148,7 +148,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DLG-04 | Phase 3 | Complete |
 | DLG-05 | Phase 3 | Complete |
 | DLG-06 | Phase 3 | Complete |
-| PERF-01 | Phase 4 | Pending |
+| PERF-01 | Phase 4 | Complete |
 | PERF-02 | Phase 4 | Complete |
 
 **Coverage:**

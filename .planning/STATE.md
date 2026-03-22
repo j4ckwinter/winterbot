@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 04-01-PLAN.md
-last_updated: "2026-03-22T16:10:41.434Z"
+stopped_at: Completed 04-02-PLAN.md
+last_updated: "2026-03-22T16:18:49.837Z"
 progress:
   total_phases: 4
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 14
-  completed_plans: 13
+  completed_plans: 14
 ---
 
 # Project State
@@ -59,6 +59,7 @@ Plan: 2 of 2
 | Phase 03-interactive-layer P01 | 6min | 2 tasks | 6 files |
 | Phase 03 P02 | 18min | 2 tasks | 5 files |
 | Phase 04-content-launch P01 | 1min | 1 tasks | 1 files |
+| Phase 04-content-launch P02 | 12min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -100,6 +101,8 @@ Recent decisions affecting current work:
 - [Phase 03-interactive-layer]: 2-char typewriter preload: closes 65ms gap between 40ms/char math and 500ms test window; visually imperceptible (single frame render)
 - [Phase 04-content-launch]: No init-time display manipulation in SkillsSection — all 12 slots visible by default; filtering is click-only per CONTEXT.md pitfall 2
 - [Phase 04-content-launch]: SkillsSection uses native <button> Enter/Space behavior for keyboard activation — no extra keyboard handler needed
+- [Phase 04-content-launch]: overflow-x:clip on html AND body needed — fixed position elements contribute to html scrollWidth; clip (not hidden) avoids creating new scroll context
+- [Phase 04-content-launch]: box-shadow offsets (4-8px) on panels at 320px caused scrollWidth=335 — overflow-x:clip on html resolves without visual impact
 
 ### Pending Todos
 
@@ -115,6 +118,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-22T16:10:41.432Z
-Stopped at: Completed 04-01-PLAN.md
+Last session: 2026-03-22T16:18:49.834Z
+Stopped at: Completed 04-02-PLAN.md
 Resume file: None

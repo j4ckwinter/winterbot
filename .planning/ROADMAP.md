@@ -15,7 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Design System** - Establish the token system, Fire/Leaf themes, typography rules, Panel primitive, and Vercel deploy pipeline (completed 2026-03-13)
 - [x] **Phase 2: Static Sections** - Build all six content sections as static Astro components with placeholder data, navigation, and semantic markup (completed 2026-03-13)
 - [x] **Phase 3: Interactive Layer** - Add the DialogueSystem island, scroll-triggered animations, and journey nav interactivity (completed 2026-03-22)
-- [ ] **Phase 4: Content and Launch** - Wire in real personal content, audit performance and accessibility, and ship
+- [x] **Phase 4: Content and Launch** - Wire in real personal content, audit performance and accessibility, and ship (completed 2026-03-22)
 
 ## Phase Details
 
@@ -82,7 +82,7 @@ Plans:
 
 Plans:
 - [x] 04-01-PLAN.md — Implement skill tab filtering and mobile flex-wrap fix
-- [ ] 04-02-PLAN.md — Playwright tests for PERF-01, PERF-02, and skill tab verification
+- [x] 04-02-PLAN.md — Playwright tests for PERF-01, PERF-02, and skill tab verification
 
 ## Progress
 
@@ -94,4 +94,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | 1. Design System | 4/4 | Complete   | 2026-03-13 |
 | 2. Static Sections | 6/6 | Complete   | 2026-03-22 |
 | 3. Interactive Layer | 2/2 | Complete   | 2026-03-22 |
-| 4. Content and Launch | 1/2 | In Progress|  |
+| 4. Content and Launch | 2/2 | Complete   | 2026-03-22 |
