@@ -14,22 +14,21 @@ A memorable, interactive portfolio that makes visitors feel like they're embarki
 
 ### Validated
 
-(None yet — ship to validate)
+- [x] Retro-modern design system with pixel-inspired UI, chunky bordered panels, and hard drop-shadows — Validated in Phase 01: design-system
+- [x] Dual color theme toggle: Fire mode (warm reds/oranges) and Leaf mode (greens/earth tones) — Validated in Phase 01: design-system
+- [x] Hero section with trainer card / profile card element (name, class, level, region stats) — Validated in Phase 02: core-sections
+- [x] About Me section with character/identity framing — Validated in Phase 02: core-sections
+- [x] Experience section as a vertical quest log timeline (improved over inspiration) — Validated in Phase 02: core-sections
+- [x] Projects section with collectible-style "dex entry" cards (improved over inspiration) — Validated in Phase 02: core-sections
+- [x] Skills section with inventory-style grid (improved over inspiration) — Validated in Phase 02: core-sections
+- [x] Contact section styled as a "Rest Area / Save Point" (keep this wording) — Validated in Phase 02: core-sections
+- [x] Fixed dialogue box at bottom of screen with typewriter effect, reacts to scroll section (improved over inspiration) — Validated in Phase 03: interactive-layer
+- [x] Small avatar/character guide that reacts to user interaction — Validated in Phase 03: interactive-layer
+- [x] Journey metaphor navigation — path/progress visual, standard scroll underneath — Validated in Phase 03: interactive-layer
+- [x] Playful but elegant animations (no heavy effects — CSS transitions, subtle keyframes) — Validated in Phase 03: interactive-layer
 
 ### Active
 
-- [ ] Retro-modern design system with pixel-inspired UI, chunky bordered panels, and hard drop-shadows
-- [ ] Dual color theme toggle: Fire mode (warm reds/oranges) and Leaf mode (greens/earth tones)
-- [ ] Hero section with trainer card / profile card element (name, class, level, region stats)
-- [ ] About Me section with character/identity framing
-- [ ] Experience section as a vertical quest log timeline (improved over inspiration)
-- [ ] Projects section with collectible-style "dex entry" cards (improved over inspiration)
-- [ ] Skills section with inventory-style grid (improved over inspiration)
-- [ ] Contact section styled as a "Rest Area / Save Point" (keep this wording)
-- [ ] Fixed dialogue box at bottom of screen with typewriter effect, reacts to scroll section (improved over inspiration)
-- [ ] Small avatar/character guide that reacts to user interaction
-- [ ] Journey metaphor navigation — path/progress visual, standard scroll underneath
-- [ ] Playful but elegant animations (no heavy effects — CSS transitions, subtle keyframes)
 - [ ] Fully responsive (mobile-first)
 - [ ] Accessible (semantic HTML, ARIA, keyboard nav, sufficient contrast)
 - [ ] Performant (Astro static output, minimal JS islands, optimized assets)
@@ -72,4 +71,4 @@ The design language borrows from GBA-era game UIs: `DotGothic16` or similar pixe
 | Placeholder content for v1 | Design system validated first, real content populated after | — Pending |
 
 ---
-*Last updated: 2026-03-13 after initialization*
+*Last updated: 2026-03-22 — Phase 03 complete: interactive layer (DialogueSystem, JourneyNav, scroll-reveal) fully implemented*
