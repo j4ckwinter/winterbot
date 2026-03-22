@@ -29,9 +29,9 @@ A memorable, interactive portfolio that makes visitors feel like they're embarki
 
 ### Active
 
+- [x] Performant (Astro static output, minimal JS islands, optimized assets) — Validated in Phase 04: content-launch (PERF-01: static sections script-free, PERF-02: 320px mobile usability)
 - [ ] Fully responsive (mobile-first)
 - [ ] Accessible (semantic HTML, ARIA, keyboard nav, sufficient contrast)
-- [ ] Performant (Astro static output, minimal JS islands, optimized assets)
 - [ ] Placeholder content throughout (real content swapped in later)
 
 ### Out of Scope
@@ -71,4 +71,4 @@ The design language borrows from GBA-era game UIs: `DotGothic16` or similar pixe
 | Placeholder content for v1 | Design system validated first, real content populated after | — Pending |
 
 ---
-*Last updated: 2026-03-22 — Phase 03 complete: interactive layer (DialogueSystem, JourneyNav, scroll-reveal) fully implemented*
+*Last updated: 2026-03-22 — Phase 04 complete: PERF-01 and PERF-02 formally closed via Playwright test suite; skill tab filtering implemented; overflow-x clip fix for 320px mobile*
