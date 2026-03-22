@@ -172,3 +172,19 @@ const entries = [
     color: var(--color-accent-secondary);
   }
 </style>
+
+<script>
+  const expEntries = document.querySelectorAll('.exp-entry');
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+  expEntries.forEach((el) => revealObserver.observe(el));
+</script>

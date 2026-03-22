@@ -63,3 +63,24 @@ h3 {
 
 /* WCAG RULE: --color-text (#66203D) is ONLY valid on --color-surface backgrounds.
    ANY text on --color-world MUST use color: var(--color-surface) or #FFFFFF. */
+
+/* EXP-04: Scroll-reveal animation for experience timeline entries */
+/* Global (not scoped) to prevent FOUC — scoped styles inject after JS, causing brief flash */
+.exp-entry {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 350ms ease-out, transform 350ms ease-out;
+}
+
+.exp-entry.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .exp-entry {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
