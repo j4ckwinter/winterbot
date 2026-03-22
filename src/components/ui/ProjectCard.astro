@@ -105,5 +105,11 @@ const { dexNumber, name, description, tags, githubUrl, liveUrl } = Astro.props;
 
   :global(.project-card) {
     cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  :global(.project-card:hover) {
+    transform: translateY(-4px);
+    box-shadow: 8px 12px 0 var(--color-shadow);
   }
 </style>
