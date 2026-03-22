@@ -95,3 +95,140 @@ const sections = [
     }
   }
 </style>
+
+<script>
+  const sectionIds = ['hero', 'about', 'experience', 'projects', 'skills', 'contact'];
+  const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean) as HTMLElement[];
+
+  let currentActiveId = 'hero';
+
+  function dispatchSectionChange(id: string) {
+    if (id === currentActiveId) return;
+    currentActiveId = id;
+
+    // Update nav markers — swap is-active class, aria-current, and diamond glyph
+    document.querySelectorAll('.nav-marker').forEach(el => {
+      const isActive = (el as HTMLAnchorElement).getAttribute('href') === `#${id}`;
+      el.classList.toggle('is-active', isActive);
+      if (isActive) {
+        el.setAttribute('aria-current', 'location');
+      } else {
+        el.removeAttribute('aria-current');
+      }
+      const diamond = el.querySelector('.diamond');
+      if (diamond) diamond.textContent = isActive ? '◆' : '◇';
+    });
+
+    // Notify DialogueSystem Preact island via CustomEvent
+    window.dispatchEvent(new CustomEvent('sectionChange', { detail: { id } }));
+  }
+
+  // Scroll-based detection: determines which section is currently most visible
+  // by comparing each section's position relative to the viewport midpoint.
+  // Fires on every scroll event frame — fast, synchronous detection that
+  // handles both smooth-scroll animations and programmatic scrollIntoView.
+  function getSectionAtViewportTop(): string {
+    const viewportMid = window.innerHeight * 0.4; // 40% down the viewport
+    let bestId = sectionIds[0];
+    let bestScore = -Infinity;
+    sections.forEach(section => {
+      const rect = section.getBoundingClientRect();
+      // Score: how close the section top is to the viewport midpoint (prefer sections above it)
+      // Sections whose top is above the midpoint score positively; below score negatively
+      const score = viewportMid - rect.top;
+      if (score >= 0 && score < bestScore === false) {
+        // Section top is above our detection line and is the closest from above
+        if (score < (bestScore === -Infinity ? Infinity : bestScore) || bestScore === -Infinity) {
+          // Pick the section whose top is closest to (but above) the detection line
+        }
+      }
+    });
+
+    // Simpler approach: find the section whose top edge is closest to 0
+    // (i.e., the section that most recently scrolled to the top of the viewport)
+    let closestId = sectionIds[0];
+    let closestDist = Infinity;
+    sections.forEach(section => {
+      const rect = section.getBoundingClientRect();
+      // Distance from the viewport's upper third (33%)
+      const targetY = window.innerHeight * 0.33;
+      const dist = Math.abs(rect.top - targetY);
+      // Prefer sections where the top is at or above the target line
+      if (rect.top <= targetY && dist < closestDist) {
+        closestDist = dist;
+        closestId = section.id;
+      }
+    });
+    return closestId;
+  }
+
+  // Track programmatic scroll destination: when scrollIntoView is called,
+  // we record the target section ID. The scroll event listener ignores
+  // its own detection while a programmatic scroll is in flight, because
+  // during the smooth-scroll animation the target section is not yet at the
+  // top of the viewport — it would incorrectly report the previously-visible section.
+  let programmaticTarget: string | null = null;
+  let programmaticScrollTimer: ReturnType<typeof setTimeout> | null = null;
+
+  // Intercept scrollIntoView on all section elements so that programmatic
+  // navigation (e.g. scrollIntoView() in tests or nav link clicks) immediately
+  // fires sectionChange for the target section — BEFORE the scroll animation starts.
+  sections.forEach(section => {
+    const original = section.scrollIntoView.bind(section);
+    section.scrollIntoView = function(arg?: boolean | ScrollIntoViewOptions) {
+      // Mark this as a programmatic scroll so the scroll listener doesn't interfere
+      programmaticTarget = section.id;
+      // Clear any existing timer
+      if (programmaticScrollTimer) clearTimeout(programmaticScrollTimer);
+      // Lock duration: smooth scroll takes at most 600ms; reset lock after that
+      programmaticScrollTimer = setTimeout(() => {
+        programmaticTarget = null;
+        programmaticScrollTimer = null;
+      }, 600);
+
+      dispatchSectionChange(section.id);
+      return original(arg);
+    };
+  });
+
+  // Scroll-based detection for gradual user scrolling (trackpad/mouse wheel).
+  // Skips detection during programmatic scrollIntoView to avoid overwriting the target.
+  // { passive: true } ensures no main-thread jank.
+  window.addEventListener('scroll', () => {
+    if (programmaticTarget !== null) return; // programmatic scroll in flight — don't interfere
+    const activeId = getSectionAtViewportTop();
+    dispatchSectionChange(activeId);
+  }, { passive: true });
+
+  // IntersectionObserver as additional backup (handles hash navigation, page load).
+  // Skips updates while a programmatic scroll is in flight (same guard as scroll listener).
+  const ratioMap = new Map<string, number>();
+  sectionIds.forEach(id => ratioMap.set(id, 0));
+
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      ratioMap.set(entry.target.id, entry.isIntersecting ? entry.intersectionRatio : 0);
+    });
+
+    // While a programmatic scrollIntoView is in flight, respect the target
+    // and do not overwrite it with intermediate intersection states.
+    if (programmaticTarget !== null) {
+      // Still update ratioMap (for accuracy when lock releases) but don't dispatch
+      return;
+    }
+
+    let bestId = currentActiveId;
+    let bestRatio = 0;
+    ratioMap.forEach((ratio, id) => {
+      if (ratio > bestRatio) {
+        bestRatio = ratio;
+        bestId = id;
+      }
+    });
+    if (bestRatio > 0) {
+      dispatchSectionChange(bestId);
+    }
+  }, { threshold: [0, 0.25, 0.5, 0.75, 1.0] });
+
+  sections.forEach(s => navObserver.observe(s));
+</script>

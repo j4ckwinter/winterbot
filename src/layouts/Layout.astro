@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import ThemeToggle from '../components/ThemeToggle.astro';
 import JourneyNav from '../components/nav/JourneyNav.astro';
+import DialogueSystem from '../components/dialogue/DialogueSystem.tsx';
 
 interface Props {
   title?: string;
@@ -38,6 +39,7 @@ const { title = 'WinterBot Portfolio' } = Astro.props;
     <main>
       <slot />
     </main>
+    <DialogueSystem client:load />
   </body>
 </html>
 
