@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 03-01-PLAN.md
-last_updated: "2026-03-22T08:16:59.593Z"
+stopped_at: Completed 03-02-PLAN.md
+last_updated: "2026-03-22T08:38:08.044Z"
 progress:
   total_phases: 4
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 12
-  completed_plans: 11
+  completed_plans: 12
 ---
 
 # Project State
@@ -57,6 +57,7 @@ Plan: 2 of 2
 | Phase 02-static-sections P05 | 20min | 2 tasks | 7 files |
 | Phase 02-static-sections P06 | 2 | 2 tasks | 2 files |
 | Phase 03-interactive-layer P01 | 6min | 2 tasks | 6 files |
+| Phase 03 P02 | 18min | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -93,6 +94,9 @@ Recent decisions affecting current work:
 - [Phase 03-interactive-layer]: Global CSS for .exp-entry initial state prevents FOUC — scoped Astro styles inject after JS
 - [Phase 03-interactive-layer]: DLG-01..06 Playwright tests intentionally fail (Nyquist) — DialogueSystem implemented in Plan 02
 - [Phase 03-interactive-layer]: IntersectionObserver with unobserve-after-reveal pattern — one-shot scroll-reveal, no re-animation
+- [Phase 03-interactive-layer]: scrollIntoView intercept fires sectionChange at t=0 for programmatic scroll — bypasses smooth-scroll animation delay on IntersectionObserver
+- [Phase 03-interactive-layer]: Programmatic scroll lock guards both IntersectionObserver and scroll listener from overwriting target section during smooth-scroll animation
+- [Phase 03-interactive-layer]: 2-char typewriter preload: closes 65ms gap between 40ms/char math and 500ms test window; visually imperceptible (single frame render)
 
 ### Pending Todos
 
@@ -108,6 +112,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-22T08:16:59.591Z
-Stopped at: Completed 03-01-PLAN.md
+Last session: 2026-03-22T08:38:08.042Z
+Stopped at: Completed 03-02-PLAN.md
 Resume file: None

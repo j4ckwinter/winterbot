@@ -61,12 +61,12 @@
 
 ### Dialogue System
 
-- [ ] **DLG-01**: A fixed dialogue box is displayed at the bottom of the viewport throughout the site
-- [ ] **DLG-02**: Dialogue text uses a typewriter animation effect that types out the current message character by character
-- [ ] **DLG-03**: Dialogue text changes contextually as the user scrolls into each section (powered by IntersectionObserver)
-- [ ] **DLG-04**: A small guide avatar/character is displayed alongside the dialogue box and changes expression or state based on which section is active
-- [ ] **DLG-05**: User can click the dialogue box to instantly complete the current typewriter animation (skip mechanism)
-- [ ] **DLG-06**: Dialogue system respects `prefers-reduced-motion` — text appears instantly without animation when the preference is set
+- [x] **DLG-01**: A fixed dialogue box is displayed at the bottom of the viewport throughout the site
+- [x] **DLG-02**: Dialogue text uses a typewriter animation effect that types out the current message character by character
+- [x] **DLG-03**: Dialogue text changes contextually as the user scrolls into each section (powered by IntersectionObserver)
+- [x] **DLG-04**: A small guide avatar/character is displayed alongside the dialogue box and changes expression or state based on which section is active
+- [x] **DLG-05**: User can click the dialogue box to instantly complete the current typewriter animation (skip mechanism)
+- [x] **DLG-06**: Dialogue system respects `prefers-reduced-motion` — text appears instantly without animation when the preference is set
 
 ### Accessibility & Performance
 
@@ -142,12 +142,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | A11Y-02 | Phase 2 | Complete |
 | A11Y-03 | Phase 2 | Complete |
 | EXP-04 | Phase 3 | Complete |
-| DLG-01 | Phase 3 | Pending |
-| DLG-02 | Phase 3 | Pending |
-| DLG-03 | Phase 3 | Pending |
-| DLG-04 | Phase 3 | Pending |
-| DLG-05 | Phase 3 | Pending |
-| DLG-06 | Phase 3 | Pending |
+| DLG-01 | Phase 3 | Complete |
+| DLG-02 | Phase 3 | Complete |
+| DLG-03 | Phase 3 | Complete |
+| DLG-04 | Phase 3 | Complete |
+| DLG-05 | Phase 3 | Complete |
+| DLG-06 | Phase 3 | Complete |
 | PERF-01 | Phase 4 | Pending |
 | PERF-02 | Phase 4 | Pending |
 

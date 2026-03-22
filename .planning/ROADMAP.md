@@ -14,7 +14,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Design System** - Establish the token system, Fire/Leaf themes, typography rules, Panel primitive, and Vercel deploy pipeline (completed 2026-03-13)
 - [x] **Phase 2: Static Sections** - Build all six content sections as static Astro components with placeholder data, navigation, and semantic markup (completed 2026-03-13)
-- [ ] **Phase 3: Interactive Layer** - Add the DialogueSystem island, scroll-triggered animations, and journey nav interactivity
+- [x] **Phase 3: Interactive Layer** - Add the DialogueSystem island, scroll-triggered animations, and journey nav interactivity (completed 2026-03-22)
 - [ ] **Phase 4: Content and Launch** - Wire in real personal content, audit performance and accessibility, and ship
 
 ## Phase Details
@@ -69,7 +69,7 @@ Plans:
 
 Plans:
 - [x] 03-01-PLAN.md — Install Preact, write failing Playwright stubs, implement EXP-04 scroll-reveal
-- [ ] 03-02-PLAN.md — Build DialogueSystem Preact island with avatar, wire JourneyNav observer + Layout
+- [x] 03-02-PLAN.md — Build DialogueSystem Preact island with avatar, wire JourneyNav observer + Layout
 
 ### Phase 4: Content and Launch
 **Goal**: The site is ready to share — real personal content is in place, performance passes a Lighthouse audit, accessibility is complete, and the aesthetic serves the professional signal rather than overwhelming it
@@ -89,5 +89,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 |-------|----------------|--------|-----------|
 | 1. Design System | 4/4 | Complete   | 2026-03-13 |
 | 2. Static Sections | 6/6 | Complete   | 2026-03-22 |
-| 3. Interactive Layer | 1/2 | In Progress|  |
+| 3. Interactive Layer | 2/2 | Complete   | 2026-03-22 |
 | 4. Content and Launch | 0/TBD | Not started | - |
