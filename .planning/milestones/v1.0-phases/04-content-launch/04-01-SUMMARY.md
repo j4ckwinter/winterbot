@@ -66,7 +66,7 @@ Each task was committed atomically:
 
 1. **Task 1: Add tab filtering script and flex-wrap fix to SkillsSection.astro** - `4dc7626` (feat)
 
-**Plan metadata:** *(to be added after final docs commit)*
+**Plan metadata:** `d2441b7` (docs: complete plan)
 
 ## Files Created/Modified
 - `src/components/sections/SkillsSection.astro` - Added `flex-wrap: wrap` to `.tab-list`, added `<script>` block with `activateTab` function and click event wiring
