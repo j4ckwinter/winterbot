@@ -28,6 +28,7 @@ A memorable, interactive portfolio that makes visitors feel like they're embarki
 - ✓ CSS-based animations (no heavy libraries) with prefers-reduced-motion respect — v1.0
 - ✓ Performant: static sections ship zero runtime JS (PERF-01), fully responsive at 320px (PERF-02) — v1.0
 - ✓ 40 Playwright tests across 4 test suites covering all requirements — v1.0
+- ✓ IN PROGRESS badge on project cards without a live URL — Phase 05 (Validated in Phase 05)
 
 ### Active
 
@@ -72,4 +73,4 @@ Placeholder content throughout — real data deferred to v2. GitHub push and Ver
 | Nyquist compliance (intentionally red tests) | Tests written before implementation as acceptance contract | ✓ Good — caught real issues; zero tests needed rewriting |
 
 ---
-*Last updated: 2026-03-23 after v1.0 milestone*
+*Last updated: 2026-03-23 after Phase 05 complete*
