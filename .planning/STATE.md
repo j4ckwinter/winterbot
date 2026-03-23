@@ -103,6 +103,10 @@ Recent decisions affecting current work:
 - [Phase 04-content-launch]: overflow-x:clip on html AND body needed — fixed position elements contribute to html scrollWidth; clip (not hidden) avoids creating new scroll context
 - [Phase 04-content-launch]: box-shadow offsets (4-8px) on panels at 320px caused scrollWidth=335 — overflow-x:clip on html resolves without visual impact
 
+### Roadmap Evolution
+
+- Phase 5 added: Add In Progress label to project cards without a live URL
+
 ### Pending Todos
 
 None yet.

@@ -44,7 +44,11 @@ Declared values (must be multiples of 4):
 
 **Label-specific spacing:** padding: 2px 8px (2px vertical / 8px horizontal) — matches existing `.tag` padding pattern from ProjectCard.astro.
 
-Exceptions: none
+**Exceptions:**
+
+| Exception | Value | Justification |
+|-----------|-------|---------------|
+| .tag / .card-badge--wip vertical padding | 2px (0.2rem) | Inherits pre-existing .tag codebase pattern — not introduced by this phase, deviation pre-dates this contract. |
 
 Source: STATE.md pattern — existing .tag uses 0.2rem 0.6rem (~3px 10px); "In Progress" badge uses same rhythm.
 
@@ -106,7 +110,7 @@ Location in card: inside `.card-links` div, replacing the absent `liveUrl` link 
 - Content: `IN PROGRESS`
 - Font: DotGothic16 (matches tag + dex number — pixel-font aesthetic)
 - Font size: 0.65rem (10.4px)
-- Padding: 0.2rem 0.6rem (matches .tag)
+- Padding: 0.2rem 0.6rem (matches .tag — see spacing exception above)
 - Background: color-mix(in srgb, var(--color-accent-secondary) 25%, transparent) OR rgba equivalent
 - Color (text): var(--color-surface)
 - Border: 1px solid var(--color-accent-secondary)
