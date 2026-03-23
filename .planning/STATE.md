@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: v1.0 milestone complete
-stopped_at: Phase 5 UI-SPEC approved
-last_updated: "2026-03-23T08:44:36.032Z"
+status: Milestone complete
+stopped_at: Completed 05-add-in-progress-label-to-project-cards-without-a-live-url-01-PLAN.md
+last_updated: "2026-03-23T09:06:30.874Z"
 progress:
   total_phases: 1
-  completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
+  completed_phases: 1
+  total_plans: 1
+  completed_plans: 1
 ---
 
 # Project State
@@ -19,11 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-23)
 
 **Core value:** A memorable, interactive portfolio that makes visitors feel like they're embarking on an adventure — not just reading a résumé.
-**Current focus:** Planning next milestone (v2.0)
+**Current focus:** Phase 05 — add-in-progress-label-to-project-cards-without-a-live-url
 
 ## Current Position
 
-Milestone v1.0 complete. Ready to start v2.0 planning.
+Phase: 05
+Plan: Not started
 
 ## Performance Metrics
 
@@ -59,6 +60,7 @@ Milestone v1.0 complete. Ready to start v2.0 planning.
 | Phase 03 P02 | 18min | 2 tasks | 5 files |
 | Phase 04-content-launch P01 | 1min | 1 tasks | 1 files |
 | Phase 04-content-launch P02 | 12min | 2 tasks | 2 files |
+| Phase 05-add-in-progress-label-to-project-cards-without-a-live-url P01 | 5min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -102,6 +104,7 @@ Recent decisions affecting current work:
 - [Phase 04-content-launch]: SkillsSection uses native <button> Enter/Space behavior for keyboard activation — no extra keyboard handler needed
 - [Phase 04-content-launch]: overflow-x:clip on html AND body needed — fixed position elements contribute to html scrollWidth; clip (not hidden) avoids creating new scroll context
 - [Phase 04-content-launch]: box-shadow offsets (4-8px) on panels at 320px caused scrollWidth=335 — overflow-x:clip on html resolves without visual impact
+- [Phase 05-add-in-progress-label-to-project-cards-without-a-live-url]: Badge is a span not an anchor — non-interactive element, cursor:default; color-mix() for 25% opacity muted fill without new color tokens
 
 ### Roadmap Evolution
 
@@ -121,6 +124,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-23T08:44:36.028Z
-Stopped at: Phase 5 UI-SPEC approved
-Resume file: .planning/phases/05-add-in-progress-label-to-project-cards-without-a-live-url/05-UI-SPEC.md
+Last session: 2026-03-23T08:58:57.377Z
+Stopped at: Completed 05-add-in-progress-label-to-project-cards-without-a-live-url-01-PLAN.md
+Resume file: None

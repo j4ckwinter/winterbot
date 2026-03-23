@@ -32,7 +32,7 @@ Full archive: `.planning/milestones/v1.0-ROADMAP.md`
 **Goal:** Add a visually distinct "IN PROGRESS" badge to project cards without a live URL, using muted accent fill to differentiate from solid tech tags
 **Requirements**: [WIP-01, WIP-02, WIP-03]
 **Depends on:** Phase 4
-**Plans:** 1 plan
+**Plans:** 0/1 plans executed
 
 Plans:
 - [ ] 05-01-PLAN.md — Add WIP badge to ProjectCard with Playwright tests
