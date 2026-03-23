@@ -2,11 +2,11 @@
 import Panel from '../Panel.astro';
 
 const hero = {
-  name: '[Your Name]',
-  class: 'Frontend Engineer',
-  level: 12,
+  name: 'Jack Winter',
+  class: 'Senior Frontend Engineer',
+  level: 15,
   maxLevel: 20,
-  region: 'Remote / United States',
+  region: 'Remote / London',
 };
 const levelPct = Math.round((hero.level / hero.maxLevel) * 100);
 ---
@@ -16,7 +16,7 @@ const levelPct = Math.round((hero.level / hero.maxLevel) * 100);
     <!-- Left: headline + tagline (outside the trainer card) -->
     <div class="hero-intro">
       <h1 id="hero-heading" class="hero-heading">Crafting Interfaces<br />Worth Exploring</h1>
-      <p class="hero-tagline">Frontend engineer specializing in fast, accessible, memorable experiences.</p>
+      <p class="hero-tagline">Senior frontend engineer specialising in fast, accessible, memorable experiences.</p>
       <div class="hero-cta">
         <a href="#projects" class="cta-btn">View Projects</a>
         <a href="#contact" class="cta-btn cta-btn--secondary">Contact</a>
@@ -24,9 +24,9 @@ const levelPct = Math.round((hero.level / hero.maxLevel) * 100);
     </div>
     <!-- Right: trainer card (Panel-wrapped) -->
     <Panel class="trainer-card">
-      <!-- Portrait placeholder: square with initials or styled box -->
-      <div class="portrait-placeholder" aria-hidden="true">
-        <span class="portrait-initials">?</span>
+      <!-- Portrait -->
+      <div class="portrait-placeholder">
+        <img src="/profile.jpeg" alt="Jack Winter" class="portrait-img" />
       </div>
       <!-- Stats column -->
       <div class="trainer-stats">
@@ -158,10 +158,11 @@ const levelPct = Math.round((hero.level / hero.maxLevel) * 100);
     flex-shrink: 0;
   }
 
-  .portrait-initials {
-    font-family: 'DotGothic16', monospace;
-    color: var(--color-surface);
-    font-size: 2rem;
+  .portrait-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 
   .trainer-stats {
@@ -215,10 +216,6 @@ const levelPct = Math.round((hero.level / hero.maxLevel) * 100);
 
   @media (max-width: 640px) {
     .hero-layout {
-      flex-direction: column;
-    }
-
-    :global(.trainer-card) {
       flex-direction: column;
     }
   }

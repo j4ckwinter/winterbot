@@ -1,0 +1,89 @@
+---
+const saveDate = new Date().toLocaleDateString('en-GB', {
+  day: '2-digit', month: 'short', year: 'numeric'
+}).toUpperCase();
+---
+
+<div class="save-complete" aria-hidden="true">
+  <div class="save-rule"></div>
+  <div class="save-card">
+    <span class="save-icon">★</span>
+    <span class="save-label">PROGRESS SAVED</span>
+    <span class="save-icon">★</span>
+  </div>
+  <div class="save-meta">
+    <span class="meta-item">TRAINER · JACK WINTER</span>
+    <span class="meta-sep">◆</span>
+    <span class="meta-item">SAVE FILE · 001</span>
+    <span class="meta-sep">◆</span>
+    <span class="meta-item">{saveDate}</span>
+  </div>
+  <div class="save-rule"></div>
+</div>
+
+<style>
+  .save-complete {
+    padding-block: 4rem 8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .save-rule {
+    width: 100%;
+    max-width: 320px;
+    height: 2px;
+    background: repeating-linear-gradient(
+      to right,
+      var(--color-border) 0px,
+      var(--color-border) 4px,
+      transparent 4px,
+      transparent 8px
+    );
+    opacity: 0.4;
+  }
+
+  .save-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .save-icon {
+    font-family: 'DotGothic16', monospace;
+    font-size: 1rem;
+    color: var(--color-accent-primary);
+    opacity: 0.6;
+  }
+
+  .save-label {
+    font-family: 'DotGothic16', monospace;
+    font-size: 0.9rem;
+    color: var(--color-surface);
+    letter-spacing: 0.15em;
+    opacity: 0.5;
+  }
+
+  .save-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .meta-item {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--color-surface);
+    letter-spacing: 0.08em;
+    opacity: 0.35;
+  }
+
+  .meta-sep {
+    font-size: 0.5rem;
+    color: var(--color-accent-secondary);
+    opacity: 0.35;
+  }
+</style>
