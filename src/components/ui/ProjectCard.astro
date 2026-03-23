@@ -25,7 +25,11 @@ const { dexNumber, name, description, tags, githubUrl, liveUrl } = Astro.props;
   </ul>
   <div class="card-links">
     <a href={githubUrl} class="card-link" target="_blank" rel="noopener noreferrer">GitHub</a>
-    {liveUrl && <a href={liveUrl} class="card-link card-link--live" target="_blank" rel="noopener noreferrer">Live</a>}
+    {liveUrl ? (
+      <a href={liveUrl} class="card-link card-link--live" target="_blank" rel="noopener noreferrer">Live</a>
+    ) : (
+      <span class="card-badge--wip">IN PROGRESS</span>
+    )}
   </div>
 </Panel>
 
@@ -101,6 +105,18 @@ const { dexNumber, name, description, tags, githubUrl, liveUrl } = Astro.props;
 
   .card-link--live {
     color: var(--color-accent-secondary);
+  }
+
+  .card-badge--wip {
+    font-family: 'DotGothic16', monospace;
+    font-size: 0.65rem;
+    line-height: 1.2;
+    background: color-mix(in srgb, var(--color-accent-secondary) 25%, transparent);
+    color: var(--color-surface);
+    border: 1px solid var(--color-accent-secondary);
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    cursor: default;
   }
 
   :global(.project-card) {
