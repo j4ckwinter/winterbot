@@ -98,6 +98,10 @@ const entries = [
     gap: 0;
   }
 
+  .timeline-entry:not(:last-child) {
+    margin-bottom: 2.5rem;
+  }
+
   .marker {
     position: absolute;
     left: 0.5rem;
@@ -180,6 +184,10 @@ const entries = [
   @media (max-width: 640px) {
     section {
       padding-block: 2rem;
+    }
+
+    .timeline-entry:not(:last-child) {
+      margin-bottom: 2.5rem;
     }
   }
 </style>
