@@ -131,6 +131,31 @@ test.describe('Phase 2 — Static Sections', () => {
     expect(count).toBeGreaterThanOrEqual(2);
   });
 
+  // WIP-01 — project cards without liveUrl show IN PROGRESS badge
+  test('WIP-01: project cards without liveUrl show IN PROGRESS badge', async ({ page }) => {
+    const grid = page.locator('section#projects .projects-grid');
+    // Cards #002 and #003 have no liveUrl
+    const card2 = grid.locator('.panel').nth(1);
+    const card3 = grid.locator('.panel').nth(2);
+    await expect(card2.locator('span.card-badge--wip')).toHaveText('IN PROGRESS');
+    await expect(card3.locator('span.card-badge--wip')).toHaveText('IN PROGRESS');
+  });
+
+  // WIP-02 — project card with liveUrl does NOT show IN PROGRESS badge
+  test('WIP-02: project card with liveUrl does NOT show IN PROGRESS badge', async ({ page }) => {
+    const grid = page.locator('section#projects .projects-grid');
+    const card1 = grid.locator('.panel').first();
+    await expect(card1.locator('span.card-badge--wip')).toHaveCount(0);
+  });
+
+  // WIP-03 — IN PROGRESS badge is a span, not a link
+  test('WIP-03: IN PROGRESS badge is a span, not a link', async ({ page }) => {
+    const grid = page.locator('section#projects .projects-grid');
+    const badge = grid.locator('.card-badge--wip').first();
+    const tagName = await badge.evaluate(el => el.tagName.toLowerCase());
+    expect(tagName).toBe('span');
+  });
+
   // SKILL-01 — section#skills contains .skills-grid with at least 4 .skill-slot children
   test('SKILL-01: section#skills contains .skills-grid with at least 4 .skill-slot children', async ({ page }) => {
     const skills = page.locator('section#skills');
