@@ -45,8 +45,10 @@ const { title = 'WinterBot Portfolio' } = Astro.props;
 
 <style>
   header {
+    display: flex;
+    justify-content: flex-end;
     margin-left: 8rem;
-    padding: 0 1.5rem;
+    padding: 1.5rem 1.5rem 0 0;
   }
 
   main {
@@ -57,7 +59,7 @@ const { title = 'WinterBot Portfolio' } = Astro.props;
   @media (max-width: 640px) {
     header {
       margin-left: 0;
-      padding: 0 1rem;
+      padding: 1rem 1rem 0 0;
     }
 
     main {

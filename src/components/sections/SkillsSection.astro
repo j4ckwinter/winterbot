@@ -171,6 +171,12 @@ const tabs: { id: Category; label: string }[] = [
   .skill-slot:focus-visible::before {
     opacity: 1;
   }
+  
+  @media (max-width: 640px) {
+    section {
+      padding-block: 2rem;
+    }
+  }
 </style>
 
 <script>

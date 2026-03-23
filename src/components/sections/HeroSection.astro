@@ -108,9 +108,9 @@ const levelPct = Math.round((hero.level / hero.maxLevel) * 100);
     font-family: 'DotGothic16', monospace;
     font-size: 0.85rem;
     padding: 0.5rem 1.5rem;
-    border: 2px solid var(--color-border);
-    background: transparent;
-    color: var(--color-text);
+    border: 2px solid var(--color-surface);
+    background: var(--color-surface);
+    color: var(--color-world);
     text-decoration: none;
     letter-spacing: 0.05em;
     cursor: pointer;
@@ -119,15 +119,16 @@ const levelPct = Math.round((hero.level / hero.maxLevel) * 100);
 
   .cta-btn:hover,
   .cta-btn:focus-visible {
-    opacity: 0.8;
+    opacity: 0.85;
   }
 
   .cta-btn:focus-visible {
-    outline: 3px solid var(--color-accent-primary);
+    outline: 3px solid var(--color-surface);
     outline-offset: 3px;
   }
 
   .cta-btn--secondary {
+    background: transparent;
     color: var(--color-surface);
     border-color: var(--color-surface);
     opacity: 0.7;
@@ -204,7 +205,7 @@ const levelPct = Math.round((hero.level / hero.maxLevel) * 100);
 
   .pixel-fill {
     height: 100%;
-    background: var(--color-accent-primary);
+    background: var(--color-surface);
   }
 
   .level-number {
@@ -218,5 +219,9 @@ const levelPct = Math.round((hero.level / hero.maxLevel) * 100);
     .hero-layout {
       flex-direction: column;
     }
+
+    section#hero {
+    padding-block: 2rem;
+  }
   }
 </style>

@@ -6,10 +6,11 @@ const entries = [
     dateRange: '2025 – Present',
     isCurrent: true,
     achievements: [
-      'Rebuilt the core dashboard with React and TypeScript, reducing load time by 40%',
-      'Led migration from REST to GraphQL for all product data fetching',
-      'Established component library used across 4 product teams',
-      'Mentored 3 junior engineers through structured code review cycles',
+      'Led the frontend takeover of the Sportsbook platform, replacing Kambi’s hosted UI with a fully custom React-based, Typescript solution',
+      'Modernised frontend architecture by migrating legacy Javascript code to a TypeScript monorepo with shared packages, improving scalability and developer efficiency',
+      'Delivered real-time, data-driven UI features using event-based integrations (e.g. Kambi APIs), enabling live updates for odds, betslip, and open bets',
+      'Improved homepage performance through targeted optimisations (rendering strategy, preloader behaviour, DOM stability), reducing perceived load time and layout shift',
+      'Reduced unnecessary re-renders and component overhead by refactoring complex UI structures, improving runtime performance across high-traffic components',
     ],
   },
   {
@@ -175,6 +176,16 @@ const entries = [
     position: absolute;
     left: 0;
     color: var(--color-accent-secondary);
+  }
+
+  @media (max-width: 640px) {
+    section {
+      padding-block: 2rem;
+    }
+
+    .timeline-entry {
+    margin-bottom: 0;
+  }
   }
 </style>
 
