@@ -6,11 +6,11 @@ test("mobile overview fits its frame and menu keeps controls accessible", async 
   await page.setViewportSize({ width: 320, height: 850 });
   await page.goto("/");
   await expect(
-    page.getByRole("button", { name: "Move down", exact: true }),
+    page.getByRole("button", { name: "Walk controls", exact: true }),
   ).toBeEnabled();
   const controls = await page.locator(".play-controls").boundingBox();
   expect(controls!.y + controls!.height).toBeLessThanOrEqual(850);
-  await page.getByRole("button", { name: "Map", exact: true }).click();
+  await expect(page.locator(".d-pad")).toBeHidden();
   const frame = await page.locator(".world").boundingBox();
   expect(frame!.width / frame!.height).toBeCloseTo(1.5, 1);
   await page.locator(".world-menu > summary").click();
@@ -72,7 +72,7 @@ for (const reduced of [false, true]) {
   });
 }
 
-test("interaction markers reveal names in map mode and at nearby objects", async ({
+test("sign names stay visible and details appear on hover and approach", async ({
   page,
 }) => {
   await page.goto("/");
@@ -85,8 +85,10 @@ test("interaction markers reveal names in map mode and at nearby objects", async
     name: "Walk to Jack’s House",
     exact: true,
   });
-  await expect(distant.locator("span")).toBeHidden();
-  await expect(distant).toHaveCSS("min-width", "44px");
+  await expect(distant.locator("span")).toBeVisible();
+  await expect(distant.locator("small")).toBeHidden();
+  await distant.hover();
+  await expect(distant.locator("small")).toBeVisible();
   await page.getByRole("button", { name: "Map", exact: true }).click();
   await expect(sign.locator("span")).toBeVisible();
   await sign.click();
