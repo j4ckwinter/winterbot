@@ -1,5 +1,6 @@
 import "./place-content.css";
 import ProjectDemo from "./ProjectDemo";
+import { ktoCaseStudy } from "../../data/ktoCaseStudy";
 
 import { projects } from "./projects";
 import { profile, skills, experience } from "./profile";
@@ -169,6 +170,11 @@ export function Station() {
             <h3>{job.company}</h3>
             <h4>{job.role}</h4>
             <p>{job.context}</p>
+            {job.company === "KTO Group" && (
+              <p>
+                <a href={ktoCaseStudy.href}>Read the KTO case study ↗</a>
+              </p>
+            )}
             <ul>
               {job.highlights.map((highlight) => (
                 <li key={highlight}>{highlight}</li>

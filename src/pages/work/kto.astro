@@ -1,0 +1,82 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { profile } from "../../components/town/profile";
+import { ktoCaseStudy as study } from "../../data/ktoCaseStudy";
+import "../../styles/case-study.css";
+---
+
+<Layout title="KTO sportsbook — Jack Winter" description={study.summary}>
+  <div class="case-study">
+    <nav class="case-nav" aria-label="Case study navigation">
+      <a href="/portfolio#experience">← Experience</a>
+      <a href="/#profile">Meet Jack ↗</a>
+    </nav>
+    <main id="main">
+      <header class="case-intro">
+        <p class="case-eyebrow">KTO Group · Jun 2025 — Present</p>
+        <h1>{study.title}</h1>
+        <p class="case-lead">{study.summary}</p>
+        <p>My role: Senior Front-End Developer · Remote</p>
+      </header>
+      <section aria-labelledby="results-title">
+        <h2 id="results-title">Performance results</h2>
+        <p class="case-qualification">{study.qualification}</p>
+        <dl class="case-metrics">
+          {study.metrics.map((metric) => (
+            <div>
+              <dt>{metric.label}</dt>
+              <dd>{metric.value}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+      <section class="case-prose" aria-labelledby="context-title">
+        <h2 id="context-title">The work</h2>
+        <p>
+          KTO operates a sportsbook and online casino in the Brazilian market. I
+          led the frontend transformation from a third-party hosted product to a
+          custom platform, within a business serving 1.4M active users and 5B
+          bets placed.
+        </p>
+        <p>
+          I owned the frontend architecture and core customer journeys. The
+          performance work covered rendering, bundles, service loading and
+          real-time data processing.
+        </p>
+      </section>
+      <section class="case-prose" aria-labelledby="architecture-title">
+        <h2 id="architecture-title">Separating responsibilities</h2>
+        <p>
+          I designed a modular sportsbook architecture across a pnpm/Turborepo
+          monorepo spanning 27 packages and 22 modules, separating reusable UI,
+          domain logic, data providers and third-party integrations.
+        </p>
+        <ul class="case-modules" aria-label="Architecture responsibilities">
+          <li>Reusable UI</li>
+          <li>Domain logic</li>
+          <li>Data providers</li>
+          <li>Third-party integrations</li>
+        </ul>
+        <h3>Keeping high-frequency processing off the main thread</h3>
+        <p>
+          I built a real-time sports data pipeline using Web Workers, Socket.IO
+          and Zustand. Moving events and odds processing off the main thread
+          kept the live betting interface responsive.
+        </p>
+        <p>
+          A design consideration with this approach is the coordination required
+          across worker boundaries. The interface and background processing need
+          a clear contract for updates and lifecycle management.
+        </p>
+      </section>
+      <footer class="case-contact">
+        <img src="/profile.jpeg" width="319" height="319" alt="" />
+        <div>
+          <h2>Let’s talk frontend.</h2>
+          <p>Architecture, real-time interfaces and performance.</p>
+          <a href={`mailto:${profile.email}`}>Email Jack ↗</a>
+        </div>
+      </footer>
+    </main>
+  </div>
+</Layout>

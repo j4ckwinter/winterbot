@@ -51,7 +51,7 @@ export const experience = [
     highlights: [
       "Led the transformation from a third-party hosted sportsbook to a custom React and TypeScript platform, owning architecture and core customer journeys within a business serving 1.4M active users and 5B bets placed.",
       "Delivered 40% faster FCP, 25% faster LCP, 20% lower blocking time, 9.3% less transferred data, and 11× faster return navigation in performance testing.",
-      "Designed a pnpm/Turborepo monorepo spanning 27 packages and 22 modules, separating reusable UI, domain logic, data providers, and third-party integrations.",
+      "Designed a modular sportsbook architecture across a pnpm/Turborepo monorepo spanning 27 packages and 22 modules, separating reusable UI, domain logic, data providers, and third-party integrations.",
       "Built a real-time sports data pipeline with Web Workers, Socket.IO, and Zustand, moving high-frequency events and odds processing off the main thread.",
     ],
   },

@@ -1,4 +1,5 @@
 import { profile } from "./profile";
+import { ktoCaseStudy } from "../../data/ktoCaseStudy";
 import type { Content } from "./navigation";
 import "./trainer-card.css";
 
@@ -55,6 +56,9 @@ export default function TrainerCard({
         </button>
         <button onClick={() => onNavigate({ place: "post" })}>Contact ↗</button>
       </nav>
+      <p>
+        <a href={ktoCaseStudy.href}>Read the KTO case study ↗</a>
+      </p>
       <div class="trainer-actions">
         <a href={`mailto:${profile.email}`}>Email Jack ↗</a>
         <a href="/portfolio">Read the full portfolio ↗</a>
