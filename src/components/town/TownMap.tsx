@@ -40,6 +40,16 @@ export default function TownMap({ player }: { player?: Point }) {
           <path d="M4 8h3v2H4z M16 19h4v2h-4z" fill="#cdbb8c" />
         </pattern>
         <pattern
+          id="town-paving"
+          width="24"
+          height="24"
+          patternUnits="userSpaceOnUse"
+        >
+          <rect width="24" height="24" fill="#d9cba3" />
+          <path d="M0 0h24v2H0z M0 0h2v24H0z" fill="#b8ad88" />
+          <path d="M3 3h18v2H3z M3 5h2v16H3z" fill="#ece0b9" />
+        </pattern>
+        <pattern
           id="town-water"
           width="64"
           height="32"
@@ -143,6 +153,38 @@ export default function TownMap({ player }: { player?: Point }) {
         d="M70 368h890v46H70z M458 60h44v540h-44z M197 270h28v105h-28z M646 250h28v125h-28z M201 411h28v192h-28z M631 410h28v192h-28z M201 588h458v20H201z"
         fill="url(#town-path)"
       />
+      <g data-town-square="true">
+        <path
+          d="M432 330h156v12h12v96h-12v12H432v-12h-12v-96h12z"
+          fill="#a99670"
+        />
+        <path
+          d="M438 336h144v12h12v84h-12v12H438v-12h-12v-84h12z"
+          fill="url(#town-paving)"
+        />
+        <path d="M458 330h44v120h-44z M420 368h180v46H420z" fill="#d9cba3" />
+        <path
+          d="M480 362l28 28-28 28-28-28z"
+          fill="#c0b28a"
+          stroke="#f2e4bc"
+          stroke-width="3"
+        />
+        <path d="M480 366l6 18 18 6-18 6-6 18-6-18-18-6 18-6z" fill="#728066" />
+        <path
+          d="M480 366v24h-24l18-6z M480 390h24l-18 6-6 18z"
+          fill="#f4e7bc"
+        />
+        <rect x="477" y="387" width="6" height="6" fill="#a56846" />
+        <path
+          d="M436 386h-6v-4l-8 8 8 8v-4h6z M586 386h6v-4l8 8-8 8v-4h-6z M476 342v-6h-4l8-8 8 8h-4v6z M476 438v6h-4l8 8 8-8h-4v-6z"
+          fill="#9d8a64"
+        />
+      </g>
+      <g fill="#f1e3b9">
+        <path d="M193 288h36v6h-36z M193 305h36v4h-36z M193 321h36v4h-36z" />
+        <path d="M642 269h36v6h-36z M642 286h36v4h-36z M642 302h36v4h-36z" />
+        <path d="M194 577h42v6h-42z M198 594h34v4h-34z M624 577h42v6h-42z M628 594h34v4h-34z" />
+      </g>
       <path d="M805 365h155v53H805z" fill="#8c704b" />
       {Array.from({ length: 10 }, (_, i) => (
         <rect
@@ -201,6 +243,14 @@ export default function TownMap({ player }: { player?: Point }) {
         <path d="M188 276h44v6h-44z" fill="#e9d9b2" />
         <rect x="185" y="192" width="50" height="16" fill="#f4e6ba" />
         <path d="M197 199h26v3h-26z" fill="#9a6c45" />
+        <path
+          d="M145 250h31v5h-31z M148 255h4v14h-4z M169 255h4v14h-4z"
+          fill="#795f45"
+        />
+        <path
+          d="M148 246h9v4h-9z M163 242h3v8h-3z M167 245h6v3h-6z"
+          fill="#5d7366"
+        />
         <path d="M282 248h22v28h-22z" fill="#8c784b" />
         <path d="M285 251h16v3h-16z M285 268h16v3h-16z" fill="#b39b63" />
       </g>
@@ -215,6 +265,11 @@ export default function TownMap({ player }: { player?: Point }) {
         <rect x="650" y="210" width="20" height="42" fill="#b39a6b" />
         <rect x="663" y="231" width="3" height="4" fill="#eddb9d" />
         <rect x="641" y="256" width="38" height="7" fill="#ecdeba" />
+        <path
+          d="M638 199h44v5h-44z M638 204h4v52h-4z M678 204h4v52h-4z"
+          fill="#d0bb8b"
+        />
+        <path d="M636 197h48v3h-48z" fill="#faf0ca" />
         <path d="M605 233h35v7h-35z M683 233h35v7h-35z" fill="#9c7150" />
         <path
           d="M608 228h6v5h-6z M621 225h6v8h-6z M632 228h5v5h-5z M687 228h6v5h-6z M700 225h6v8h-6z M711 228h5v5h-5z"
@@ -231,6 +286,11 @@ export default function TownMap({ player }: { player?: Point }) {
         <rect x="197" y="513" width="36" height="53" fill="#6e654c" />
         <rect x="202" y="518" width="26" height="48" fill="#a5ac8d" />
         <path d="M214 519h3v47h-3z" fill="#70694f" />
+        <path d="M136 557h49v3h-49z M245 557h49v3h-49z" fill="#6a7160" />
+        <path
+          d="M139 553h4v11h-4z M151 553h4v11h-4z M163 553h4v11h-4z M175 553h4v11h-4z M248 553h4v11h-4z M260 553h4v11h-4z M272 553h4v11h-4z M284 553h4v11h-4z"
+          fill="#978461"
+        />
         <rect x="190" y="566" width="50" height="7" fill="#f0dfb2" />
         <rect x="199" y="462" width="32" height="29" fill="#e9dcaf" />
         <rect x="204" y="466" width="22" height="21" fill="#f7edcb" />
@@ -289,7 +349,6 @@ export default function TownMap({ player }: { player?: Point }) {
             </g>
           ),
       )}
-      {/* Workshop tools, house initials, station canopy and post-office stripe. */}
       <g fill="#6b6046">
         <path d="M192 197h12v3h-12z M196 195h4v9h-4z M212 195h4v9h-4z M219 195h4v9h-4z M215 201h5v3h-5z" />
         <path d="M649 190h3v8h-7v-3h4z M657 190h3v6h3v-6h3v8h-9z" />
@@ -305,9 +364,35 @@ export default function TownMap({ player }: { player?: Point }) {
         <rect x="72" y="428" width="50" height="25" fill="#9b8153" />
         <rect x="76" y="432" width="42" height="17" fill="#e5d2a0" />
         <path d="M84 439h26v3H84z" fill="#86744e" />
-        <rect x="532" y="339" width="6" height="24" fill="#7c6746" />
-        <rect x="522" y="324" width="28" height="22" fill="#a98b55" />
-        <rect x="526" y="328" width="20" height="14" fill="#f0dda7" />
+        <rect x="532" y="314" width="6" height="49" fill="#7c6746" />
+        {[
+          { label: "Projects", y: 291, left: true },
+          { label: "About", y: 307, left: false },
+          { label: "Experience", y: 323, left: true },
+          { label: "Contact", y: 339, left: false },
+        ].map(({ label, y, left }) => (
+          <g key={label} data-town-direction={label.toLowerCase()}>
+            <path
+              d={
+                left
+                  ? `M497 ${y + 7}l7-7h75v14h-75z`
+                  : `M501 ${y}h75l7 7-7 7h-75z`
+              }
+              fill="#6c6248"
+            />
+            <path d={`M506 ${y + 2}h67v10h-67z`} fill="#e7d5a2" />
+            <text
+              x="539"
+              y={y + 10}
+              text-anchor="middle"
+              fill="#47513a"
+              font-family="DotGothic16, monospace"
+              font-size="10"
+            >
+              {label}
+            </text>
+          </g>
+        ))}
       </g>
       <g fill="#6d8352">
         <path d="M551 195h20v5h-20z M551 209h20v5h-20z" />
