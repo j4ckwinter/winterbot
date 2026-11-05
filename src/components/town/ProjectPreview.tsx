@@ -25,23 +25,42 @@ export default function ProjectPreview({
           alt="Winter Town’s paths, buildings and gardens"
           loading="lazy"
         />
-      ) : project.kind === "memory" ? (
-        <div class="project-preview-example">
-          <small>Recorded source · 34a4ebb</small>
-          <span class="preview-query">Find code: “budget”</span>
-          <strong>{budgetChunk.name}()</strong>
-          <code>{budgetChunk.path}</code>
-          <span>Keep complete chunks within a token budget.</span>
-        </div>
       ) : (
         <div class="project-preview-example">
-          <small>Walking regression replay</small>
-          <strong>A frame arrived before the click</strong>
-          <span class="preview-before">
-            Negative elapsed time → NaN position
+          <div class="project-preview-heading">
+            <small>
+              {project.kind === "memory"
+                ? "Recorded source · 34a4ebb"
+                : "Walking regression replay"}
+            </small>
+            <strong>
+              {project.kind === "memory"
+                ? `${budgetChunk.name}()`
+                : "A frame arrived before the click"}
+            </strong>
+          </div>
+          <div class="project-preview-detail">
+            {project.kind === "memory" ? (
+              <>
+                <span>Find code: “budget”</span>
+                <code>{budgetChunk.path}</code>
+              </>
+            ) : (
+              <>
+                <span class="preview-before">
+                  Negative elapsed time → NaN position
+                </span>
+                <span class="preview-after">
+                  Clamp elapsed time → valid movement
+                </span>
+              </>
+            )}
+          </div>
+          <span class="project-preview-caption">
+            {project.kind === "memory"
+              ? "Keep complete chunks within a token budget."
+              : "Replay the failure and its fix."}
           </span>
-          <span class="preview-after">Clamp elapsed time → valid movement</span>
-          <span>Replay the failure and its fix.</span>
         </div>
       )}
       <span class="project-preview-action">

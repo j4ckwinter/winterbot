@@ -1,7 +1,7 @@
 .project-preview {
   display: block;
   overflow: hidden;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   border-radius: 8px;
   background: #e6eddf;
   color: #30372e;
@@ -22,12 +22,16 @@
 .project-preview-example {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 10px;
+  gap: 12px;
   min-height: 220px;
   padding: 18px;
   font-size: 12px;
   line-height: 1.5;
+}
+.project-preview-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 .project-preview-example small {
   font-size: 11px;
@@ -40,10 +44,16 @@
   font-size: 10px;
   overflow-wrap: anywhere;
 }
-.preview-query {
-  padding: 8px 10px;
+.project-preview-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px;
   border-radius: 6px;
   background: #fffefa;
+}
+.project-preview-caption {
+  margin-top: auto;
 }
 .preview-before {
   color: #853e2a;
