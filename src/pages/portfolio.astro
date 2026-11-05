@@ -1,5 +1,6 @@
 ---
 import { profile } from "../components/town/profile";
+import FeaturedWork from "../components/town/FeaturedWork";
 import Layout from "../layouts/Layout.astro";
 import {
   About,
@@ -60,6 +61,7 @@ import "../styles/portfolio.css";
           <About />
         </div>
       </section>
+      <FeaturedWork />
       <section id="projects" aria-labelledby="projects-title">
         <h2 id="projects-title">Projects</h2>
         <div class="portfolio-projects">
@@ -99,7 +101,7 @@ import "../styles/portfolio.css";
       <section id="experience" aria-labelledby="experience-title">
         <h2 id="experience-title">Experience</h2>
         <div class="place-content">
-          <Station />
+          <Station featured={false} />
         </div>
       </section>
       <section id="skills" aria-labelledby="skills-title">

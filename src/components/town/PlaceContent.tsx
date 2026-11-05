@@ -1,3 +1,4 @@
+import FeaturedWork from "./FeaturedWork";
 import "./place-content.css";
 import ProjectDemo from "./ProjectDemo";
 import { ktoCaseStudy } from "../../data/ktoCaseStudy";
@@ -154,13 +155,14 @@ export function Home() {
   );
 }
 
-export function Station() {
+export function Station({ featured = true }: { featured?: boolean }) {
   return (
     <>
       <div class="station-board">
         <span>WINTER TOWN RAILWAY</span>
         <small>2017 → PRESENT</small>
       </div>
+      {featured && <FeaturedWork />}
       <ol class="place-career">
         {experience.map((job) => (
           <li key={job.company}>

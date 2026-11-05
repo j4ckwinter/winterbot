@@ -1,0 +1,27 @@
+.featured-work {
+  padding: 24px;
+  margin: 0 0 28px;
+  border-radius: 14px;
+  background: #e8eddf;
+  font: 15px/1.6 var(--font-ui);
+}
+.featured-work .featured-work-label {
+  margin: 0 0 8px;
+  color: #526347;
+  font-size: 12px;
+  font-weight: 650;
+}
+.featured-work a {
+  display: inline-block;
+  font-size: 22px;
+  font-weight: 650;
+  line-height: 1.35;
+  text-underline-offset: 5px;
+}
+.featured-work p {
+  margin: 12px 0;
+}
+.featured-work span {
+  font-size: 13px;
+  color: #526347;
+}
