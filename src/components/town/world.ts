@@ -102,9 +102,9 @@ export const roomLayouts: Record<
       [150, 440, 330, 500],
     ],
     objects: [
-      { bounds: [150, 190, 310, 330], x: 230, y: 370, labelY: 250 },
-      { bounds: [400, 190, 560, 260], x: 480, y: 300, labelY: 195 },
-      { bounds: [650, 290, 810, 390], x: 730, y: 430, labelY: 325 },
+      { bounds: [150, 190, 310, 330], x: 230, y: 370, labelY: 170 },
+      { bounds: [400, 190, 560, 260], x: 480, y: 300, labelY: 170 },
+      { bounds: [650, 290, 810, 390], x: 730, y: 430, labelY: 270 },
     ],
   },
   home: {
@@ -115,7 +115,7 @@ export const roomLayouts: Record<
       [600, 370, 710, 510],
       [250, 400, 370, 490],
     ],
-    objects: [{ bounds: [410, 190, 550, 310], x: 480, y: 350, labelY: 245 }],
+    objects: [{ bounds: [410, 190, 550, 310], x: 480, y: 350, labelY: 170 }],
   },
   station: {
     bounds: [90, 310, 870, 605],
@@ -124,7 +124,7 @@ export const roomLayouts: Record<
       [140, 450, 320, 490],
       [640, 450, 820, 490],
     ],
-    objects: [{ bounds: [408, 234, 552, 369], x: 480, y: 390, labelY: 280 }],
+    objects: [{ bounds: [408, 234, 552, 369], x: 480, y: 390, labelY: 214 }],
   },
   post: {
     bounds: [90, 190, 870, 605],
@@ -134,7 +134,7 @@ export const roomLayouts: Record<
       [820, 490, 870, 550],
       [100, 430, 250, 500],
     ],
-    objects: [{ bounds: [150, 190, 700, 300], x: 480, y: 340, labelY: 240 }],
+    objects: [{ bounds: [150, 190, 700, 300], x: 480, y: 340, labelY: 170 }],
   },
 };
 const townObstacles = [

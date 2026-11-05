@@ -68,11 +68,37 @@ function Desk({ x, machine = false }: { x: number; machine?: boolean }) {
       <path d="M24 1h81v4H24z M24 5h4v51h-4z" fill="#eee4bf" />
       <path d="M101 5h4v51h-4z" fill="#a39d7c" />
       <path d="M31 8h67v43H31z" fill="#3c5a4b" />
-      <path
-        d="M37 15h26v4H37z M37 24h44v4H37z M37 33h20v4H37z"
-        fill="#b4cf89"
-      />
-      <path class="interior-cursor" d="M62 33h6v5h-6z" fill="#e1dc9c" />
+      {machine ? (
+        <g data-exhibit-preview="routing">
+          <path d="M34 11h61v36H34z" fill="#89a36c" />
+          <path d="M34 28h61v7H34z M63 11h7v36h-7z" fill="#dbc98d" />
+          <path d="M39 15h14v10H39z M76 37h14v8H76z" fill="#536f54" />
+          <path d="M39 14h14v4H39z M76 36h14v4H76z" fill="#b66f4f" />
+          <path d="M81 13h10v10H81z" fill="#6a9fa2" />
+          <path
+            d="M42 31h24v10h12"
+            fill="none"
+            stroke="#f7e9ac"
+            strokeWidth="2"
+          />
+          <rect
+            class="exhibit-route-dot"
+            x="40"
+            y="29"
+            width="4"
+            height="4"
+            fill="#a94f3e"
+          />
+        </g>
+      ) : (
+        <g data-exhibit-preview="interfaces">
+          <path
+            d="M37 15h26v4H37z M37 24h44v4H37z M37 33h20v4H37z"
+            fill="#b4cf89"
+          />
+          <path class="interior-cursor" d="M62 33h6v5h-6z" fill="#e1dc9c" />
+        </g>
+      )}
       <path d="M53 54h24v8H53z M27 63h76v8H27z" fill="#e1d9b4" />
       <path
         d="M31 65h6v3h-6z M41 65h6v3h-6z M51 65h6v3h-6z M61 65h6v3h-6z M71 65h6v3h-6z M81 65h16v3H81z"
@@ -110,28 +136,47 @@ function Shelf({ x }: { x: number }) {
           <path d="M17 0h12v32H17z M62 5h10v27H62z" fill="#b36d51" />
           <path d="M33 8h9v24h-9z M76 0h8v32h-8z" fill="#dfc690" />
           <path d="M-7 32h122v8H-7z" fill="#c39c68" />
+          <path d="M28 32h53v8H28z" fill="#e3d3a7" />
+          <text
+            x="54"
+            y="38"
+            text-anchor="middle"
+            fill="#4d594a"
+            font-family="monospace"
+            font-size="6"
+          >
+            {["INTERFACES", "TYPESCRIPT", "AGENT TOOLS"][row]}
+          </text>
         </g>
       ))}
     </g>
   );
 }
 
-function Board({ x, ticket = false }: { x: number; ticket?: boolean }) {
+function Board({ x }: { x: number }) {
   return (
     <g transform={`translate(${x - 72} 194)`}>
       <path d="M0 0h144v110H0z" fill="#8f7853" />
       <path d="M7 7h130v96H7z" fill="#354f46" />
-      {[0, 1, 2, 3].map((i) => (
-        <g key={i} transform={`translate(18 ${20 + i * 20})`}>
-          <path
-            d="M0 0h61v5H0z M76 0h22v5H76z"
-            fill={i === 0 ? "#e5c17a" : "#a7bea0"}
-          />
-          <path d="M0 9h108v2H0z" fill="#557466" />
-        </g>
-      ))}
+      <g font-family="monospace" font-size="8" fill="#e7d7ae">
+        <text x="16" y="21" letter-spacing="1">
+          CAREER DEPARTURES
+        </text>
+        {[
+          ["KTO", "2025–NOW"],
+          ["GEOGAMING", "2023–25"],
+          ["SMARTSTREAM", "2017–22"],
+        ].map(([company, years], i) => (
+          <g key={company} transform={`translate(16 ${39 + i * 23})`}>
+            <text fill={i === 0 ? "#f0cf80" : "#b8c7a7"}>{company}</text>
+            <text x="110" text-anchor="end" y="9" font-size="7">
+              {years}
+            </text>
+            <path d="M0 14h112" stroke="#557466" />
+          </g>
+        ))}
+      </g>
       <path d="M10 110h12v25H10z M122 110h12v25h-12z" fill="#796444" />
-      {ticket && <path d="M47 104h51v20H47z M53 124h39v8H53z" fill="#e9d8a8" />}
     </g>
   );
 }
@@ -299,6 +344,7 @@ export default function InteriorMap({
             <Desk x={230} machine />
           </g>
           <g
+            data-exhibit-preview="retrieval"
             transform="translate(409 178)"
             data-project-machine="1"
             data-inspected={inspectedProjects.includes(1)}
@@ -311,7 +357,11 @@ export default function InteriorMap({
             {[0, 1, 2].map((i) => (
               <g key={i} transform={`translate(16 ${14 + i * 19})`}>
                 <path d="M0 0h110v13H0z" fill="#3b554c" />
-                <path d="M7 4h64v4H7z" fill="#a7be87" />
+                <path
+                  d="M7 3h9v3H7z M20 3h42v3H20z M20 8h27v2H20z"
+                  fill="#a7be87"
+                />
+                <path d="M7 8h9v2H7z" fill="#d3b881" />
                 <path
                   class="interior-cursor"
                   d="M91 4h6v5h-6z"
@@ -319,22 +369,66 @@ export default function InteriorMap({
                 />
               </g>
             ))}
+            <path d="M12 67h118v12H12z" fill="#d4ceab" />
+            <text
+              x="71"
+              y="76"
+              text-anchor="middle"
+              font-family="monospace"
+              font-size="8"
+              fill="#354f46"
+            >
+              SOURCE INDEX
+            </text>
           </g>
           <g
+            data-exhibit-preview="review"
             transform="translate(660 292)"
             data-project-machine="2"
             data-inspected={inspectedProjects.includes(2)}
           >
             <path d="M0 58h140v40H0z" fill="#806143" />
             <path d="M-5 53h150v14H-5z" fill="#c89960" />
-            <path d="M29 43h82v10H29z" fill="#e4d4ab" />
-            {[0, 1, 2].map((i) => (
-              <g key={i} transform={`translate(39 ${10 + i * 11})`}>
-                <path d="M0 0h62v8H0z" fill="#e6b973" />
-                <path d="M4 8h54v3H4z" fill="#a77042" />
+            <path d="M4 0h132v49H4z" fill="#465b4b" />
+            <path d="M8 4h124v41H8z" fill="#d4c49b" />
+            {["FIND", "BUILD", "CHECK"].map((step, i) => (
+              <g key={step} transform={`translate(${13 + i * 40} 10)`}>
+                <path
+                  d="M0 0h34v29H0z"
+                  fill={i === 2 ? "#a8be86" : "#efe0b4"}
+                />
+                <text
+                  x="17"
+                  y="9"
+                  text-anchor="middle"
+                  font-family="monospace"
+                  font-size="7"
+                  fill="#354f46"
+                >
+                  {step}
+                </text>
+                <path d="M6 15h22v2H6z M6 20h15v2H6z" fill="#7c8b68" />
+                {i === 2 && (
+                  <path
+                    d="M22 21l3 3 5-8"
+                    fill="none"
+                    stroke="#496b4a"
+                    strokeWidth="2"
+                  />
+                )}
               </g>
             ))}
-            <path d="M62 4h17v9H62z" fill="#f1d990" />
+            <path d="M51 44h39v9H51z" fill="#6a6e51" />
+            <path d="M8 64h31v4H8z M10 69h27v4H10z" fill="#e6b973" />
+            <text
+              x="49"
+              y="74"
+              font-family="monospace"
+              font-size="8"
+              fill="#f1d9a7"
+            >
+              REVIEW BENCH
+            </text>
           </g>
           <g transform="translate(150 431)">
             <path d="M-4-4h188v78H-4z" fill="#514d38" />
@@ -422,6 +516,15 @@ export default function InteriorMap({
             <path d="M20 61h30v5H20z" fill="#d9cda4" />
           </g>
           <path d="M272 346h74v7h-74z M281 339h53v7h-53z" fill="#a18c69" />
+          <g transform="translate(279 409)" data-exhibit-preview="notebook">
+            <path d="M0 0h32l8 4 8-4h32v30H48l-8 4-8-4H0z" fill="#eee0b5" />
+            <path
+              d="M40 4v27 M5 8h24 M5 15h20 M49 8h25 M49 15h20 M49 22h23"
+              fill="none"
+              stroke="#8e9b79"
+              strokeWidth="2"
+            />
+          </g>
         </>
       )}
       {room === "station" && (
@@ -437,15 +540,30 @@ export default function InteriorMap({
               ["GEOGAMING", 480],
               ["KTO", 700],
             ].map(([name, x]) => (
-              <text key={name} x={x} y="112">
-                {name}
-              </text>
+              <g key={name}>
+                <text x={x} y="112">
+                  {name}
+                </text>
+                <text x={x} y="161" font-size="10" fill="#e3ca90">
+                  {name === "KTO"
+                    ? "2025 → NOW"
+                    : name === "GEOGAMING"
+                      ? "2023 → 2025"
+                      : "2017 → 2022"}
+                </text>
+              </g>
             ))}
             <path d="M260 135h440" stroke="#e7d7ae" strokeWidth="3" />
             {[260, 480, 700].map((x) => (
               <rect key={x} x={x - 5} y="130" width="10" height="10" />
             ))}
           </g>
+          <path
+            d="M688 122h24v24h-24z"
+            fill="none"
+            stroke="#e3ca90"
+            strokeWidth="2"
+          />
           <path d="M80 200h800v108H80z" fill="#555b50" />
           {Array.from({ length: 20 }, (_, i) => (
             <path key={i} d={`M${92 + i * 40} 211h14v78h-14z`} fill="#7c7259" />
@@ -512,6 +630,36 @@ export default function InteriorMap({
           ))}
           <path d="M570 191h43v19h-43z M575 186h33v5h-33z" fill="#d3b17b" />
           <path d="M588 186h6v24h-6z" fill="#eee0b2" />
+          <g
+            font-family="monospace"
+            font-size="10"
+            fill="#f2deb0"
+            text-anchor="middle"
+          >
+            {[
+              ["EMAIL", 234],
+              ["GITHUB", 386],
+              ["LINKEDIN", 568],
+            ].map(([channel, x]) => (
+              <g key={channel}>
+                <rect
+                  x={Number(x) - 47}
+                  y="258"
+                  width="94"
+                  height="18"
+                  fill="#75563f"
+                />
+                <text x={x} y="271">
+                  {channel}
+                </text>
+              </g>
+            ))}
+          </g>
+          <g transform="translate(308 194)">
+            <path d="M0 0h70v17H0z" fill="#eadbb1" />
+            <path d="M6 4h42v2H6z M6 9h34v2H6z" fill="#8b9978" />
+            <path d="M60-8h4v20h-4z" fill="#4f6658" />
+          </g>
           <path d="M450 201h65v12h-65z M460 189h45v12h-45z" fill="#e9d9ad" />
           <path
             d="M460 189l23 13 22-13"
@@ -552,7 +700,7 @@ export default function InteriorMap({
         d={`M${shellLeft} 600h${435 - shellLeft}v8H${shellLeft}z M525 600h${right + 10 - 525}v8H525z`}
         fill={palette.trim}
       />
-      <style>{`.interior-cursor{animation:interior-blink 1.8s steps(2,end) infinite}@keyframes interior-blink{50%{opacity:.35}}@media(prefers-reduced-motion:reduce){.interior-cursor{animation:none}}`}</style>
+      <style>{`.interior-cursor{animation:interior-blink 1.8s steps(2,end) infinite}.exhibit-route-dot{animation:exhibit-route 5s steps(8,end) infinite}@keyframes exhibit-route{0%,10%{transform:translate(0,0)}50%{transform:translate(24px,0)}70%{transform:translate(24px,10px)}90%,100%{transform:translate(36px,10px)}}@keyframes interior-blink{50%{opacity:.35}}@media(prefers-reduced-motion:reduce){.interior-cursor,.exhibit-route-dot{animation:none}}`}</style>
     </svg>
   );
 }
