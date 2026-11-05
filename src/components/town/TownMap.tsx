@@ -1,6 +1,6 @@
 import type { ComponentChildren } from "preact";
 import { useTownCat } from "./useTownCat";
-import { trees, fences, TOWN_SIGNPOST, type Point } from "./world";
+import { trees, fences, type Point } from "./world";
 
 export default function TownMap({
   player,
@@ -421,42 +421,6 @@ export default function TownMap({
           <rect x="72" y="428" width="50" height="25" fill="#9b8153" />
           <rect x="76" y="432" width="42" height="17" fill="#e5d2a0" />
           <path d="M84 439h26v3H84z" fill="#86744e" />
-        </g>
-      </TownObject>
-      <TownObject name="signpost" depth={TOWN_SIGNPOST.y}>
-        <g
-          data-town-signpost="true"
-          transform={`translate(${TOWN_SIGNPOST.x - 535} ${TOWN_SIGNPOST.y - 363})`}
-        >
-          <rect x="532" y="314" width="6" height="49" fill="#7c6746" />
-          {[
-            { label: "Projects", y: 291, left: true },
-            { label: "About", y: 307, left: false },
-            { label: "Experience", y: 323, left: true },
-            { label: "Contact", y: 339, left: false },
-          ].map(({ label, y, left }) => (
-            <g key={label} data-town-direction={label.toLowerCase()}>
-              <path
-                d={
-                  left
-                    ? `M497 ${y + 7}l7-7h75v14h-75z`
-                    : `M501 ${y}h75l7 7-7 7h-75z`
-                }
-                fill="#6c6248"
-              />
-              <path d={`M506 ${y + 2}h67v10h-67z`} fill="#e7d5a2" />
-              <text
-                x="539"
-                y={y + 10}
-                text-anchor="middle"
-                fill="#47513a"
-                font-family="DotGothic16, monospace"
-                font-size="10"
-              >
-                {label}
-              </text>
-            </g>
-          ))}
         </g>
       </TownObject>
       <TownObject name="trellis" depth={222}>

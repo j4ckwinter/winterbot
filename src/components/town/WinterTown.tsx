@@ -1,10 +1,9 @@
+import TownScene from "./TownScene";
+import { useTownCamera } from "./useTownCamera";
+import TownToolbar from "./TownToolbar";
+import ContentDialog from "./ContentDialog";
+import TownControls, { TravelLog } from "./TownControls";
 import { useEffect, useRef, useState } from "preact/hooks";
-import { memo } from "preact/compat";
-import TownMap from "./TownMap";
-import InteriorMap from "./InteriorMap";
-import PlaceContent from "./PlaceContent";
-import Player from "./Player";
-import TrainerCard, { TrainerPortrait } from "./TrainerCard";
 import { profile } from "./profile";
 import type { Content } from "./navigation";
 import { useContentNavigation } from "./useContentNavigation";
@@ -15,7 +14,6 @@ import {
   places,
   type Action,
   type Landmark,
-  type Place,
   type Point,
   type Scene,
 } from "./world";
@@ -29,8 +27,6 @@ import "./town.css";
 import "./journey.css";
 import "./interaction-feedback.css";
 
-const Scenery = memo(TownMap);
-const Interior = memo(InteriorMap);
 const exit: Landmark = {
   id: "exit",
   name: "Return to town",
@@ -49,12 +45,8 @@ const movementKeys = [
   "s",
   "d",
 ];
-const clamp = (n: number, min: number, max: number) =>
-  Math.max(min, Math.min(max, n));
-
 export default function WinterTown() {
   const sound = useSound();
-  const [ready, setReady] = useState(false);
   const {
     season,
     setSeason,
@@ -72,9 +64,7 @@ export default function WinterTown() {
     );
   };
   const [logOpen, setLogOpen] = useState(false);
-  const [overview, setOverview] = useState(false);
   const [manualControls, setManualControls] = useState(false);
-  const [reduced, setReduced] = useState(false);
   const [notice, setNotice] = useState("");
   const [tap, setTap] = useState<(Point & { id: number }) | null>(null);
   useEffect(() => {
@@ -82,7 +72,6 @@ export default function WinterTown() {
     const timer = window.setTimeout(() => setTap(null), 550);
     return () => window.clearTimeout(timer);
   }, [tap]);
-  const [size, setSize] = useState({ width: 960, height: 640 });
   const world = useRef<HTMLDivElement>(null);
   const dialog = useRef<HTMLDialogElement>(null);
   const onArrival = useRef<(action: Action) => void>(() => {});
@@ -107,6 +96,8 @@ export default function WinterTown() {
     stepDirection,
     wake,
   } = useMovement(dialog, onArrival);
+  const { ready, reduced, overview, setOverview, size, cameraStyle } =
+    useTownCamera(world, position);
   const {
     content,
     copyState,
@@ -147,25 +138,6 @@ export default function WinterTown() {
     }
   };
   onArrival.current = act;
-  useEffect(() => {
-    setReady(true);
-    if (window.matchMedia("(max-width: 760px)").matches) setOverview(true);
-    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const update = () => setReduced(media.matches);
-    update();
-    media.addEventListener("change", update);
-    const observer = new ResizeObserver(([entry]) =>
-      setSize({
-        width: entry.contentRect.width,
-        height: entry.contentRect.height,
-      }),
-    );
-    if (world.current) observer.observe(world.current);
-    return () => {
-      media.removeEventListener("change", update);
-      observer.disconnect();
-    };
-  }, []);
   const travel = (landmark: Landmark) => {
     stop();
     setNotice("");
@@ -212,22 +184,9 @@ export default function WinterTown() {
     world.current?.focus({ preventScroll: true });
   };
   const destinations = landmarks(scene);
-  const activeDestination = walkTarget
-    ? destinations.find((p) => p.x === walkTarget.x && p.y === walkTarget.y)
-    : undefined;
   const near = [...destinations, ...(scene === "town" ? [] : [exit])].find(
     (p) => Math.hypot(position.x - p.x, position.y - p.y) < 48,
   );
-  const scale =
-    overview || reduced
-      ? Math.min(size.width / 960, size.height / 640)
-      : Math.max(1, Math.min(size.width / 960, size.height / 640));
-  const camera = (length: number, view: number, point: number) =>
-    length * scale <= view
-      ? (view - length * scale) / 2
-      : clamp(view / 2 - point * scale, view - length * scale, 0);
-  const left = camera(960, size.width, position.x),
-    top = camera(640, size.height, position.y);
   const sceneName =
     scene === "town" ? "Winter Town" : places.find((p) => p.id === scene)!.name;
   return (
@@ -250,66 +209,21 @@ export default function WinterTown() {
       </header>
       <main id="main">
         <section class="world-shell" aria-label="Explore Winter Town">
-          <div
-            class={`world-toolbar ${scene !== "town" ? "room-toolbar" : ""}`}
-          >
-            <div class="scene-heading">
-              <button
-                class="trainer-button"
-                disabled={!ready}
-                aria-label="Open trainer card"
-                title="Jack’s trainer card"
-                onClick={(event) => {
-                  event.currentTarget.focus();
-                  openContent({ place: "profile" });
-                }}
-              >
-                <TrainerPortrait />
-              </button>
-              <span class="status-dot" />
-              <h2 aria-live="polite">{sceneName}</h2>
-              {scene !== "town" && (
-                <button
-                  onClick={() => changeScene("town")}
-                  aria-label="Leave room"
-                >
-                  ← Town
-                </button>
-              )}
-            </div>
-            <div class="toolbar-actions">
-              <button
-                disabled={!ready}
-                onClick={() => setOverview((v) => !v)}
-                aria-pressed={overview}
-              >
-                {overview ? "Follow player" : "Map"}
-              </button>
-              <details class="world-menu">
-                <summary>Menu</summary>
-                <div class="view-options">
-                  <button
-                    disabled={!ready}
-                    aria-pressed={sound.enabled}
-                    onClick={sound.toggle}
-                    aria-label="Sound"
-                  >
-                    Sound {sound.enabled ? "on" : "off"}
-                  </button>
-                  <button
-                    disabled={!ready}
-                    class="season-toggle"
-                    onClick={() =>
-                      setSeason((s) => (s === "leaf" ? "fire" : "leaf"))
-                    }
-                    aria-label={`Switch to ${season === "leaf" ? "autumn" : "summer"}`}
-                  >
-                    {season === "leaf" ? "Summer" : "Autumn"} ⇄
-                  </button>
-                </div>
-              </details>
-            </div>
-          </div>
+          <TownToolbar
+            ready={ready}
+            scene={scene}
+            sceneName={sceneName}
+            overview={overview}
+            soundEnabled={sound.enabled}
+            season={season}
+            onOpenProfile={() => openContent({ place: "profile" })}
+            onLeaveRoom={() => changeScene("town")}
+            onToggleOverview={() => setOverview((value) => !value)}
+            onToggleSound={sound.toggle}
+            onToggleSeason={() =>
+              setSeason((value) => (value === "leaf" ? "fire" : "leaf"))
+            }
+          />
           <div
             class="world"
             ref={world}
@@ -356,91 +270,25 @@ export default function WinterTown() {
             }}
             onKeyUp={(e) => keys.current.delete(e.key.toLowerCase())}
           >
-            <div
-              class="camera-layer"
-              style={{
-                transform: `translate(${left}px, ${top}px) scale(${scale})`,
-                "--map-label-scale":
-                  size.width <= 760 && scale < 1 ? 1 / scale : 1,
-              }}
-            >
-              <div class="scene-layer" key={scene} data-scene={scene}>
-                {scene === "town" ? (
-                  <Scenery
-                    player={position}
-                    destination={activeDestination?.id}
-                  />
-                ) : (
-                  <Interior
-                    room={scene}
-                    player={position}
-                    inspectedProjects={inspectedProjects}
-                  />
-                )}
-                {tap && (
-                  <svg
-                    key={tap.id}
-                    class="tap-feedback"
-                    viewBox="0 0 960 640"
-                    aria-hidden="true"
-                  >
-                    <circle cx={tap.x} cy={tap.y} r="12" />
-                  </svg>
-                )}
-                {walkTarget && (
-                  <svg
-                    class="walk-route"
-                    viewBox="0 0 960 640"
-                    aria-hidden="true"
-                  >
-                    <polyline
-                      points={walkPath.map((p) => `${p.x},${p.y}`).join(" ")}
-                    />
-                    <circle cx={walkTarget.x} cy={walkTarget.y} r="9" />
-                  </svg>
-                )}
-                {destinations.map((p) => (
-                  <button
-                    disabled={!ready}
-                    key={p.id}
-                    class={`map-label ${scene === "town" ? "town-label" : "room-label"} ${activeDestination?.id === p.id ? "is-destination" : ""} ${near?.id === p.id ? "is-actionable" : ""} ${Math.hypot(position.x - p.x, position.y - p.y) < 90 ? "is-near" : ""}`}
-                    onFocus={(e) => {
-                      if (e.currentTarget.matches(":focus-visible"))
-                        setOverview(true);
-                    }}
-                    style={{ left: p.x, top: p.labelY }}
-                    onClick={() => travel(p)}
-                    aria-label={`${scene === "town" ? "Walk to" : "Inspect"} ${p.name}`}
-                  >
-                    <span>{p.name}</span>
-                    {scene === "town" && (
-                      <small>
-                        {places.find((v) => v.id === p.id)?.content}{" "}
-                        {visited.includes(p.id as Place) ? "✓" : "↗"}
-                      </small>
-                    )}
-                  </button>
-                ))}
-                <Player
-                  position={position}
-                  direction={direction}
-                  walking={walking}
-                />
-                {scene !== "town" && (
-                  <button
-                    class="exit-door"
-                    onFocus={(e) => {
-                      if (e.currentTarget.matches(":focus-visible"))
-                        setOverview(true);
-                    }}
-                    onClick={() => travel(exit)}
-                    style={{ left: 480, top: 600 }}
-                    aria-label="Walk to exit"
-                  >
-                    EXIT ↓
-                  </button>
-                )}
-              </div>
+            <div class="camera-layer" style={cameraStyle}>
+              <TownScene
+                key={scene}
+                scene={scene}
+                ready={ready}
+                position={position}
+                direction={direction}
+                walking={walking}
+                visited={visited}
+                inspectedProjects={inspectedProjects}
+                destinations={destinations}
+                near={near}
+                walkTarget={walkTarget}
+                walkPath={walkPath}
+                tap={tap}
+                onTravel={travel}
+                onExit={() => travel(exit)}
+                onRevealMap={() => setOverview(true)}
+              />
             </div>
             <div class="scene-arrival" key={scene} aria-hidden="true">
               <span>{sceneName}</span>
@@ -451,95 +299,35 @@ export default function WinterTown() {
                 : `INTERIOR / ${scene.toUpperCase()}`}
             </div>
           </div>
-          <div class="world-bottom">
-            <span class="keyboard-help">
-              ↑ ↓ ← → / WASD <span>move · Enter interact</span>
-            </span>
-            <span class="touch-help">
-              {scene === "town"
-                ? "Tap a building to visit"
-                : "Tap an exhibit to read"}
-            </span>
-            {walkTarget ? (
-              <button class="cancel-walk" onClick={stop}>
-                Cancel walk <span>Esc</span>
-              </button>
-            ) : (
-              <button
-                class="progress-summary"
-                disabled={!ready}
-                onClick={() => setLogOpen((v) => !v)}
-                aria-expanded={logOpen}
-                aria-controls="travel-log"
-                aria-label={`Travel log: ${visited.length} of 4 places explored`}
-              >
-                {visited.length} / 4 places explored{" "}
-                <span aria-hidden="true">▤</span>
-              </button>
-            )}
-          </div>
-          <div
-            class={`play-controls ${manualControls ? "controls-expanded" : ""}`}
-          >
-            <button
-              class="touch-controls-toggle"
-              disabled={!ready}
-              aria-expanded={manualControls}
-              aria-controls="movement-controls"
-              onClick={() => {
-                stop();
-                setManualControls((value) => !value);
-                setOverview(manualControls);
-              }}
-            >
-              {manualControls ? "Hide controls" : "Walk controls"}
-            </button>
-            <div
-              class="d-pad"
-              id="movement-controls"
-              aria-label="Movement controls"
-            >
-              {(["up", "left", "down", "right"] as const).map((dir, i) => (
-                <button
-                  disabled={!ready}
-                  class={`pad-${dir}`}
-                  aria-label={`Move ${dir}`}
-                  onClick={(e) => {
-                    if (e.detail === 0) {
-                      stepDirection(dir);
-                      setOverview(false);
-                    }
-                  }}
-                  onPointerDown={(e) => {
-                    e.preventDefault();
-                    e.currentTarget.setPointerCapture(e.pointerId);
-                    stop();
-                    setOverview(false);
-                    keys.current.add(`arrow${dir}`);
-                    wake();
-                    world.current?.focus({ preventScroll: true });
-                  }}
-                  onPointerUp={() => keys.current.clear()}
-                  onPointerCancel={() => keys.current.clear()}
-                  onLostPointerCapture={() => keys.current.clear()}
-                >
-                  {["↑", "←", "↓", "→"][i]}
-                </button>
-              ))}
-            </div>
-            <button
-              class="interaction-button"
-              disabled={!ready || !near}
-              onClick={() => near && act(near.action)}
-            >
-              {near
-                ? near.action.kind === "enter"
-                  ? `Enter ${near.name}`
-                  : near.name
-                : "Walk up to a door or object"}
-              <span>↵</span>
-            </button>
-          </div>
+          <TownControls
+            ready={ready}
+            scene={scene}
+            walkTarget={!!walkTarget}
+            visited={visited}
+            logOpen={logOpen}
+            manualControls={manualControls}
+            near={near}
+            onCancelWalk={stop}
+            onToggleLog={() => setLogOpen((value) => !value)}
+            onToggleManualControls={() => {
+              stop();
+              setManualControls((value) => !value);
+              setOverview(manualControls);
+            }}
+            onStep={(direction) => {
+              stepDirection(direction);
+              setOverview(false);
+            }}
+            onStartWalking={(direction) => {
+              stop();
+              setOverview(false);
+              keys.current.add(`arrow${direction}`);
+              wake();
+              world.current?.focus({ preventScroll: true });
+            }}
+            onStopWalking={() => keys.current.clear()}
+            onInteract={() => near && act(near.action)}
+          />
           {scene !== "town" && scene !== "station" && (
             <RoomNote place={scene} />
           )}
@@ -552,41 +340,11 @@ export default function WinterTown() {
             />
           )}
           {logOpen && (
-            <section
-              class="travel-log"
-              id="travel-log"
-              aria-labelledby="travel-log-title"
-            >
-              <div class="log-heading">
-                <h3 id="travel-log-title">Travel log</h3>
-                <button onClick={resetExploration} disabled={!visited.length}>
-                  Reset exploration
-                </button>
-              </div>
-              <ol aria-label="Explored places">
-                {places.map((p) => (
-                  <li
-                    key={p.id}
-                    class={visited.includes(p.id) ? "is-visited" : ""}
-                  >
-                    <span class={`log-stamp stamp-${p.id}`} aria-hidden="true">
-                      {visited.includes(p.id) ? "✓" : "·"}
-                    </span>
-                    <span>
-                      {p.name}
-                      <small>
-                        {visited.includes(p.id) ? "Visited" : "Not visited"}
-                      </small>
-                    </span>
-                  </li>
-                ))}
-              </ol>
-              <p>
-                {storageAvailable
-                  ? "Saved on this device."
-                  : "Progress lasts for this visit."}
-              </p>
-            </section>
+            <TravelLog
+              visited={visited}
+              storageAvailable={storageAvailable}
+              onReset={resetExploration}
+            />
           )}
           {notice && (
             <p class="route-notice" role="status">
@@ -610,58 +368,16 @@ export default function WinterTown() {
           ))}
         </nav>
       </main>
-      <dialog
-        ref={dialog}
-        class="place-dialog"
-        aria-labelledby="place-title"
-        onCancel={(e) => {
-          e.preventDefault();
-          closeContent();
-        }}
-        onClick={(e) => {
-          if (e.target === dialog.current) closeContent();
-        }}
-      >
-        <div class="dialog-body">
-          <header class="dialog-header">
-            <div>
-              <p class="eyebrow">
-                {places.find((p) => p.id === content?.place)?.content}
-              </p>
-              <h2 id="place-title" tabIndex={-1}>
-                {content?.place === "profile"
-                  ? "Trainer card"
-                  : places.find((p) => p.id === content?.place)?.name}
-              </h2>
-            </div>
-            <button onClick={closeContent} aria-label="Close details">
-              ✕
-            </button>
-          </header>
-          {content?.place === "profile" ? (
-            <TrainerCard onNavigate={selectContent} />
-          ) : (
-            content && (
-              <PlaceContent
-                key={content.place}
-                place={content.place}
-                initialProject={content.project}
-                onProjectChange={(project) =>
-                  selectContent({ place: "workshop", project })
-                }
-              />
-            )
-          )}
-          <div class="share-content">
-            <button onClick={copyLink}>Copy link</button>
-            <a href={permalink}>Permalink ↗</a>
-            <span role="status">{copyState}</span>
-          </div>
-          <button class="back-to-town" onClick={closeContent}>
-            ← Back to {scene === "town" ? "town" : "room"}
-          </button>
-        </div>
-      </dialog>
+      <ContentDialog
+        dialogRef={dialog}
+        content={content}
+        scene={scene}
+        copyState={copyState}
+        permalink={permalink}
+        onClose={closeContent}
+        onSelect={selectContent}
+        onCopy={copyLink}
+      />
     </div>
   );
 }
