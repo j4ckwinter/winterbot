@@ -21,16 +21,14 @@
   margin: 10px 0;
 }
 .place-content h4 {
-  font:
-    600 12px "JetBrains Mono",
-    monospace;
+  font: 600 14px/1.5 var(--font-ui);
   margin: 8px 0;
   color: #76553f;
 }
 .place-eyebrow {
   display: block;
-  font-size: 10px;
-  letter-spacing: 1.4px;
+  font-size: 11px;
+  letter-spacing: 0.04em;
   color: #776a53;
   margin-top: 22px;
 }
@@ -428,7 +426,7 @@
   min-height: 44px;
   padding: 10px 16px;
   border: 1px solid var(--border-soft);
-  border-radius: 8px;
+  border-radius: var(--radius-control);
   background: var(--surface-muted);
   font-size: 14px;
 }

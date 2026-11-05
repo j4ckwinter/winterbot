@@ -12,10 +12,9 @@
 }
 .scene-arrival span {
   padding: 12px 20px;
-  border-block: 2px solid #c4b37c;
-  font:
-    22px DotGothic16,
-    monospace;
+  border-radius: var(--radius-control);
+  background: #354b3d;
+  font: 600 22px var(--font-ui);
 }
 @keyframes room-arrival {
   from {

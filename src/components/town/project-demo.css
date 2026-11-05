@@ -84,7 +84,7 @@
 }
 .project-demo button {
   font-family: var(--font-ui);
-  border-radius: 7px;
+  border-radius: var(--radius-control);
   border: 1px solid #919d7c;
   background: #faf7e9;
   padding: 8px 12px;

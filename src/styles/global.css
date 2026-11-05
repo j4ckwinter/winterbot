@@ -1,5 +1,7 @@
 @import "tailwindcss";
 :root {
+  --radius-control: 8px;
+  --radius-panel: 14px;
   --font-ui: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --surface: #fffefa;
   --surface-muted: #f0f2eb;
