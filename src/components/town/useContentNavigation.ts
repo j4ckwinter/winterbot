@@ -58,10 +58,14 @@ export function useContentNavigation(
   }, []);
 
   useLayoutEffect(() => {
-    if (content && !dialog.current?.open) dialog.current?.showModal();
-    else if (!content && dialog.current?.open) dialog.current.close();
-    else if (content && previousPlace.current !== content.place)
-      dialog.current?.querySelector<HTMLHeadingElement>("h2")?.focus();
+    if (content) {
+      const opening = !dialog.current?.open;
+      if (opening) dialog.current?.showModal();
+      if (opening || previousPlace.current !== content.place)
+        dialog.current
+          ?.querySelector<HTMLHeadingElement>("h2")
+          ?.focus({ preventScroll: true });
+    } else if (dialog.current?.open) dialog.current.close();
     previousPlace.current = content?.place ?? null;
   }, [content]);
 
