@@ -343,7 +343,10 @@ test("keyboard focus reveals map signs without scrolling the camera container", 
 test("ground taps walk, blocked taps explain, and travel can be cancelled", async ({
   page,
 }) => {
-  await page.addInitScript(() => {
+  await installMovementClock(page);
+  await page.goto("/");
+  await pauseMovementClock(page);
+  await page.evaluate(() => {
     const original = window.requestAnimationFrame.bind(window);
     let first = true;
     window.requestAnimationFrame = (callback) =>
@@ -358,7 +361,6 @@ test("ground taps walk, blocked taps explain, and travel can be cancelled", asyn
         callback(inject ? performance.now() - 100 : time);
       });
   });
-  await page.goto("/");
   const map = page.getByRole("button", { name: "Map", exact: true });
   await map.click();
   const tap = async (x: number, y: number) => {
@@ -370,9 +372,18 @@ test("ground taps walk, blocked taps explain, and travel can be cancelled", asyn
   };
   await tap(600, 390);
   await expect(page.getByRole("button", { name: "Cancel walk" })).toBeVisible();
-  await expect(page.locator(".player")).toHaveCSS("left", "600px", {
-    timeout: 5000,
-  });
+  await expect
+    .poll(
+      async () => {
+        await page.clock.runFor(500);
+        return page.locator(".player").evaluate((el) => ({
+          x: parseFloat((el as HTMLElement).style.left),
+          y: parseFloat((el as HTMLElement).style.top),
+        }));
+      },
+      { timeout: 15000 },
+    )
+    .toEqual({ x: 600, y: 390 });
   await expect(page.locator(".walk-route")).toHaveCount(0);
   expect(
     await page.evaluate(
@@ -386,14 +397,10 @@ test("ground taps walk, blocked taps explain, and travel can be cancelled", asyn
   await tap(480, 100);
   await page.getByRole("button", { name: "Cancel walk" }).click();
   const stopped = await page.locator(".player").getAttribute("style");
-  await page.waitForTimeout(200);
+  await page.clock.runFor(200);
   await expect(page.locator(".player")).toHaveAttribute("style", stopped!);
   await tap(210, 220);
-  await expect(page.locator(".scene-layer")).toHaveAttribute(
-    "data-scene",
-    "workshop",
-    { timeout: 10000 },
-  );
+  await advanceToScene(page, "workshop");
 });
 
 test("held movement keys combine and release independently", async ({
