@@ -73,6 +73,7 @@ export default function WinterTown() {
   };
   const [logOpen, setLogOpen] = useState(false);
   const [overview, setOverview] = useState(false);
+  const [manualControls, setManualControls] = useState(false);
   const [reduced, setReduced] = useState(false);
   const [notice, setNotice] = useState("");
   const [tap, setTap] = useState<(Point & { id: number }) | null>(null);
@@ -131,7 +132,7 @@ export default function WinterTown() {
     setScene(next);
     setPosition(point);
     setDirection(next === "town" ? "down" : "up");
-    setOverview(false);
+    setOverview(size.width <= 760 && !manualControls);
     setNotice("");
     if (next !== "town") markVisited(next);
     world.current?.focus({ preventScroll: true });
@@ -148,6 +149,7 @@ export default function WinterTown() {
   onArrival.current = act;
   useEffect(() => {
     setReady(true);
+    if (window.matchMedia("(max-width: 760px)").matches) setOverview(true);
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
     const update = () => setReduced(media.matches);
     update();
@@ -248,7 +250,9 @@ export default function WinterTown() {
       </header>
       <main id="main">
         <section class="world-shell" aria-label="Explore Winter Town">
-          <div class="world-toolbar">
+          <div
+            class={`world-toolbar ${scene !== "town" ? "room-toolbar" : ""}`}
+          >
             <div class="scene-heading">
               <button
                 class="trainer-button"
@@ -356,6 +360,8 @@ export default function WinterTown() {
               class="camera-layer"
               style={{
                 transform: `translate(${left}px, ${top}px) scale(${scale})`,
+                "--map-label-scale":
+                  size.width <= 760 && scale < 1 ? 1 / scale : 1,
               }}
             >
               <div class="scene-layer" key={scene} data-scene={scene}>
@@ -449,7 +455,11 @@ export default function WinterTown() {
             <span class="keyboard-help">
               ↑ ↓ ← → / WASD <span>move · Enter interact</span>
             </span>
-            <span class="touch-help">Tap to walk · signs to enter</span>
+            <span class="touch-help">
+              {scene === "town"
+                ? "Tap a building to visit"
+                : "Tap an exhibit to read"}
+            </span>
             {walkTarget ? (
               <button class="cancel-walk" onClick={stop}>
                 Cancel walk <span>Esc</span>
@@ -468,8 +478,27 @@ export default function WinterTown() {
               </button>
             )}
           </div>
-          <div class="play-controls">
-            <div class="d-pad" aria-label="Movement controls">
+          <div
+            class={`play-controls ${manualControls ? "controls-expanded" : ""}`}
+          >
+            <button
+              class="touch-controls-toggle"
+              disabled={!ready}
+              aria-expanded={manualControls}
+              aria-controls="movement-controls"
+              onClick={() => {
+                stop();
+                setManualControls((value) => !value);
+                setOverview(manualControls);
+              }}
+            >
+              {manualControls ? "Hide controls" : "Walk controls"}
+            </button>
+            <div
+              class="d-pad"
+              id="movement-controls"
+              aria-label="Movement controls"
+            >
               {(["up", "left", "down", "right"] as const).map((dir, i) => (
                 <button
                   disabled={!ready}

@@ -235,6 +235,9 @@ test("mobile movement follows the player without shrinking the map", async ({
 }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/");
+  await page
+    .getByRole("button", { name: "Walk controls", exact: true })
+    .click();
   const camera = page.locator(".camera-layer");
   const before = await camera.getAttribute("style");
   const right = page.getByRole("button", { name: "Move right", exact: true });
@@ -282,6 +285,9 @@ test("keyboard focus reveals map signs without scrolling the camera container", 
       : "Shift+Tab";
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/");
+  await page
+    .getByRole("button", { name: "Walk controls", exact: true })
+    .click();
   await expect(
     page.getByRole("button", { name: "Move up", exact: true }),
   ).toBeEnabled();
@@ -318,6 +324,10 @@ test("keyboard focus reveals map signs without scrolling the camera container", 
   await page.waitForTimeout(1300);
   await page.keyboard.up("ArrowUp");
   await page.getByRole("button", { name: "Move up", exact: true }).focus();
+  await page.keyboard.press(backTab);
+  await expect(
+    page.getByRole("button", { name: "Hide controls", exact: true }),
+  ).toBeFocused();
   await page.keyboard.press(backTab);
   await expect(
     page.getByRole("button", { name: /^Travel log:/ }),

@@ -937,10 +937,6 @@
   }
 }
 @media (max-width: 760px) {
-  .is-overview .world {
-    height: auto;
-    aspect-ratio: 3 / 2;
-  }
   .is-overview .location-badge {
     display: none;
   }
@@ -948,7 +944,7 @@
     white-space: normal;
     line-height: 1.3;
   }
-  .scene-heading > button {
+  .scene-heading > button[aria-label="Leave room"] {
     margin-left: auto;
   }
   .world-menu > summary {
@@ -999,5 +995,74 @@
 @media (prefers-reduced-motion: reduce) {
   .tap-feedback circle {
     animation: none;
+  }
+}
+
+.touch-controls-toggle {
+  display: none;
+}
+@media (max-width: 760px) {
+  .is-overview .world {
+    height: clamp(220px, 62vw, 440px);
+  }
+  .town-label,
+  .room-label {
+    transform: translate(-50%, -50%) scale(var(--map-label-scale, 1));
+  }
+  .town-label > span {
+    font-size: 12px;
+  }
+  .touch-controls-toggle {
+    display: block;
+    min-height: 44px;
+    padding: 8px 12px;
+    border: 1px solid var(--border-soft);
+    border-radius: 8px;
+    background: var(--surface-muted);
+    font: 500 12px var(--font-ui);
+  }
+  .play-controls .d-pad {
+    display: none;
+  }
+  .controls-expanded {
+    flex-wrap: wrap;
+  }
+  .controls-expanded .touch-controls-toggle {
+    flex-basis: 100%;
+  }
+  .controls-expanded .d-pad {
+    display: grid;
+  }
+  .play-controls .interaction-button {
+    max-width: none;
+  }
+}
+
+.is-overview .camera-layer {
+  transition: none;
+}
+
+@media (max-width: 760px) {
+  .room-label {
+    width: clamp(72px, 22vw, 120px);
+    padding: 4px;
+  }
+  .room-label > span {
+    white-space: normal;
+    font-size: 11px;
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (max-width: 760px) {
+  .room-toolbar {
+    flex-wrap: wrap;
+    gap: 0;
+  }
+  .room-toolbar .scene-heading {
+    flex-basis: 100%;
+  }
+  .room-toolbar .toolbar-actions {
+    margin-left: auto;
   }
 }
