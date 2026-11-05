@@ -13,21 +13,51 @@
 .project-preview--pancakes {
   background: #f0e7d8;
 }
-.project-preview svg {
+.project-preview-image {
   display: block;
   width: 100%;
-  height: auto;
+  height: 220px;
+  object-fit: cover;
 }
-.project-preview text {
-  font: 12px var(--font-ui);
+.project-preview-example {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  min-height: 220px;
+  padding: 18px;
+  font-size: 12px;
+  line-height: 1.5;
 }
-.project-preview > span {
+.project-preview-example small {
+  font-size: 11px;
+  color: #526347;
+}
+.project-preview-example strong {
+  font-size: 15px;
+}
+.project-preview-example code {
+  font-size: 10px;
+  overflow-wrap: anywhere;
+}
+.preview-query {
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: #fffefa;
+}
+.preview-before {
+  color: #853e2a;
+}
+.preview-after {
+  color: #365b38;
+}
+.project-preview-action {
   display: flex;
   justify-content: space-between;
   padding: 10px 14px;
   font-size: 13px;
   background: #ffffff66;
 }
-.project-preview:hover > span {
+.project-preview:hover .project-preview-action {
   background: #ffffffaa;
 }
