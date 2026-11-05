@@ -2,6 +2,9 @@ export const profile = {
   role: "Senior Software Engineer, Frontend",
   location: "London",
   email: "jackwinter.10@outlook.com",
+  cvUrl: "/Jack-Winter-CV.pdf",
+  introduction:
+    "8+ years building fast, real-time products with React and TypeScript.",
   summary:
     "I’m a senior software engineer with 8+ years of experience building customer-facing products with React and TypeScript across sports betting, gaming, and fintech.",
   approach:

@@ -34,7 +34,7 @@
   font: 650 26px var(--font-ui);
 }
 .trainer-card p,
-.trainer-facts {
+.trainer-proof {
   font:
     15px/1.6 system-ui,
     sans-serif;
@@ -45,18 +45,30 @@
 .trainer-card .eyebrow {
   font: 600 11px/1.5 var(--font-ui);
 }
-.trainer-facts {
+.trainer-proof {
+  list-style: none;
   display: grid;
-  gap: 14px;
-  padding-block: 16px;
+  gap: 12px;
+  padding: 0;
   margin: 20px 0;
-  border-block: 1px solid var(--border-soft);
 }
-.trainer-facts dt {
-  font-weight: 600;
+.trainer-proof li {
+  padding: 12px 14px;
+  background: var(--surface-muted);
+  border-radius: 10px;
 }
-.trainer-facts dd {
-  margin: 2px 0 0;
+.trainer-proof strong,
+.trainer-proof span {
+  display: block;
+}
+.trainer-proof strong {
+  font-size: 14px;
+  font-weight: 650;
+}
+.trainer-proof span {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--text-muted);
 }
 .trainer-links {
   display: grid;

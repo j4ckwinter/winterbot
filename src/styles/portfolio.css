@@ -187,3 +187,14 @@
     height: 80px;
   }
 }
+
+.portfolio-intro-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 14px;
+  font-size: 14px;
+}
+.portfolio-intro-actions a {
+  padding-block: 6px;
+}

@@ -22,6 +22,12 @@ for (const width of [320, 1440]) {
     await expect(
       page.getByRole("link", { name: "Email Jack" }),
     ).toHaveAttribute("href", "mailto:jackwinter.10@outlook.com");
+    await expect(
+      page.getByRole("link", { name: "Download CV" }),
+    ).toHaveAttribute("href", "/Jack-Winter-CV.pdf");
+    await expect(
+      page.getByRole("list", { name: "Selected career results" }),
+    ).toContainText("performance testing");
     await expect(page.getByText("0 / 4 places explored")).toBeAttached();
     await page
       .getByRole("navigation", { name: "Trainer card sections" })

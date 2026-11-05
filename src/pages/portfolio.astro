@@ -38,6 +38,12 @@ import "../styles/portfolio.css";
           <p>
             {profile.role} · {profile.location}
           </p>
+          <div class="portfolio-intro-actions">
+            <a href={profile.cvUrl} download>
+              Download CV ↓
+            </a>
+            <a href={`mailto:${profile.email}`}>Email Jack ↗</a>
+          </div>
         </div>
       </div>
       <nav class="portfolio-nav" aria-label="Portfolio sections">

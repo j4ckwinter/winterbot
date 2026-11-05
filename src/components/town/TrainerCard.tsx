@@ -33,17 +33,28 @@ export default function TrainerCard({
           </p>
         </div>
       </div>
-      <p>{profile.summary}</p>
-      <dl class="trainer-facts">
-        <div>
-          <dt>Speciality</dt>
-          <dd>{profile.speciality}</dd>
-        </div>
-        <div>
-          <dt>Toolkit</dt>
-          <dd>{profile.toolkit}</dd>
-        </div>
-      </dl>
+      <p>{profile.introduction}</p>
+      <ul class="trainer-proof" aria-label="Selected career results">
+        <li>
+          <strong>
+            {ktoCaseStudy.metrics[0].value} faster first contentful paint
+          </strong>
+          <span>KTO · performance testing</span>
+        </li>
+        <li>
+          <strong>25% → 75% automated test coverage</strong>
+          <span>GeoGaming · frontend engineering</span>
+        </li>
+      </ul>
+      <div class="trainer-actions">
+        <a href={`mailto:${profile.email}`}>Email Jack ↗</a>
+        <a href={profile.cvUrl} download>
+          Download CV ↓
+        </a>
+      </div>
+      <p>
+        <a href={ktoCaseStudy.href}>Read the KTO case study ↗</a>
+      </p>
       <nav class="trainer-links" aria-label="Trainer card sections">
         <button onClick={() => onNavigate({ place: "workshop" })}>
           Projects ↗
@@ -56,11 +67,7 @@ export default function TrainerCard({
         </button>
         <button onClick={() => onNavigate({ place: "post" })}>Contact ↗</button>
       </nav>
-      <p>
-        <a href={ktoCaseStudy.href}>Read the KTO case study ↗</a>
-      </p>
       <div class="trainer-actions">
-        <a href={`mailto:${profile.email}`}>Email Jack ↗</a>
         <a href="/portfolio">Read the full portfolio ↗</a>
       </div>
     </section>
