@@ -1,4 +1,5 @@
 export const profile = {
+  headline: "Senior Software Engineer · React, TypeScript & NodeJS",
   role: "Senior Software Engineer, Frontend",
   location: "London",
   email: "jackwinter.10@outlook.com",

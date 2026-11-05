@@ -198,9 +198,7 @@ export default function WinterTown() {
           <h1>
             Jack Winter<span class="identity-dot">.</span>
           </h1>
-          <span class="identity-role">
-            Software Engineer · {profile.location}
-          </span>
+          <span class="identity-role">{profile.headline}</span>
         </div>
         <div class="identity-links">
           <a href="/portfolio">Plain portfolio</a>
