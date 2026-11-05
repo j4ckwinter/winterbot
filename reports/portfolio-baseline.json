@@ -1,0 +1,94 @@
+{
+  "browser": "156.0.8078.80",
+  "viewport": "390x844",
+  "cpuSlowdown": 4,
+  "latencyMs": 150,
+  "downloadBytesPerSecond": 200000,
+  "cache": "disabled; fresh browser context each run",
+  "observation": "LCP candidate observed 3 seconds after load; no interactions. Resource transfer excludes document and may omit cross-origin sizes without timing permission. Local production server; not field data or Lighthouse.",
+  "results": [
+    {
+      "path": "/",
+      "run": 1,
+      "fcpMs": 756,
+      "observedLcpMs": 840,
+      "resourceTransferBytes": 129147,
+      "failedRequests": []
+    },
+    {
+      "path": "/",
+      "run": 2,
+      "fcpMs": 780,
+      "observedLcpMs": 892,
+      "resourceTransferBytes": 129147,
+      "failedRequests": []
+    },
+    {
+      "path": "/",
+      "run": 3,
+      "fcpMs": 764,
+      "observedLcpMs": 832,
+      "resourceTransferBytes": 129147,
+      "failedRequests": []
+    },
+    {
+      "path": "/portfolio",
+      "run": 1,
+      "fcpMs": 848,
+      "observedLcpMs": 848,
+      "resourceTransferBytes": 169953,
+      "failedRequests": []
+    },
+    {
+      "path": "/portfolio",
+      "run": 2,
+      "fcpMs": 792,
+      "observedLcpMs": 792,
+      "resourceTransferBytes": 169953,
+      "failedRequests": []
+    },
+    {
+      "path": "/portfolio",
+      "run": 3,
+      "fcpMs": 788,
+      "observedLcpMs": 788,
+      "resourceTransferBytes": 169953,
+      "failedRequests": []
+    },
+    {
+      "path": "/work/kto",
+      "run": 1,
+      "fcpMs": 776,
+      "observedLcpMs": 776,
+      "resourceTransferBytes": 76672,
+      "failedRequests": []
+    },
+    {
+      "path": "/work/kto",
+      "run": 2,
+      "fcpMs": 800,
+      "observedLcpMs": 800,
+      "resourceTransferBytes": 76672,
+      "failedRequests": []
+    },
+    {
+      "path": "/work/kto",
+      "run": 3,
+      "fcpMs": 764,
+      "observedLcpMs": 764,
+      "resourceTransferBytes": 76672,
+      "failedRequests": []
+    }
+  ],
+  "date": "2026-11-05",
+  "measuredRevision": "1855ccf",
+  "accessibility": {
+    "method": "Independent Chromium keyboard walkthrough, accessibility-tree and DOM inspection; reduced-motion computed-style scan. No actual screen reader tested.",
+    "passed": [
+      "Trainer card and Projects dialogs focus headings and restore originating buttons on Escape",
+      "Named dialog, region, navigation and pressed-state semantics",
+      "Reduced motion disables CSS animations/transitions and autonomous cat movement"
+    ],
+    "fix": "Removed article-wide live region; only project heading announces project switches. Demo result statuses remain."
+  }
+}

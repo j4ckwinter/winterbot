@@ -92,8 +92,10 @@ function Workshop({
           </button>
         ))}
       </div>
-      <article id="project-detail" class="project-detail" aria-live="polite">
-        <h3>{project.name}</h3>
+      <article id="project-detail" class="project-detail">
+        <h3 aria-live="polite" aria-atomic="true">
+          {project.name}
+        </h3>
         <p>{project.description}</p>
         <button
           class="project-demo-jump"

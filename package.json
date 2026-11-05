@@ -18,7 +18,8 @@
     "test": "npm run test:unit && npm run test:browser",
     "test:unit": "playwright test --config playwright.unit.config.ts",
     "test:browser": "playwright test",
-    "social:render": "node scripts/render-social-cards.mjs"
+    "social:render": "node scripts/render-social-cards.mjs",
+    "audit:performance": "node scripts/measure-pages.mjs"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.12",

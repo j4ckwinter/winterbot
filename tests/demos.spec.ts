@@ -139,3 +139,18 @@ for (const [slug, name] of [
     await expect(page.locator(".project-summary")).toBeVisible();
   });
 }
+
+test("project changes announce the name without wrapping interactive demos in a live region", async ({
+  page,
+}) => {
+  await page.goto("/#projects/winterbot");
+  await page.getByRole("button", { name: /NO. 002 brain-cache/ }).click();
+  const heading = page.locator("#project-detail > h3");
+  await expect(heading).toHaveText("brain-cache");
+  await expect(heading).toHaveAttribute("aria-live", "polite");
+  expect(
+    await page
+      .getByRole("region", { name: "brain-cache demo", exact: true })
+      .evaluate((el) => el.closest("[aria-live]")),
+  ).toBeNull();
+});
