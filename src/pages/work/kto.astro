@@ -1,4 +1,5 @@
 ---
+import CaseFlow from "../../components/CaseFlow.astro";
 import Layout from "../../layouts/Layout.astro";
 import { profile } from "../../components/town/profile";
 import { ktoCaseStudy as study } from "../../data/ktoCaseStudy";
@@ -55,6 +56,21 @@ import "../../styles/case-study.css";
             progressively subscribing the markets. This reduced the work that
             had to finish before the first view could appear.
           </p>
+          <CaseFlow
+            title="Loading sequence"
+            steps={[
+              {
+                title: "Initial snapshot",
+                detail: "Fetch events, markets and current odds",
+              },
+              { title: "First view", detail: "Render the initial market data" },
+              {
+                title: "Live updates",
+                detail: "Set up and progressively subscribe",
+              },
+            ]}
+            caption="Before: live setup was part of the work preceding the first view. After: render the snapshot first. This shows ordering, not measured durations."
+          />
           <p>
             Alongside that, I split code, lazy-loaded non-critical services,
             removed unused translations and used lighter dependency builds.
@@ -121,6 +137,21 @@ import "../../styles/case-study.css";
             worker, with batched snapshots containing the fields each subscriber
             needed sent back to main-thread stores for React to consume.
           </p>
+          <CaseFlow
+            title="From live data to the interface"
+            steps={[
+              { title: "Live feed", detail: "Socket and subscription updates" },
+              {
+                title: "Web Worker",
+                detail: "Process data and batch subscriber snapshots",
+              },
+              {
+                title: "Stores → React",
+                detail: "Publish state and render on the main thread",
+              },
+            ]}
+            caption="Processing moves off the main thread; rendering stays on it. Batching trades fewer updates for some display latency."
+          />
           <p>
             Workers add messaging overhead and another lifecycle boundary;
             batching can add display latency. Rendering still happens on the
