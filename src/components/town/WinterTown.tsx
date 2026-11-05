@@ -13,7 +13,6 @@ import {
   destinationAt,
   landmarks,
   places,
-  trees,
   type Action,
   type Landmark,
   type Place,
@@ -397,24 +396,6 @@ export default function WinterTown() {
                   direction={direction}
                   walking={walking}
                 />
-                {scene === "town" && (
-                  <svg
-                    class="town-foreground"
-                    viewBox="0 0 960 640"
-                    aria-hidden="true"
-                  >
-                    {trees
-                      .filter(
-                        ([x, y]) =>
-                          position.y < y + 60 &&
-                          Math.abs(position.x - (x + 29)) < 55 &&
-                          Math.abs(position.y - (y + 30)) < 70,
-                      )
-                      .map(([x, y]) => (
-                        <use key={`${x}-${y}`} href="#town-tree" x={x} y={y} />
-                      ))}
-                  </svg>
-                )}
                 {scene !== "town" && (
                   <button
                     class="exit-door"

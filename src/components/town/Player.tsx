@@ -15,7 +15,11 @@ export default function Player({
   return (
     <div
       class={`player facing-${direction} ${walking ? "walking" : ""}`}
-      style={{ left: position.x, top: position.y }}
+      style={{
+        left: position.x,
+        top: position.y,
+        zIndex: Math.floor(position.y),
+      }}
       data-direction={direction}
       aria-hidden="true"
     >
