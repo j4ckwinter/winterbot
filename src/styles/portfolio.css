@@ -185,6 +185,11 @@
   padding-block: 6px;
 }
 
+.plain-portfolio .about-intro {
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+}
 .plain-portfolio #about .place-content {
   max-width: none;
 }
