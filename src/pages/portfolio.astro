@@ -24,12 +24,21 @@ import "../styles/portfolio.css";
     </header>
     <main id="main">
       <div class="portfolio-intro">
-        <h1>
-          Jack Winter<span>.</span>
-        </h1>
-        <p>
-          {profile.role} · {profile.location}
-        </p>
+        <img
+          src="/profile.jpeg"
+          width="319"
+          height="319"
+          alt="Pixel-art portrait of Jack Winter"
+          class="portfolio-portrait"
+        />
+        <div>
+          <h1>
+            Jack Winter<span>.</span>
+          </h1>
+          <p>
+            {profile.role} · {profile.location}
+          </p>
+        </div>
       </div>
       <nav class="portfolio-nav" aria-label="Portfolio sections">
         <a href="#about">About</a>

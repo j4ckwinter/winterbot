@@ -25,6 +25,9 @@
   text-underline-offset: 5px;
 }
 .portfolio-intro {
+  display: flex;
+  align-items: center;
+  gap: 24px;
   padding: 38px 0 24px;
 }
 .portfolio-intro h1 {
@@ -164,5 +167,23 @@
   .portfolio-project,
   .place-career > li {
     break-inside: avoid;
+  }
+}
+
+.portfolio-portrait {
+  width: 112px;
+  height: 112px;
+  flex-shrink: 0;
+  border-radius: 18px;
+}
+@media (max-width: 500px) {
+  .portfolio-intro {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .portfolio-portrait {
+    width: 80px;
+    height: 80px;
   }
 }
