@@ -11,6 +11,7 @@ export function useContentNavigation(
   const [copyState, setCopyState] = useState("");
   const previousFocus = useRef<HTMLElement | null>(null);
   const copyRequest = useRef(0);
+  const previousPlace = useRef<Content["place"] | null>(null);
   const callbacks = useRef({ stopMovement, onVisit });
   callbacks.current = { stopMovement, onVisit };
 
@@ -59,6 +60,9 @@ export function useContentNavigation(
   useLayoutEffect(() => {
     if (content && !dialog.current?.open) dialog.current?.showModal();
     else if (!content && dialog.current?.open) dialog.current.close();
+    else if (content && previousPlace.current !== content.place)
+      dialog.current?.querySelector<HTMLHeadingElement>("h2")?.focus();
+    previousPlace.current = content?.place ?? null;
   }, [content]);
 
   const copyLink = async () => {

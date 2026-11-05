@@ -4,6 +4,7 @@ import TownMap from "./TownMap";
 import InteriorMap from "./InteriorMap";
 import PlaceContent from "./PlaceContent";
 import Player from "./Player";
+import TrainerCard, { TrainerPortrait } from "./TrainerCard";
 import type { Content } from "./navigation";
 import { useContentNavigation } from "./useContentNavigation";
 import {
@@ -107,7 +108,7 @@ export default function WinterTown() {
     permalink,
   } = useContentNavigation(dialog, stop, (value) => {
     recordInspection(value);
-    markVisited(value.place);
+    if (value.place !== "profile") markVisited(value.place);
   });
   const changeScene = (next: Scene) => {
     stop();
@@ -234,6 +235,18 @@ export default function WinterTown() {
         <section class="world-shell" aria-label="Explore Winter Town">
           <div class="world-toolbar">
             <div class="scene-heading">
+              <button
+                class="trainer-button"
+                disabled={!ready}
+                aria-label="Open trainer card"
+                title="Jack’s trainer card"
+                onClick={(event) => {
+                  event.currentTarget.focus();
+                  openContent({ place: "profile" });
+                }}
+              >
+                <TrainerPortrait />
+              </button>
               <span class="status-dot" />
               <h2 aria-live="polite">{sceneName}</h2>
               {scene !== "town" && (
@@ -570,23 +583,29 @@ export default function WinterTown() {
               <p class="eyebrow">
                 {places.find((p) => p.id === content?.place)?.content}
               </p>
-              <h2 id="place-title">
-                {places.find((p) => p.id === content?.place)?.name}
+              <h2 id="place-title" tabIndex={-1}>
+                {content?.place === "profile"
+                  ? "Trainer card"
+                  : places.find((p) => p.id === content?.place)?.name}
               </h2>
             </div>
             <button onClick={closeContent} aria-label="Close details">
               ✕
             </button>
           </header>
-          {content && (
-            <PlaceContent
-              key={content.place}
-              place={content.place}
-              initialProject={content.project}
-              onProjectChange={(project) =>
-                selectContent({ place: "workshop", project })
-              }
-            />
+          {content?.place === "profile" ? (
+            <TrainerCard onNavigate={selectContent} />
+          ) : (
+            content && (
+              <PlaceContent
+                key={content.place}
+                place={content.place}
+                initialProject={content.project}
+                onProjectChange={(project) =>
+                  selectContent({ place: "workshop", project })
+                }
+              />
+            )
           )}
           <div class="share-content">
             <button onClick={copyLink}>Copy link</button>
