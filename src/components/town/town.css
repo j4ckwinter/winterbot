@@ -373,7 +373,6 @@
   border-radius: 9px;
   touch-action: none;
   font-size: 15px;
-  user-select: none;
 }
 .d-pad button:active {
   background: #b9c9a1;

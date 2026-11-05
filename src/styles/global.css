@@ -44,3 +44,10 @@ button {
 button:disabled {
   cursor: default;
 }
+
+.d-pad button,
+.lookout-pad button {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
