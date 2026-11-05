@@ -69,10 +69,11 @@
 }
 .portfolio-projects {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: 1fr;
   gap: 16px;
 }
 .portfolio-project {
+  max-width: 780px;
   padding: 22px 0;
   border-top: 2px solid #bec7af;
 }

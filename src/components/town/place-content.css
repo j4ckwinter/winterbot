@@ -390,3 +390,33 @@
     padding: 12px 0 0;
   }
 }
+
+.project-summary {
+  max-width: 68ch;
+  margin-bottom: 24px;
+}
+.project-summary dl {
+  margin: 0;
+  padding: 14px 18px;
+  border-left: 3px solid #8e9f78;
+  background: var(--surface-muted);
+  border-radius: 0 8px 8px 0;
+}
+.project-summary dt {
+  font: 650 12px var(--font-ui);
+  color: #536348;
+  margin-bottom: 4px;
+}
+.project-summary dd {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.project-summary dd + dt {
+  margin-top: 14px;
+}
+.project-summary a {
+  color: #85492e;
+  white-space: nowrap;
+  text-underline-offset: 3px;
+}

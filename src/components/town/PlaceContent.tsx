@@ -4,21 +4,17 @@ import ProjectDemo from "./ProjectDemo";
 import { projects } from "./projects";
 import { profile, skills, experience } from "./profile";
 
-export function ProjectStory({
+export function ProjectSummary({
   project,
 }: {
   project: (typeof projects)[number];
 }) {
   return (
-    <details class="project-story">
-      <summary>Behind the project</summary>
+    <div class="project-summary">
+      <p>{project.description}</p>
       <dl>
-        <dt>Problem</dt>
-        <dd>{project.story.problem}</dd>
-        <dt>Approach</dt>
+        <dt>My contribution</dt>
         <dd>{project.story.approach}</dd>
-        <dt>Tradeoff</dt>
-        <dd>{project.story.tradeoff}</dd>
         <dt>Evidence</dt>
         <dd>
           {project.story.evidence}{" "}
@@ -30,6 +26,24 @@ export function ProjectStory({
             Read more ↗
           </a>
         </dd>
+      </dl>
+    </div>
+  );
+}
+
+export function ProjectStory({
+  project,
+}: {
+  project: (typeof projects)[number];
+}) {
+  return (
+    <details class="project-story">
+      <summary>Behind the project</summary>
+      <dl>
+        <dt>Problem</dt>
+        <dd>{project.story.problem}</dd>
+        <dt>Tradeoff</dt>
+        <dd>{project.story.tradeoff}</dd>
       </dl>
     </details>
   );
@@ -74,8 +88,8 @@ function Workshop({
       </div>
       <article id="project-detail" class="project-detail" aria-live="polite">
         <h3>{project.name}</h3>
+        <ProjectSummary project={project} />
         <ProjectDemo key={selected} project={selected} />
-        <p>{project.description}</p>
         <ul class="place-tags" aria-label="Technologies">
           {project.tags.map((tag) => (
             <li key={tag}>{tag}</li>

@@ -9,7 +9,7 @@ export const projects = [
       problem:
         "Make a portfolio worth exploring while keeping projects and contact details easy to reach.",
       approach:
-        "A walkable Preact town inside an Astro site, with a static portfolio sharing the same content.",
+        "Built the town, movement and navigation in Preact, with an Astro portfolio sharing the same content.",
       tradeoff:
         "Exploration is optional: direct links and keyboard shortcuts reach every section.",
       evidence:
@@ -27,12 +27,12 @@ export const projects = [
     kind: "memory",
     number: "002",
     description:
-      "An MCP-first context engine I designed, built, and published to help AI coding agents retrieve relevant code without loading unrelated codebase context.",
+      "A local code retrieval engine that gives AI coding agents relevant source through MCP.",
     story: {
       problem:
         "Coding agents need relevant source without reading the whole repository for every question.",
       approach:
-        "Combine local embeddings and vector search with Ollama and LanceDB, using tree-sitter for AST-aware, multi-language code chunking. Published on npm with MCP integration.",
+        "Designed and published the npm package, combining Ollama embeddings, LanceDB search and tree-sitter code chunking.",
       tradeoff:
         "Local embeddings require Ollama. An existing index can fall back to keyword retrieval when it is unavailable.",
       evidence:
@@ -50,16 +50,16 @@ export const projects = [
     kind: "pancakes",
     number: "003",
     description:
-      "19 reusable skills I built and published for AI coding agents, covering investigation, implementation, review, and verification.",
+      "19 reusable skills for investigating, implementing, reviewing and verifying code with AI agents.",
     story: {
       problem:
         "Fast AI-generated changes can leave more cleanup than useful code.",
       approach:
-        "Shared workflows for scoped delegation, independent review, and evidence-based verification across Codex and Claude Code.",
+        "Created the skills and evaluation framework for Codex and Claude Code, including scoped delegation and independent review.",
       tradeoff:
         "The library stays declarative: hosts provide execution tools, and verification lives in a separate evaluator.",
       evidence:
-        "An evaluation framework with 86 automated checks integrated into CI. Workflow comparisons examine defect detection, false positives, unnecessary work, execution time, and token usage.",
+        "86 automated checks integrated into CI, with workflow comparisons for defect detection, false positives, execution time and token usage.",
       evidenceUrl: "https://github.com/j4ckwinter/pancake-stack",
     },
     tags: ["Codex", "Claude Code", "Agent Skills", "Python", "GitHub Actions"],
