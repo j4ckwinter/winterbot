@@ -435,6 +435,7 @@
 }
 
 .project-highlights {
+  list-style: disc;
   display: grid;
   gap: 12px;
   padding-left: 18px;

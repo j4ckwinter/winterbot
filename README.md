@@ -37,7 +37,9 @@ Browser tests run in Chromium, Firefox, and WebKit against a production build on
 
 GitHub Actions runs formatting, lint, type checks, unit tests, the production build, and all three browser projects on pushes and pull requests. Failed browser runs retain traces for seven days.
 
-The town and plain portfolio have separate page metadata and canonical URLs. Social previews use `public/social-card.png`; its editable artwork is `public/social-card.svg`.
+The town, plain portfolio and KTO case study have page-specific metadata and canonical URLs. Sharing cards are `public/portfolio-social.png` and `public/kto-social.png`. Regenerate them with `npm run social:render`; the template is `scripts/render-social-cards.mjs`. Set `PLAYWRIGHT_CHANNEL=chrome` to use installed Google Chrome instead of Playwright’s bundled Chromium.
+
+For a repeatable local performance sample, run a production build and preview on port 4325, then run `npm run audit:performance`. It measures three cold loads per page at a 390px viewport, with 4× CPU slowdown and network throttling. Results go to `/tmp/winter-performance.json`; `AUDIT_URL` and `AUDIT_OUTPUT` override the server and output path. The recorded baseline and its limits are in `reports/portfolio-baseline.json`. These local observations are not real-user metrics or Lighthouse scores.
 
 ## Files
 
