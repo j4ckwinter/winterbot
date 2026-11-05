@@ -111,11 +111,18 @@ function Workshop({
   );
 }
 
-export function Home() {
+export function About() {
   return (
     <>
       <p>{profile.summary}</p>
       <p>{profile.approach}</p>
+    </>
+  );
+}
+
+export function Skills() {
+  return (
+    <>
       <h3>Technical skills</h3>
       <div class="place-toolkit">
         {skills.map((group) => (
@@ -133,6 +140,15 @@ export function Home() {
         <br />
         Sep 2013 — Apr 2017
       </p>
+    </>
+  );
+}
+
+export function Home() {
+  return (
+    <>
+      <About />
+      <Skills />
     </>
   );
 }

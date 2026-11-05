@@ -2,7 +2,8 @@
 import { profile } from "../components/town/profile";
 import Layout from "../layouts/Layout.astro";
 import {
-  Home,
+  About,
+  Skills,
   Station,
   PostOffice,
   ProjectStory,
@@ -31,11 +32,18 @@ import "../styles/portfolio.css";
         </p>
       </div>
       <nav class="portfolio-nav" aria-label="Portfolio sections">
+        <a href="#about">About</a>
         <a href="#projects">Projects</a>
-        <a href="#about">About & skills</a>
         <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
         <a href="#contact">Contact</a>
       </nav>
+      <section id="about" aria-labelledby="about-title">
+        <h2 id="about-title">About</h2>
+        <div class="place-content">
+          <About />
+        </div>
+      </section>
       <section id="projects" aria-labelledby="projects-title">
         <h2 id="projects-title">Projects</h2>
         <div class="portfolio-projects">
@@ -71,16 +79,16 @@ import "../styles/portfolio.css";
           ))}
         </div>
       </section>
-      <section id="about" aria-labelledby="about-title">
-        <h2 id="about-title">About & skills</h2>
-        <div class="place-content">
-          <Home />
-        </div>
-      </section>
       <section id="experience" aria-labelledby="experience-title">
         <h2 id="experience-title">Experience</h2>
         <div class="place-content">
           <Station />
+        </div>
+      </section>
+      <section id="skills" aria-labelledby="skills-title">
+        <h2 id="skills-title">Skills & education</h2>
+        <div class="place-content">
+          <Skills />
         </div>
       </section>
       <section id="contact" aria-labelledby="contact-title">

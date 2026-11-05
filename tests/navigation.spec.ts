@@ -109,6 +109,22 @@ test.describe("without JavaScript", () => {
     await page.goto("/");
     await page.getByRole("link", { name: "Plain portfolio" }).click();
     await expect(page).toHaveURL(/\/portfolio\/?$/);
+    await expect(page.locator("main > section > h2")).toHaveText([
+      "About",
+      "Projects",
+      "Experience",
+      "Skills & education",
+      "Contact",
+    ]);
+    await expect(page.locator("#about")).toContainText("8+ years");
+    await expect(
+      page.locator("#about").getByRole("heading", { name: "Technical skills" }),
+    ).toHaveCount(0);
+    await expect(
+      page
+        .locator("#skills")
+        .getByRole("heading", { name: "Technical skills" }),
+    ).toBeVisible();
     await expect(
       page.getByRole("heading", { name: "brain-cache", exact: true }),
     ).toBeVisible();
