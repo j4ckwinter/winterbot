@@ -155,8 +155,8 @@ test("reduced motion skips automatic walking and scene animation", async ({
     .getByRole("button", { name: "Inspect Contact", exact: true })
     .click();
   await expect(
-    page.getByRole("link", { name: /jackwinter.10@gmail.com/ }),
-  ).toHaveAttribute("href", "mailto:jackwinter.10@gmail.com");
+    page.getByRole("link", { name: /jackwinter.10@outlook.com/ }),
+  ).toHaveAttribute("href", "mailto:jackwinter.10@outlook.com");
 });
 
 test("controls wait for scripts before accepting a visit", async ({ page }) => {

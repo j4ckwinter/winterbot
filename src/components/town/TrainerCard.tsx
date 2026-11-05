@@ -1,3 +1,4 @@
+import { profile } from "./profile";
 import type { Content } from "./navigation";
 import { characterPalette as ink } from "./characterPalette";
 import "./trainer-card.css";
@@ -34,23 +35,22 @@ export default function TrainerCard({
       <div class="trainer-identity">
         <TrainerPortrait />
         <div>
-          <p class="eyebrow">WINTER TOWN · TRAINER NO. 001</p>
+          <p class="eyebrow">WINTER TOWN</p>
           <h3>Jack Winter</h3>
-          <p>Senior software engineer · London</p>
+          <p>
+            {profile.role} · {profile.location}
+          </p>
         </div>
       </div>
-      <p>
-        I build frontend systems at KTO and tools for developers in my spare
-        time.
-      </p>
+      <p>{profile.summary}</p>
       <dl class="trainer-facts">
         <div>
           <dt>Speciality</dt>
-          <dd>Frontend architecture, performance, real-time interfaces</dd>
+          <dd>{profile.speciality}</dd>
         </div>
         <div>
           <dt>Toolkit</dt>
-          <dd>TypeScript · Angular · React · Node.js</dd>
+          <dd>{profile.toolkit}</dd>
         </div>
       </dl>
       <nav class="trainer-links" aria-label="Trainer card sections">
@@ -66,7 +66,7 @@ export default function TrainerCard({
         <button onClick={() => onNavigate({ place: "post" })}>Contact ↗</button>
       </nav>
       <div class="trainer-actions">
-        <a href="mailto:jackwinter.10@gmail.com">Email Jack ↗</a>
+        <a href={`mailto:${profile.email}`}>Email Jack ↗</a>
         <a href="/portfolio">Read the full portfolio ↗</a>
       </div>
     </section>

@@ -1,14 +1,13 @@
 .project-demo {
   margin-top: 24px;
   padding: 18px;
-  border: 1px solid #bdc2a6;
-  background: #eef0df;
+  border: 1px solid var(--border-soft);
+  border-radius: 12px;
+  background: var(--surface-muted);
   color: #354332;
 }
 .project-demo h4 {
-  font:
-    18px DotGothic16,
-    monospace;
+  font: 600 18px var(--font-ui);
   margin: 0 0 12px;
 }
 .project-demo p {
@@ -84,7 +83,8 @@
   margin: 12px 0;
 }
 .project-demo button {
-  font-family: "JetBrains Mono", monospace;
+  font-family: var(--font-ui);
+  border-radius: 7px;
   border: 1px solid #919d7c;
   background: #faf7e9;
   padding: 8px 12px;
@@ -239,6 +239,7 @@
   justify-content: space-between;
   gap: 12px;
   margin: -18px -18px 18px;
+  border-radius: 11px 11px 0 0;
   padding: 10px 14px;
   background: #3c4a3b;
   color: #f4edd5;
@@ -249,9 +250,9 @@
   overflow-wrap: anywhere;
 }
 .demo-console {
-  background: #dedcc3;
-  border-color: #8d9277;
-  box-shadow: 0 4px #8d9277;
+  background: var(--surface-muted);
+  border-color: var(--border-soft);
+  box-shadow: none;
 }
 .demo-console .demo-palette-scene {
   height: 170px;
@@ -313,9 +314,7 @@
   color: #76553b;
 }
 .demo-stage h5 {
-  font:
-    22px "DotGothic16",
-    monospace;
+  font: 600 22px var(--font-ui);
   margin: 6px 0;
 }
 .demo-stage p {
@@ -447,9 +446,7 @@
   margin-bottom: 22px;
 }
 .demo-frame-bug h5 {
-  font:
-    20px DotGothic16,
-    monospace;
+  font: 600 20px var(--font-ui);
   margin: 12px 0;
 }
 .demo-frame-bug dl {

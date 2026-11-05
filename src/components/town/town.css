@@ -18,18 +18,17 @@
   gap: 20px;
 }
 .identity-bar h1 {
-  font:
-    24px DotGothic16,
-    monospace;
+  font: 650 24px var(--font-ui);
   margin: 0;
+  letter-spacing: -0.8px;
   white-space: nowrap;
 }
 .identity-dot {
   color: var(--rust);
 }
 .identity-role {
-  font-size: 12px;
-  color: #757b69;
+  font-size: 13px;
+  color: var(--text-muted);
 }
 .identity-bar > a {
   font-size: 12px;
@@ -39,11 +38,11 @@
   white-space: nowrap;
 }
 .world-shell {
-  border: 1px solid #8d9b7e;
-  border-radius: 5px;
+  border: 1px solid var(--border-soft);
+  border-radius: 14px;
   overflow: hidden;
-  box-shadow: 0 5px 0 #dde1d2;
-  background: #eeefe4;
+  box-shadow: 0 8px 28px #2532240a;
+  background: var(--surface);
 }
 .world-toolbar {
   display: flex;
@@ -51,7 +50,7 @@
   align-items: center;
   min-height: 48px;
   padding: 4px 14px;
-  border-bottom: 1px solid #9caa89;
+  border-bottom: 1px solid var(--border-soft);
   gap: 12px;
 }
 .scene-heading {
@@ -61,9 +60,7 @@
   min-width: 0;
 }
 .scene-heading h2 {
-  font:
-    14px DotGothic16,
-    monospace;
+  font: 600 14px var(--font-ui);
   margin: 0;
   white-space: nowrap;
 }
@@ -75,12 +72,13 @@
   flex-shrink: 0;
 }
 .world-toolbar button {
-  border: 1px solid #c4ccb7;
+  border: 1px solid transparent;
   padding: 7px 10px;
   background: transparent;
-  font-size: 12px;
+  font-size: 13px;
   white-space: nowrap;
   min-height: 44px;
+  border-radius: 8px;
 }
 .world-toolbar button:hover {
   background: #e0e5d4;
@@ -103,10 +101,11 @@
   min-height: 44px;
   min-width: 64px;
   padding: 8px 10px;
-  border: 1px solid #bac5ad;
+  border: 1px solid transparent;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 13px;
   list-style: none;
+  border-radius: 8px;
 }
 .world-menu > summary::-webkit-details-marker {
   display: none;
@@ -129,12 +128,13 @@
   width: 252px;
   max-width: calc(100vw - 44px);
   padding: 8px;
+  border-radius: 12px;
   display: grid;
   grid-template-columns: 1fr;
   gap: 6px;
-  background: #f6f4e8;
-  border: 1px solid #9caa89;
-  box-shadow: 3px 4px #26322133;
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  box-shadow: 0 8px 24px #2632211a;
 }
 .world-menu .view-options button {
   width: 100%;
@@ -364,7 +364,7 @@
   background: #e0e5d5;
   border: 1px solid #aab69b;
   border-bottom-width: 3px;
-  border-radius: 3px;
+  border-radius: 9px;
   touch-action: none;
   font-size: 15px;
   user-select: none;
@@ -378,12 +378,13 @@
   justify-content: space-between;
   gap: 20px;
   align-items: center;
-  border: 1px solid #b0baa1;
+  border: 1px solid var(--border-soft);
   background: #f7f5e9;
   padding: 10px 14px;
   min-width: 215px;
   min-height: 44px;
-  font-size: 12px;
+  border-radius: 9px;
+  font-size: 13px;
 }
 .interaction-button span {
   color: #9e4f38;
@@ -400,12 +401,14 @@
 }
 .quick-nav button {
   min-height: 44px;
-  border: 1px solid #cbd0bf;
-  background: transparent;
-  font-size: 12px;
+  border: 1px solid var(--border-soft);
+  background: var(--surface);
+  font-size: 14px;
   padding: 12px 16px;
   flex: 1;
   text-align: left;
+  border-radius: 10px;
+  font-weight: 500;
 }
 .quick-nav button span {
   float: right;
@@ -423,18 +426,18 @@
 }
 .place-dialog {
   margin: auto;
-  border: 1px solid #697455;
-  background: #f6f1df;
+  border: 1px solid var(--border-soft);
+  background: var(--surface);
   color: #30372e;
   padding: 0;
   width: min(780px, calc(100% - 32px));
   max-height: 88dvh;
-  border-radius: 4px;
-  box-shadow: 8px 8px #26322155;
+  border-radius: 18px;
+  box-shadow: 0 24px 80px #17251f40;
 }
 .place-dialog::backdrop {
-  background: #253224b5;
-  backdrop-filter: blur(4px);
+  background: #17251f80;
+  backdrop-filter: blur(8px);
 }
 .dialog-body {
   padding: 28px;
@@ -444,7 +447,7 @@
   justify-content: space-between;
   gap: 20px;
   align-items: flex-start;
-  border-bottom: 1px solid #c7c8af;
+  border-bottom: 1px solid var(--border-soft);
   padding-bottom: 22px;
   margin-bottom: 24px;
 }
@@ -455,26 +458,27 @@
   color: #8e4935;
 }
 .dialog-header h2 {
-  font:
-    28px DotGothic16,
-    monospace;
+  font: 650 28px var(--font-ui);
   margin: 0;
+  letter-spacing: -0.6px;
 }
 .dialog-header button {
   min-width: 44px;
   min-height: 44px;
-  border: 1px solid #bac0a8;
-  background: #eeecd9;
+  border: 1px solid transparent;
+  background: var(--surface-muted);
   padding: 10px 14px;
   font-size: 16px;
+  border-radius: 50%;
 }
 .back-to-town {
   min-height: 44px;
+  border-radius: 8px;
   margin-top: 24px;
   padding: 12px 18px;
-  border: 1px solid #8a9676;
-  background: #e8e9d4;
-  font-size: 12px;
+  border: 1px solid var(--border-soft);
+  background: var(--surface-muted);
+  font-size: 13px;
 }
 @keyframes arrive {
   from {
@@ -773,8 +777,9 @@
 .share-content button {
   padding: 8px 12px;
   min-height: 44px;
-  border: 1px solid #b0baa1;
-  background: #e8e9d4;
+  border-radius: 8px;
+  border: 1px solid var(--border-soft);
+  background: var(--surface-muted);
 }
 .share-content span {
   font-size: 12px;

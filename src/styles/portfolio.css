@@ -31,9 +31,7 @@
   padding: 38px 0 24px;
 }
 .portfolio-intro h1 {
-  font:
-    38px "DotGothic16",
-    monospace;
+  font: 650 38px var(--font-ui);
   margin: 0 0 12px;
 }
 .portfolio-intro h1 span {
@@ -66,9 +64,7 @@
   border-top: 1px solid #cbd1bf;
 }
 .plain-portfolio h2 {
-  font:
-    27px "DotGothic16",
-    monospace;
+  font: 650 27px var(--font-ui);
   margin: 0 0 22px;
 }
 .portfolio-projects {
@@ -81,9 +77,7 @@
   border-top: 2px solid #bec7af;
 }
 .portfolio-project h3 {
-  font:
-    20px "DotGothic16",
-    monospace;
+  font: 650 20px var(--font-ui);
   margin: 0 0 12px;
 }
 .portfolio-project p {

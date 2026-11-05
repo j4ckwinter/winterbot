@@ -27,19 +27,19 @@ export const projects = [
     kind: "memory",
     number: "002",
     description:
-      "A local context engine for Claude Code. Retrieves function-sized source chunks through MCP, with local embeddings and exact symbol matching.",
+      "An MCP-first context engine I designed, built, and published to help AI coding agents retrieve relevant code without loading unrelated codebase context.",
     story: {
       problem:
         "Coding agents need relevant source without reading the whole repository for every question.",
       approach:
-        "Parse code at function and class boundaries, then combine local semantic retrieval with exact symbol matches.",
+        "Combine local embeddings and vector search with Ollama and LanceDB, using tree-sitter for AST-aware, multi-language code chunking. Published on npm with MCP integration.",
       tradeoff:
         "Local embeddings require Ollama. An existing index can fall back to keyword retrieval when it is unavailable.",
       evidence:
-        "The repository documents retrieval limits, supported languages, and fallback behaviour.",
+        "Reduced retrieved context from approximately 18,600 to 1,200 tokens in a representative example by selecting and assembling relevant code.",
       evidenceUrl: "https://github.com/j4ckwinter/brain-cache#how-it-works",
     },
-    tags: ["Node.js", "TypeScript", "LanceDB", "Ollama"],
+    tags: ["TypeScript", "Node.js", "MCP", "LanceDB", "Ollama", "tree-sitter"],
     github: "https://github.com/j4ckwinter/brain-cache",
     live: "https://www.npmjs.com/package/brain-cache",
     action: "View package",
@@ -50,20 +50,19 @@ export const projects = [
     kind: "pancakes",
     number: "003",
     description:
-      "The skills I use with Codex and Claude to investigate, build, and review code.",
+      "19 reusable skills I built and published for AI coding agents, covering investigation, implementation, review, and verification.",
     story: {
       problem:
         "Fast AI-generated changes can leave more cleanup than useful code.",
       approach:
-        "Reusable skills guide investigation, implementation, and review in Codex and Claude Code.",
+        "Shared workflows for scoped delegation, independent review, and evidence-based verification across Codex and Claude Code.",
       tradeoff:
         "The library stays declarative: hosts provide execution tools, and verification lives in a separate evaluator.",
       evidence:
-        "Installation records distinguish tested CLI discovery from host behaviours still awaiting verification.",
-      evidenceUrl:
-        "https://github.com/j4ckwinter/pancake-stack/blob/main/docs/installation-verification.md",
+        "An evaluation framework with 86 automated checks integrated into CI. Workflow comparisons examine defect detection, false positives, unnecessary work, execution time, and token usage.",
+      evidenceUrl: "https://github.com/j4ckwinter/pancake-stack",
     },
-    tags: ["Codex", "Claude", "Agent Skills"],
+    tags: ["Codex", "Claude Code", "Agent Skills", "Python", "GitHub Actions"],
     github: "https://github.com/j4ckwinter/pancake-stack",
     live: "",
     action: "",

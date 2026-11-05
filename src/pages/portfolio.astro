@@ -1,4 +1,5 @@
 ---
+import { profile } from "../components/town/profile";
 import Layout from "../layouts/Layout.astro";
 import {
   Home,
@@ -12,19 +13,21 @@ import "../styles/portfolio.css";
 
 <Layout
   title="Jack Winter — Projects & Experience"
-  description="Jack Winter, senior software engineer in London. Selected projects, technical experience, and contact details."
+  description={profile.description}
 >
   <div class="plain-portfolio">
     <header class="portfolio-header">
       <a href="/">← Explore the town</a>
-      <a href="mailto:jackwinter.10@gmail.com">Get in touch ↗</a>
+      <a href={`mailto:${profile.email}`}>Get in touch ↗</a>
     </header>
     <main id="main">
       <div class="portfolio-intro">
         <h1>
           Jack Winter<span>.</span>
         </h1>
-        <p>Senior software engineer · London</p>
+        <p>
+          {profile.role} · {profile.location}
+        </p>
       </div>
       <nav class="portfolio-nav" aria-label="Portfolio sections">
         <a href="#projects">Projects</a>

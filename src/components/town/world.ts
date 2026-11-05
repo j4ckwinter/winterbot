@@ -2,6 +2,7 @@ export type Place = "workshop" | "home" | "station" | "post";
 export type Scene = "town" | Place;
 export type Point = { x: number; y: number };
 export const TOWN_START: Point = { x: 210, y: 330 };
+export const TOWN_SIGNPOST: Point = { x: 435, y: 490 };
 export type Direction = "up" | "down" | "left" | "right";
 export type Action =
   | { kind: "enter"; place: Place }
@@ -142,7 +143,12 @@ const townObstacles = [
   [312, 292, 407, 352],
   ...fences.map(([x, y]) => [x - 4, y, x + 68, y + 38]),
   ...trees.map(([x, y]) => [x + 6, y + 25, x + 52, y + 65]),
-  [522, 324, 550, 363],
+  [
+    TOWN_SIGNPOST.x - 14,
+    TOWN_SIGNPOST.y - 39,
+    TOWN_SIGNPOST.x + 14,
+    TOWN_SIGNPOST.y,
+  ],
   [72, 428, 122, 479],
 ];
 export function canWalk(scene: Scene, x: number, y: number) {

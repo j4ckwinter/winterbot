@@ -5,6 +5,7 @@ import InteriorMap from "./InteriorMap";
 import PlaceContent from "./PlaceContent";
 import Player from "./Player";
 import TrainerCard, { TrainerPortrait } from "./TrainerCard";
+import { profile } from "./profile";
 import type { Content } from "./navigation";
 import { useContentNavigation } from "./useContentNavigation";
 import {
@@ -226,11 +227,13 @@ export default function WinterTown() {
           <h1>
             Jack Winter<span class="identity-dot">.</span>
           </h1>
-          <span class="identity-role">Software engineer · London</span>
+          <span class="identity-role">
+            Frontend engineer · {profile.location}
+          </span>
         </div>
         <div class="identity-links">
           <a href="/portfolio">Plain portfolio</a>
-          <a href="mailto:jackwinter.10@gmail.com">Get in touch ↗</a>
+          <a href={`mailto:${profile.email}`}>Get in touch ↗</a>
         </div>
       </header>
       <main id="main">

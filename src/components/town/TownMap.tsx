@@ -1,5 +1,5 @@
 import { useTownCat } from "./useTownCat";
-import { trees, fences, type Point } from "./world";
+import { trees, fences, TOWN_SIGNPOST, type Point } from "./world";
 
 export default function TownMap({ player }: { player?: Point }) {
   const cat = useTownCat();
@@ -364,6 +364,11 @@ export default function TownMap({ player }: { player?: Point }) {
         <rect x="72" y="428" width="50" height="25" fill="#9b8153" />
         <rect x="76" y="432" width="42" height="17" fill="#e5d2a0" />
         <path d="M84 439h26v3H84z" fill="#86744e" />
+      </g>
+      <g
+        data-town-signpost="true"
+        transform={`translate(${TOWN_SIGNPOST.x - 535} ${TOWN_SIGNPOST.y - 363})`}
+      >
         <rect x="532" y="314" width="6" height="49" fill="#7c6746" />
         {[
           { label: "Projects", y: 291, left: true },

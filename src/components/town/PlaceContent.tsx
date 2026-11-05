@@ -2,6 +2,7 @@ import "./place-content.css";
 import ProjectDemo from "./ProjectDemo";
 
 import { projects } from "./projects";
+import { profile, skills, experience } from "./profile";
 
 export function ProjectStory({
   project,
@@ -99,34 +100,25 @@ function Workshop({
 export function Home() {
   return (
     <>
-      <p>
-        I build frontend systems with Angular, React, and TypeScript. At KTO, I
-        work on sportsbook architecture, performance, and real-time data. My
-        side projects focus on tools for coding agents.
-      </p>
-      <h3>Tools</h3>
+      <p>{profile.summary}</p>
+      <p>{profile.approach}</p>
+      <h3>Technical skills</h3>
       <div class="place-toolkit">
-        <div>
-          <h4>Interfaces</h4>
-          <p>
-            TypeScript · JavaScript · React · Angular · Astro · Tailwind · CSS ·
-            HTML
-          </p>
-        </div>
-        <div>
-          <h4>Backend</h4>
-          <p>
-            Node.js · Fastify · Express.js · Go · Java · Spring · PostgreSQL
-          </p>
-        </div>
-        <div>
-          <h4>Development & testing</h4>
-          <p>
-            Git · Docker · AWS · Vite · Storybook · Cypress · Playwright · Linux
-            · Figma
-          </p>
-        </div>
+        {skills.map((group) => (
+          <div key={group.name}>
+            <h4>{group.name}</h4>
+            <p>{group.tools}</p>
+          </div>
+        ))}
       </div>
+      <h3>Education</h3>
+      <p>
+        <strong>BSc Computer Science · 2:1</strong>
+        <br />
+        University of the West of England
+        <br />
+        Sep 2013 — Apr 2017
+      </p>
     </>
   );
 }
@@ -139,65 +131,21 @@ export function Station() {
         <small>2017 → PRESENT</small>
       </div>
       <ol class="place-career">
-        <li>
-          <span class="place-eyebrow">2025 — PRESENT</span>
-          <h3>KTO</h3>
-          <h4>Senior Frontend Developer</h4>
-          <p>
-            Led the move from a hosted sportsbook to a custom frontend, owning
-            architecture and core customer journeys in a business serving 1.4M
-            active users.
-          </p>
-          <ul>
-            <li>
-              Delivered 40% faster FCP, 25% faster LCP, and 11× faster return
-              navigation in performance testing.
-            </li>
-            <li>
-              Designed a modular architecture spanning 27 packages and 22
-              modules.
-            </li>
-            <li>
-              Moved high-frequency event and odds processing off the main thread
-              with Web Workers.
-            </li>
-          </ul>
-        </li>
-        <li>
-          <span class="place-eyebrow">2023 — 2025</span>
-          <h3>GeoGaming Group</h3>
-          <h4>Senior Angular Developer</h4>
-          <p>
-            Modernised frontend architecture and built real-time interfaces with
-            RxJS and WebSockets.
-          </p>
-          <ul>
-            <li>Reduced load times by 30%.</li>
-            <li>
-              Raised unit test coverage from 25% to 75% using Jest and Cypress.
-            </li>
-            <li>Mentored junior developers and reviewed code.</li>
-          </ul>
-        </li>
-        <li>
-          <span class="place-eyebrow">2017 — 2022</span>
-          <h3>Smartstream Technologies</h3>
-          <h4>Senior Software Engineer</h4>
-          <p>
-            Led a new Angular frontend replacing a legacy system, enabling two
-            high-profile deals.
-          </p>
-          <ul>
-            <li>Built internal tools with React and Node.js.</li>
-            <li>
-              Prototyped a machine learning model for transaction forecasting.
-            </li>
-            <li>
-              Supported production systems and interviewed engineers across
-              seniority levels.
-            </li>
-          </ul>
-        </li>
+        {experience.map((job) => (
+          <li key={job.company}>
+            <span class="place-eyebrow">
+              {job.dates} · {job.location}
+            </span>
+            <h3>{job.company}</h3>
+            <h4>{job.role}</h4>
+            <p>{job.context}</p>
+            <ul>
+              {job.highlights.map((highlight) => (
+                <li key={highlight}>{highlight}</li>
+              ))}
+            </ul>
+          </li>
+        ))}
       </ol>
     </>
   );
@@ -212,9 +160,9 @@ export function PostOffice() {
         </div>
       </div>
       <div class="place-contact">
-        <a href="mailto:jackwinter.10@gmail.com">
+        <a href={`mailto:${profile.email}`}>
           <small>EMAIL</small>
-          <span>jackwinter.10@gmail.com ↗</span>
+          <span>{profile.email} ↗</span>
         </a>
         <a
           href="https://github.com/j4ckwinter"

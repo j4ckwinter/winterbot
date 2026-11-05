@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { profile } from "../components/town/profile";
 interface Props {
   title?: string;
   description?: string;
@@ -7,7 +8,7 @@ interface Props {
 }
 const {
   title = "Jack Winter — Winter Town",
-  description = "Jack Winter, senior software engineer in London. Explore projects, experience, and contact details in a pixel-art town.",
+  description = profile.description,
   canonicalPath = Astro.url.pathname,
 } = Astro.props;
 const site = "https://winterbyte.vercel.app";

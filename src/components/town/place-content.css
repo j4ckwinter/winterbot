@@ -13,7 +13,9 @@
   margin: 12px 0 20px;
 }
 .place-content h3 {
-  font-family: "DotGothic16", monospace;
+  font-family: var(--font-ui);
+  font-weight: 650;
+  letter-spacing: -0.4px;
   font-size: 25px;
   line-height: 1.3;
   margin: 10px 0;
@@ -44,19 +46,18 @@
   gap: 4px;
   min-width: 0;
   padding: 16px 4px 12px;
-  border: 2px solid #c7bda0;
-  background: #eee7d1;
+  border: 1px solid var(--border-soft);
+  border-radius: 12px;
+  background: var(--surface-muted);
   color: #444636;
-  font:
-    12px "DotGothic16",
-    monospace;
+  font: 500 13px var(--font-ui);
   cursor: pointer;
-  box-shadow: 0 3px #c7bda0;
+  box-shadow: none;
 }
 .project-machine[aria-pressed="true"] {
   border-color: #8c513b;
-  background: #f2dfb4;
-  box-shadow: 0 3px #8c513b;
+  background: #f5ede2;
+  box-shadow: inset 0 0 0 1px #8c513b;
 }
 .project-machine small {
   font:

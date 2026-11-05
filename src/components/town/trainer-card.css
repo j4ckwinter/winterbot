@@ -3,9 +3,11 @@
   width: 44px;
   height: 44px;
   padding: 4px !important;
-  border: 2px solid #687858;
+  border: 1px solid var(--border-soft);
+  border-radius: 10px;
+  overflow: hidden;
   background: #e5e8ce;
-  box-shadow: 2px 2px #47513a33;
+  box-shadow: none;
 }
 .trainer-button svg {
   width: 100%;
@@ -23,14 +25,13 @@
 .trainer-identity > svg {
   width: 96px;
   flex: 0 0 96px;
-  border: 4px double #687858;
+  border: 1px solid var(--border-soft);
+  border-radius: 16px;
   image-rendering: pixelated;
 }
 .trainer-identity h3 {
   margin: 6px 0;
-  font:
-    26px DotGothic16,
-    monospace;
+  font: 650 26px var(--font-ui);
 }
 .trainer-card p,
 .trainer-facts {
@@ -38,16 +39,18 @@
     15px/1.6 system-ui,
     sans-serif;
 }
+.trainer-card > p {
+  margin: 20px 0;
+}
 .trainer-card .eyebrow {
-  font:
-    11px/1.5 "JetBrains Mono",
-    monospace;
+  font: 600 11px/1.5 var(--font-ui);
 }
 .trainer-facts {
   display: grid;
   gap: 14px;
   padding-block: 16px;
-  border-block: 1px solid #bdc6aa;
+  margin: 20px 0;
+  border-block: 1px solid var(--border-soft);
 }
 .trainer-facts dt {
   font-weight: 600;
@@ -62,10 +65,11 @@
 }
 .trainer-links button {
   min-height: 44px;
-  border: 1px solid #a5b291;
-  background: #e7ebd8;
+  border: 1px solid var(--border-soft);
+  background: var(--surface-muted);
+  border-radius: 10px;
   text-align: left;
-  padding: 10px;
+  padding: 14px;
   font: inherit;
 }
 .trainer-actions {

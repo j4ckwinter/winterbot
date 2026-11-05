@@ -2,6 +2,7 @@ import { test, expect } from "@playwright/test";
 import {
   canWalk,
   TOWN_START,
+  TOWN_SIGNPOST,
   destinationAt,
   roomLayouts,
   findRoute,
@@ -14,6 +15,8 @@ import {
 
 test("scenery blocks walking while bridge and entrances remain open", () => {
   expect(canWalk("town", NaN, 390)).toBe(false);
+  expect(canWalk("town", TOWN_SIGNPOST.x, TOWN_SIGNPOST.y - 10)).toBe(false);
+  expect(canWalk("town", 535, 345)).toBe(true);
   expect(canWalk("town", 480, Infinity)).toBe(false);
   expect(canWalk("town", 360, 320)).toBe(false);
   expect(canWalk("town", 860, 300)).toBe(false);

@@ -113,11 +113,11 @@ test.describe("without JavaScript", () => {
       page.getByRole("heading", { name: "brain-cache", exact: true }),
     ).toBeVisible();
     await expect(
-      page.getByRole("heading", { name: "KTO", exact: true }),
+      page.getByRole("heading", { name: "KTO Group", exact: true }),
     ).toBeVisible();
     await expect(
-      page.getByRole("link", { name: /jackwinter.10@gmail.com/ }),
-    ).toHaveAttribute("href", "mailto:jackwinter.10@gmail.com");
+      page.getByRole("link", { name: /jackwinter.10@outlook.com/ }),
+    ).toHaveAttribute("href", "mailto:jackwinter.10@outlook.com");
     await page
       .getByRole("navigation", { name: "Portfolio sections" })
       .getByRole("link", { name: "Experience" })

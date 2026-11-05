@@ -21,7 +21,7 @@ for (const width of [320, 1440]) {
     ).toBeVisible();
     await expect(
       page.getByRole("link", { name: "Email Jack" }),
-    ).toHaveAttribute("href", "mailto:jackwinter.10@gmail.com");
+    ).toHaveAttribute("href", "mailto:jackwinter.10@outlook.com");
     await expect(page.getByText("0 / 4 places explored")).toBeAttached();
     await page
       .getByRole("navigation", { name: "Trainer card sections" })
