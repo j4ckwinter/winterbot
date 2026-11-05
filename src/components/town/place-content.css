@@ -433,3 +433,14 @@
 .project-demo-target {
   scroll-margin-top: 20px;
 }
+
+.project-highlights {
+  display: grid;
+  gap: 12px;
+  padding-left: 18px;
+  margin: 0 0 20px;
+  font: 15px/1.65 var(--font-ui);
+}
+.project-highlights li {
+  padding-left: 4px;
+}

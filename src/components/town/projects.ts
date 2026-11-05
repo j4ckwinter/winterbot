@@ -27,16 +27,21 @@ export const projects = [
     kind: "memory",
     number: "002",
     description:
-      "A local code retrieval engine that gives AI coding agents relevant source through MCP.",
+      "Helps coding agents find relevant functions without reading entire files, using a local code index and MCP.",
+    highlights: [
+      "Splits code around functions and classes to preserve useful context.",
+      "Reuses embeddings and indexes changed content instead of rebuilding after every edit.",
+      "Owned architecture, search, CLI, assistant integration and npm release.",
+    ],
     story: {
       problem:
         "Coding agents need relevant source without reading the whole repository for every question.",
       approach:
         "Designed and published the npm package, combining Ollama embeddings, LanceDB search and tree-sitter code chunking.",
       tradeoff:
-        "Local embeddings require Ollama. An existing index can fall back to keyword retrieval when it is unavailable.",
+        "Smaller results can omit important evidence. Local indexing needs model setup and machine resources; retrieved snippets may still go to the assistant’s cloud model.",
       evidence:
-        "Reduced retrieved context from approximately 18,600 to 1,200 tokens in a representative example by selecting and assembling relevant code.",
+        "Tests cover indexing, retrieval, context assembly and packaging. Context-size estimates are not evidence of better task outcomes or whole-session cost savings.",
       evidenceUrl: "https://github.com/j4ckwinter/brain-cache#how-it-works",
     },
     tags: ["TypeScript", "Node.js", "MCP", "LanceDB", "Ollama", "tree-sitter"],
@@ -50,17 +55,23 @@ export const projects = [
     kind: "pancakes",
     number: "003",
     description:
-      "19 reusable skills for investigating, implementing, reviewing and verifying code with AI agents.",
+      "Reusable workflows for coding agents, built to address rushed changes, unnecessary complexity and unverified claims of success.",
+    highlights: [
+      "Designed task-specific investigation, implementation, review and verification workflows.",
+      "Built a separate evaluator using known defects and correct controls to check missed bugs and unsupported findings.",
+      "Rejected extra guidance when existing instructions caught the same targeted defects.",
+    ],
     story: {
       problem:
         "Fast AI-generated changes can leave more cleanup than useful code.",
       approach:
         "Created the skills and evaluation framework for Codex and Claude Code, including scoped delegation and independent review.",
       tradeoff:
-        "The library stays declarative: hosts provide execution tools, and verification lives in a separate evaluator.",
+        "The plugin supplies instructions, not an enforcement runtime. More process has a cost, and completed steps do not guarantee a correct result.",
       evidence:
-        "86 automated checks integrated into CI, with workflow comparisons for defect detection, false positives, execution time and token usage.",
-      evidenceUrl: "https://github.com/j4ckwinter/pancake-stack",
+        "Independent review found that combining two seeded defects could reward a test that caught only one. The evaluator was corrected to test each defect separately. These bounded trials do not establish general productivity or quality gains.",
+      evidenceUrl:
+        "https://github.com/j4ckwinter/pancake-stack-evals/blob/main/docs/validation-controls.md",
     },
     tags: ["Codex", "Claude Code", "Agent Skills", "Python", "GitHub Actions"],
     github: "https://github.com/j4ckwinter/pancake-stack",
