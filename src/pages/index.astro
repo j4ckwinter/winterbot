@@ -1,19 +1,8 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import HeroSection from '../components/sections/HeroSection.astro';
-import AboutSection from '../components/sections/AboutSection.astro';
-import ExperienceSection from '../components/sections/ExperienceSection.astro';
-import ProjectsSection from '../components/sections/ProjectsSection.astro';
-import SkillsSection from '../components/sections/SkillsSection.astro';
-import ContactSection from '../components/sections/ContactSection.astro';
-import SaveComplete from '../components/SaveComplete.astro';
+import Layout from "../layouts/Layout.astro";
+import WinterTown from "../components/town/WinterTown";
 ---
-<Layout title="Jack Winter">
-  <HeroSection />
-  <AboutSection />
-  <ExperienceSection />
-  <ProjectsSection />
-  <SkillsSection />
-  <ContactSection />
-  <SaveComplete />
+
+<Layout>
+  <WinterTown client:load />
 </Layout>

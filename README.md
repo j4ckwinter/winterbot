@@ -1,57 +1,65 @@
-# winterbot
+# Winter Town
 
-a personal portfolio with a bit of game boy advance nostalgia. my experience is a quest log, my projects are a dex, and my skills are an inventory. there's a pixel guide with something to say as you scroll. you can switch between fire and leaf themes, too.
+Jack Winter’s portfolio, inspired by Pokémon FireRed. Built with Astro, Preact, and TypeScript.
 
-[take a look](https://winterbyte.vercel.app/)
+Tap the ground to walk or a building to enter. Arrow keys, WASD, and direction buttons also work. Press Enter near an object, use Map for an overview, or take a shortcut to portfolio details. Interaction markers reveal names when approached, hovered, or focused; Map shows every name. Escape cancels a walk; in an interior, it returns to town.
 
-built with Astro, TypeScript, Tailwind CSS, and Preact.
+Menu contains sound and season controls. Inspect a project, then collect a ticket at Winter Station for an optional ride to the lookout. Tickets last while you remain in the station; the ride can be skipped and is instant with reduced motion. At the lookout, walk or tap along the platform, approach the railing, and board the return train.
 
-## run it locally
+Project and section URLs can be shared. `/portfolio` provides the same content without requiring JavaScript. The cat wanders while the page is visible, and workshop machines mark projects inspected during the current visit. Season and explored places are saved on your device; reset discoveries from the travel log.
 
-you'll need Node.js 22.12.0 or later. run these commands from the repo.
+## Development
+
+Requires Node.js 22.22.3+, 24.16.0+, or 26.3.0+.
 
 ```sh
 npm ci
 npm run dev
 ```
 
-open `http://localhost:4321`.
-
-## make changes
-
-most of the content lives directly in [src/components/sections/](src/components/sections/). edit the section you want to change.
-
-- [ProjectsSection.astro](src/components/sections/ProjectsSection.astro) holds the project list. add an entry to the `projects` array to add a card.
-- [DialogueSystem.tsx](src/components/dialogue/DialogueSystem.tsx) holds the guide's messages and typewriter animation.
-- [global.css](src/styles/global.css) holds the theme colors, fonts, and shared styles.
-- [Layout.astro](src/layouts/Layout.astro) brings together the navigation, theme toggle, and dialogue guide.
-- [index.astro](src/pages/index.astro) sets the section order.
-- [public/](public/) holds the profile photo and favicons.
-
-## check your work
-
-run Astro's checks and build the site.
+## Checks
 
 ```sh
-npm run astro -- check
+npm run format       # Format source, styles, and docs
+npm run lint:fix     # Apply available lint fixes
+npm run check        # Formatting, lint, and Astro/TypeScript checks
 npm run build
+npx playwright install chromium firefox webkit  # First run only
+npm test
 ```
 
-the browser tests cover page content, navigation, themes, dialogue, skill filters, and layout checks. install Chromium once, then run the suite.
+Prettier handles formatting; ESLint checks JavaScript, TypeScript, TSX, and Astro files. Configuration follows the [Astro ESLint guide](https://ota-meshi.github.io/eslint-plugin-astro/user-guide/) and [Astro Prettier plugin](https://github.com/withastro/prettier-plugin-astro).
 
-```sh
-npx playwright install chromium
-npx playwright test
-```
+Browser tests run in Chromium, Firefox, and WebKit against a production build on port 4323. Use `npm test -- --project=chromium` for a single browser. They cover room entry/exit, movement, collisions, camera behaviour, project demos, keyboard access, mobile layouts, shareable links, the no-JavaScript portfolio, and saved progress.
 
-Playwright starts the dev server for you.
+GitHub Actions runs formatting, lint, type checks, the production build, and all three browser projects on pushes and pull requests. Failed browser runs retain traces for seven days.
 
-## preview the build
+The town and plain portfolio have separate page metadata and canonical URLs. Social previews use `public/social-card.png`; its editable artwork is `public/social-card.svg`.
 
-after `npm run build`, run this to preview the site locally.
+## Files
 
-```sh
-npm run preview
-```
+- `src/components/town/PlaceContent.tsx` and `projects.ts`: shared portfolio content.
+- `src/pages/portfolio.astro`: plain portfolio view.
+- `src/components/town/navigation.ts`: shareable content URLs.
+- `src/components/town/useProgress.ts`: validated local preferences and discoveries.
+- `src/components/town/TownMap.tsx` and `InteriorMap.tsx`: town and room artwork.
+- `src/components/town/world.ts`: terrain, destinations, and pathfinding.
+- `src/components/town/Player.tsx`: directional player sprite.
+- `src/components/town/ProjectDemo.tsx`: palette, recorded AST chunks, and workflow demos.
+- `src/components/town/WinterTown.tsx`: navigation, controls, and dialogs.
+- `src/components/town/useMovement.ts`: movement and the on-demand animation loop.
+- `src/components/town/useSound.ts`: opt-in interaction sounds.
+- `src/components/town/StationTrip.tsx`: optional station ticket and lookout visit.
+- `src/components/town/LookoutScene.tsx` and `LookoutWalk.tsx`: lookout artwork and platform controls.
+- `src/components/town/RouteDemo.tsx`, `TokenBudgetDemo.tsx`, and `FrameBugDemo.tsx`: interactive engineering examples.
+- `src/components/town/town.css` and `place-content.css`: page and interior styles.
 
-the static build lands in `dist/`.
+## Visitor walkthrough
+
+Use the same three tasks with three to five people who have not seen the site. Start them on the homepage without explaining the controls:
+
+1. Find a project and explain what it does.
+2. Find out what Jack does professionally.
+3. Find a way to contact him.
+
+Then invite them to explore freely. Observe whether they discover the workshop, understand the project demos, and find the station trip. Ask what they expected each interaction to do. Record task completion, first action, hesitation, wrong turns, and any help you gave; do not coach during a task. Use those observations to choose the next change. Automated browser checks do not replace these sessions; no visitor sessions have been conducted as part of this implementation.

@@ -1,70 +1,74 @@
 ---
-import '../styles/global.css';
-import ThemeToggle from '../components/ThemeToggle.astro';
-import JourneyNav from '../components/nav/JourneyNav.astro';
-import DialogueSystem from '../components/dialogue/DialogueSystem.tsx';
-
+import "../styles/global.css";
 interface Props {
   title?: string;
+  description?: string;
+  canonicalPath?: string;
 }
-
-const { title = 'WinterBot Portfolio' } = Astro.props;
+const {
+  title = "Jack Winter — Winter Town",
+  description = "Jack Winter, senior software engineer in London. Explore projects, experience, and contact details in a pixel-art town.",
+  canonicalPath = Astro.url.pathname,
+} = Astro.props;
+const site = "https://winterbyte.vercel.app";
+const canonical = new URL(canonicalPath, site).href;
+const socialImage = new URL("/social-card.png", site).href;
 ---
 
-<html lang="en" data-theme="fire">
+<html lang="en">
   <head>
-    <script is:inline>
-      (function() {
-        const saved = localStorage.getItem('theme');
-        const theme = (saved === 'fire' || saved === 'leaf') ? saved : 'fire';
-        document.documentElement.setAttribute('data-theme', theme);
-        if (!saved) localStorage.setItem('theme', 'fire');
-      })();
-    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Jack Winter" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Winter Town — Jack Winter’s pixel-art portfolio"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage} />
+    <meta
+      name="twitter:image:alt"
+      content="Winter Town — Jack Winter’s pixel-art portfolio"
+    />
+    <meta name="theme-color" content="#f6f4eb" />
     <title>{title}</title>
+    <link rel="icon" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=DotGothic16&family=JetBrains+Mono:wght@400;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=DotGothic16&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
   </head>
   <body>
-    <JourneyNav />
-    <header>
-      <ThemeToggle client:load />
-    </header>
-    <main>
-      <slot />
-    </main>
-    <DialogueSystem client:load />
+    <a class="skip-link" href="#main">
+      Skip to portfolio
+    </a>
+    <slot />
   </body>
 </html>
-
 <style>
-  header {
-    display: flex;
-    justify-content: flex-end;
-    margin-left: 8rem;
-    padding: 1.5rem 1.5rem 0 0;
+  .skip-link {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 20;
+    padding: 1rem;
+    background: #fff;
+    clip-path: inset(50%);
   }
-
-  main {
-    margin-left: 8rem;
-    padding: 0 1.5rem;
-  }
-
-  @media (max-width: 640px) {
-    header {
-      margin-left: 0;
-      padding: 1rem 1rem 0 0;
-    }
-
-    main {
-      margin-left: 0;
-      padding: 0 1rem;
-    }
+  .skip-link:focus {
+    clip-path: none;
   }
 </style>
