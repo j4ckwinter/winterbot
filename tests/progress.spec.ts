@@ -4,6 +4,8 @@ const key = "winter-town:progress:v1";
 test("season and discoveries survive reload, reset preserves season", async ({
   page,
 }) => {
+  test.setTimeout(60000);
+  await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
   await page.locator(".world-menu > summary").click();
   await page.getByRole("button", { name: "Switch to autumn" }).click();

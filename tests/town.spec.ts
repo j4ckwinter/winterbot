@@ -1,4 +1,9 @@
 import { test, expect } from "@playwright/test";
+import {
+  installMovementClock,
+  pauseMovementClock,
+  advanceToScene,
+} from "./helpers/movement-clock";
 
 test("town renders with destinations and no browser errors", async ({
   page,
@@ -48,7 +53,9 @@ test("projects open directly, switch and link to real work; Escape restores focu
 
 test("walks into every room and returns to its door", async ({ page }) => {
   test.setTimeout(60000);
+  await installMovementClock(page);
   await page.goto("/");
+  await pauseMovementClock(page);
   for (const [name, scene] of [
     ["The Workshop", "workshop"],
     ["Jack’s House", "home"],
@@ -59,17 +66,10 @@ test("walks into every room and returns to its door", async ({ page }) => {
     await page
       .getByRole("button", { name: `Walk to ${name}`, exact: true })
       .click();
-    await expect(page.locator(".scene-layer")).toHaveAttribute(
-      "data-scene",
-      scene,
-      { timeout: 15000 },
-    );
+    await advanceToScene(page, scene);
     await expect(page.getByRole("dialog")).not.toBeVisible();
     await page.getByRole("button", { name: "Walk to exit" }).click();
-    await expect(page.locator(".scene-layer")).toHaveAttribute(
-      "data-scene",
-      "town",
-    );
+    await advanceToScene(page, "town");
   }
   await expect(page.getByText("4 / 4 places explored")).toBeVisible();
 });
@@ -77,14 +77,12 @@ test("walks into every room and returns to its door", async ({ page }) => {
 test("keyboard movement faces direction and stops at scenery", async ({
   page,
 }) => {
+  await installMovementClock(page);
   await page.goto("/");
+  await pauseMovementClock(page);
   await page.getByRole("button", { name: "Map", exact: true }).click();
   await page.getByRole("button", { name: "Walk to The Workshop" }).click();
-  await expect(page.locator(".scene-layer")).toHaveAttribute(
-    "data-scene",
-    "workshop",
-    { timeout: 10000 },
-  );
+  await advanceToScene(page, "workshop");
   await page.getByRole("button", { name: "Leave room" }).click();
   await expect(
     page.getByRole("button", { name: "Move up", exact: true }),
@@ -92,10 +90,10 @@ test("keyboard movement faces direction and stops at scenery", async ({
   const world = page.getByRole("group", { name: /^Town map/ });
   await world.focus();
   await page.keyboard.down("ArrowDown");
-  await page.waitForTimeout(100);
+  await page.clock.runFor(100);
   await page.keyboard.up("ArrowDown");
   await page.keyboard.down("ArrowRight");
-  await page.waitForTimeout(700);
+  await page.clock.runFor(700);
   await page.keyboard.up("ArrowRight");
   await expect(page.locator(".player")).toHaveAttribute(
     "data-direction",
@@ -107,6 +105,7 @@ test("keyboard movement faces direction and stops at scenery", async ({
   expect(x).toBeGreaterThan(220);
   expect(x).toBeLessThanOrEqual(236);
   await page.keyboard.press("Enter");
+  await page.clock.runFor(32);
   await expect(page.locator(".scene-layer")).toHaveAttribute(
     "data-scene",
     "workshop",
@@ -400,14 +399,16 @@ test("ground taps walk, blocked taps explain, and travel can be cancelled", asyn
 test("held movement keys combine and release independently", async ({
   page,
 }) => {
+  await installMovementClock(page);
   await page.goto("/");
+  await pauseMovementClock(page);
   await expect(
     page.getByRole("button", { name: "Move up", exact: true }),
   ).toBeEnabled();
   await page.getByRole("group", { name: /^Town map/ }).focus();
   await page.keyboard.down("ArrowUp");
   await page.keyboard.down("ArrowRight");
-  await page.waitForTimeout(150);
+  await page.clock.runFor(150);
   await page.keyboard.up("ArrowRight");
   const point = () =>
     page.locator(".player").evaluate((el) => ({
@@ -417,7 +418,7 @@ test("held movement keys combine and release independently", async ({
   const diagonal = await point();
   expect(diagonal.x).toBeGreaterThan(220);
   expect(diagonal.y).toBeLessThan(320);
-  await page.waitForTimeout(100);
+  await page.clock.runFor(100);
   await page.keyboard.up("ArrowUp");
   const after = await point();
   expect(after.x).toBe(diagonal.x);

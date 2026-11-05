@@ -49,14 +49,20 @@ test("lookout keyboard movement stops at the railing and on blur", async ({
   const platform = page.getByRole("group", { name: /^Lookout platform/ });
   await platform.focus();
   await page.keyboard.down("ArrowUp");
-  await page.waitForTimeout(700);
-  await page.keyboard.up("ArrowUp");
   await expect(page.locator(".lookout-player")).toHaveAttribute(
     "data-y",
     "444",
   );
+  await page.keyboard.up("ArrowUp");
+  const startX = Number(
+    await page.locator(".lookout-player").getAttribute("data-x"),
+  );
   await page.keyboard.down("ArrowLeft");
-  await page.waitForTimeout(100);
+  await expect
+    .poll(async () =>
+      Number(await page.locator(".lookout-player").getAttribute("data-x")),
+    )
+    .toBeLessThan(startX);
   await page.evaluate(() => window.dispatchEvent(new Event("blur")));
   await page.keyboard.up("ArrowLeft");
   const x = await page.locator(".lookout-player").getAttribute("data-x");
