@@ -18,7 +18,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  padding: 26px 0;
+  padding: 20px 0;
   font-size: 11px;
 }
 .plain-portfolio a {
@@ -28,7 +28,7 @@
   display: flex;
   align-items: center;
   gap: 24px;
-  padding: 38px 0 24px;
+  padding: 20px 0 20px;
 }
 .portfolio-intro h1 {
   font: 650 38px var(--font-ui);
@@ -56,13 +56,13 @@
 .portfolio-nav a:hover {
   background: #e3e8d9;
 }
-.plain-portfolio section {
-  padding: 36px 0;
+.plain-portfolio main > section {
+  padding: 24px 0;
   scroll-margin-top: 20px;
 }
 .plain-portfolio h2 {
   font: 650 27px var(--font-ui);
-  margin: 0 0 22px;
+  margin: 0 0 16px;
 }
 .portfolio-projects {
   display: grid;
@@ -73,7 +73,7 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
-  padding: 22px;
+  padding: 20px;
   border-radius: 12px;
   background: var(--surface);
 }
@@ -84,14 +84,14 @@
 .portfolio-project p {
   font-size: 15px;
   line-height: 1.65;
-  margin: 0 0 18px;
+  margin: 0 0 14px;
 }
 .portfolio-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
   padding: 0;
-  margin: 0 0 22px;
+  margin: 0 0 16px;
   list-style: none;
 }
 .portfolio-tags li {
@@ -124,7 +124,7 @@
 }
 .plain-portfolio .project-story {
   border: 0;
-  margin: 0 0 18px;
+  margin: 0 0 14px;
 }
 .plain-portfolio .project-summary dl {
   border: 0;
@@ -197,4 +197,21 @@
 }
 .portfolio-intro-actions a {
   padding-block: 6px;
+}
+
+.plain-portfolio #about .place-content {
+  max-width: none;
+}
+.plain-portfolio .place-content > :first-child {
+  margin-top: 0;
+}
+.plain-portfolio .place-content > :last-child {
+  margin-bottom: 0;
+}
+.plain-portfolio .featured-work {
+  margin-bottom: 0;
+  padding: 20px;
+}
+.plain-portfolio .project-preview {
+  margin-bottom: 16px;
 }
