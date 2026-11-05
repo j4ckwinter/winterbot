@@ -120,3 +120,22 @@ test("code search explains the match before showing its source", async ({
   await demo.getByRole("searchbox").fill("no-such-function");
   await expect(demo.getByText(/No matching snippets/)).toBeVisible();
 });
+
+for (const [slug, name] of [
+  ["winterbot", "WinterBot"],
+  ["brain-cache", "brain-cache"],
+  ["pancake-stack", "pancake-stack"],
+]) {
+  test(`demo shortcut focuses ${name} without changing the project route`, async ({
+    page,
+  }) => {
+    await page.goto(`/#projects/${slug}`);
+    await page.getByRole("button", { name: "Try the demo" }).click();
+    await expect(
+      page.getByRole("region", { name: `${name} demo`, exact: true }),
+    ).toBeFocused();
+    await expect(page).toHaveURL(new RegExp(`#projects/${slug}$`));
+    await page.getByText("My contribution & evidence", { exact: true }).click();
+    await expect(page.locator(".project-summary")).toBeVisible();
+  });
+}

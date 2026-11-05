@@ -1,3 +1,4 @@
+import { useRef } from "preact/hooks";
 import FeaturedWork from "./FeaturedWork";
 import "./place-content.css";
 import ProjectDemo from "./ProjectDemo";
@@ -8,12 +9,14 @@ import { profile, skills, experience } from "./profile";
 
 export function ProjectSummary({
   project,
+  showDescription = true,
 }: {
   project: (typeof projects)[number];
+  showDescription?: boolean;
 }) {
   return (
     <div class="project-summary">
-      <p>{project.description}</p>
+      {showDescription && <p>{project.description}</p>}
       <dl>
         <dt>My contribution</dt>
         <dd>{project.story.approach}</dd>
@@ -58,6 +61,7 @@ function Workshop({
   initialProject?: 0 | 1 | 2;
   onProjectChange?: (project: 0 | 1 | 2) => void;
 }) {
+  const demoRef = useRef<HTMLDivElement>(null);
   const selected = initialProject;
   const project = projects[selected];
   return (
@@ -90,8 +94,29 @@ function Workshop({
       </div>
       <article id="project-detail" class="project-detail" aria-live="polite">
         <h3>{project.name}</h3>
-        <ProjectSummary project={project} />
-        <ProjectDemo key={selected} project={selected} />
+        <p>{project.description}</p>
+        <button
+          class="project-demo-jump"
+          onClick={() => {
+            demoRef.current?.focus({ preventScroll: true });
+            demoRef.current?.scrollIntoView({ block: "start" });
+          }}
+        >
+          Try the demo ↓
+        </button>
+        <div
+          ref={demoRef}
+          tabIndex={-1}
+          role="region"
+          aria-label={`${project.name} demo`}
+          class="project-demo-target"
+        >
+          <ProjectDemo key={selected} project={selected} />
+        </div>
+        <details class="project-story" key={selected}>
+          <summary>My contribution & evidence</summary>
+          <ProjectSummary project={project} showDescription={false} />
+        </details>
         <ul class="place-tags" aria-label="Technologies">
           {project.tags.map((tag) => (
             <li key={tag}>{tag}</li>
