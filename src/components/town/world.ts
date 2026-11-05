@@ -27,7 +27,7 @@ export const places: {
     content: "Projects",
     x: 210,
     y: 300,
-    labelY: 235,
+    labelY: 105,
   },
   {
     id: "home",
@@ -35,7 +35,7 @@ export const places: {
     content: "About & skills",
     x: 660,
     y: 280,
-    labelY: 225,
+    labelY: 95,
   },
   {
     id: "station",

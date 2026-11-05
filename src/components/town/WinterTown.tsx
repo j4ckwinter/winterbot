@@ -223,32 +223,14 @@ export default function WinterTown() {
           <h1>
             Jack Winter<span class="identity-dot">.</span>
           </h1>
-          <p class="identity-role">
-            Senior software engineer at KTO, building frontend systems and tools
-            for developers. Based in London.
-          </p>
+          <span class="identity-role">Software engineer · London</span>
         </div>
         <div class="identity-links">
-          <a href="/portfolio">View portfolio</a>
+          <a href="/portfolio">Plain portfolio</a>
           <a href="mailto:jackwinter.10@gmail.com">Get in touch ↗</a>
         </div>
       </header>
       <main id="main">
-        <nav class="quick-nav" aria-label="Quick access">
-          {places.map((p) => (
-            <button
-              disabled={!ready}
-              onClick={(event) => {
-                event.currentTarget.focus();
-                openContent({ place: p.id });
-              }}
-              key={p.id}
-            >
-              {p.content}
-              <span>↗</span>
-            </button>
-          ))}
-        </nav>
         <section class="world-shell" aria-label="Explore Winter Town">
           <div class="world-toolbar">
             <div class="scene-heading">
@@ -383,14 +365,11 @@ export default function WinterTown() {
                     onClick={() => travel(p)}
                     aria-label={`${scene === "town" ? "Walk to" : "Inspect"} ${p.name}`}
                   >
-                    <span>
-                      {scene === "town"
-                        ? places.find((v) => v.id === p.id)?.content
-                        : p.name}
-                    </span>
+                    <span>{p.name}</span>
                     {scene === "town" && (
                       <small>
-                        {p.name} {visited.includes(p.id as Place) ? "✓" : "↗"}
+                        {places.find((v) => v.id === p.id)?.content}{" "}
+                        {visited.includes(p.id as Place) ? "✓" : "↗"}
                       </small>
                     )}
                   </button>
@@ -557,6 +536,21 @@ export default function WinterTown() {
             </p>
           )}
         </section>
+        <nav class="quick-nav" aria-label="Quick access">
+          {places.map((p) => (
+            <button
+              disabled={!ready}
+              onClick={(event) => {
+                event.currentTarget.focus();
+                openContent({ place: p.id });
+              }}
+              key={p.id}
+            >
+              {p.content}
+              <span>↗</span>
+            </button>
+          ))}
+        </nav>
       </main>
       <dialog
         ref={dialog}

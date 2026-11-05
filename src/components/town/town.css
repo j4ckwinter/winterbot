@@ -6,15 +6,16 @@
   padding: 0 32px 22px;
 }
 .identity-bar {
-  min-height: 100px;
-  padding-block: 16px;
+  height: 68px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
 }
-.identity-bar > div:first-child {
-  max-width: 620px;
+.identity-bar > div {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
 }
 .identity-bar h1 {
   font:
@@ -27,11 +28,8 @@
   color: var(--rust);
 }
 .identity-role {
-  margin: 6px 0 0;
-  font:
-    15px/1.5 system-ui,
-    sans-serif;
-  color: #59634f;
+  font-size: 12px;
+  color: #757b69;
 }
 .identity-bar > a {
   font-size: 12px;
@@ -151,7 +149,7 @@
   color: #f9f4df;
 }
 .world {
-  height: clamp(400px, calc(100dvh - 300px), 900px);
+  height: clamp(400px, calc(100dvh - 240px), 900px);
   position: relative;
   overflow: clip;
   isolation: isolate;
@@ -398,7 +396,7 @@
 .quick-nav {
   display: flex;
   gap: 10px;
-  margin: 0 0 12px;
+  margin-top: 10px;
 }
 .quick-nav button {
   min-height: 44px;
@@ -562,18 +560,19 @@
     padding: 0 12px 16px;
   }
   .identity-bar {
-    align-items: flex-start;
-    flex-direction: column;
     min-height: 68px;
     height: auto;
     gap: 12px;
     padding-block: 8px;
   }
+  .identity-bar > div {
+    display: block;
+  }
   .identity-bar h1 {
     font-size: 20px;
   }
   .identity-role {
-    font-size: 14px;
+    font-size: 12px;
   }
   .identity-bar > a {
     font-size: 12px;
@@ -611,7 +610,7 @@
     gap: 4px;
   }
   .world {
-    height: clamp(260px, calc(100dvh - 510px), 720px);
+    height: clamp(260px, calc(100dvh - 330px), 720px);
   }
   .world-bottom {
     padding: 0 10px;
@@ -666,7 +665,7 @@
   .quick-nav {
     gap: 6px;
     flex-wrap: wrap;
-    margin-top: 0;
+    margin-top: 10px;
   }
   .quick-nav button {
     flex: 1 1 40%;
@@ -687,7 +686,7 @@
 }
 @media (max-width: 370px) {
   .identity-role {
-    font-size: 14px;
+    font-size: 12px;
   }
   .identity-bar h1 {
     font-size: 18px;
@@ -785,6 +784,9 @@
   .identity-links {
     gap: 12px;
     font-size: 12px;
+  }
+  .identity-links a:last-child {
+    display: none;
   }
 }
 .progress-summary {
