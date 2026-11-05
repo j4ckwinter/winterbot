@@ -41,3 +41,29 @@ test.describe("without JavaScript", () => {
     await expect(page).toHaveURL(/\/portfolio#experience$/);
   });
 });
+
+test("project previews open their matching demos and CV downloads", async ({
+  page,
+}) => {
+  for (const [name, slug] of [
+    ["WinterBot", "winterbot"],
+    ["brain-cache", "brain-cache"],
+    ["pancake-stack", "pancake-stack"],
+  ]) {
+    await page.goto("/portfolio");
+    await page
+      .getByRole("link", { name: `Try the ${name} demo`, exact: true })
+      .click();
+    await expect(page).toHaveURL(new RegExp(`#projects/${slug}$`));
+    await expect(page.getByRole("dialog")).toBeVisible();
+    await expect(
+      page.getByRole("dialog").getByRole("heading", { name, exact: true }),
+    ).toBeVisible();
+  }
+  await page.goto("/portfolio");
+  const downloadEvent = page.waitForEvent("download");
+  await page.getByRole("link", { name: "Download CV" }).click();
+  const download = await downloadEvent;
+  expect(download.suggestedFilename()).toBe("Jack-Winter-CV.pdf");
+  expect(await download.failure()).toBeNull();
+});

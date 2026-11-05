@@ -1,0 +1,33 @@
+.project-preview {
+  display: block;
+  overflow: hidden;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  background: #e6eddf;
+  color: #30372e;
+  text-decoration: none;
+}
+.project-preview--console {
+  background: #cbdab8;
+}
+.project-preview--pancakes {
+  background: #f0e7d8;
+}
+.project-preview svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.project-preview text {
+  font: 12px var(--font-ui);
+}
+.project-preview > span {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 14px;
+  font-size: 13px;
+  background: #ffffff66;
+}
+.project-preview:hover > span {
+  background: #ffffffaa;
+}

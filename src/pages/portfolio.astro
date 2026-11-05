@@ -9,6 +9,7 @@ import {
   ProjectStory,
   ProjectSummary,
 } from "../components/town/PlaceContent";
+import ProjectPreview from "../components/town/ProjectPreview";
 import { projects } from "../components/town/projects";
 import "../styles/portfolio.css";
 ---
@@ -65,6 +66,7 @@ import "../styles/portfolio.css";
           {projects.map((project) => (
             <article class="portfolio-project" id={project.slug}>
               <h3>{project.name}</h3>
+              <ProjectPreview project={project} />
               <ProjectSummary project={project} />
               <ProjectStory project={project} />
               <ul class="portfolio-tags" aria-label="Technologies">
