@@ -46,8 +46,12 @@ export default function TownToolbar({
         <span class="status-dot" />
         <h2 aria-live="polite">{sceneName}</h2>
         {scene !== "town" && (
-          <button onClick={onLeaveRoom} aria-label="Leave room">
-            ← Town
+          <button
+            onClick={onLeaveRoom}
+            aria-label="Leave room"
+            title="Back to town"
+          >
+            ←<span class="leave-room-label"> Town</span>
           </button>
         )}
       </div>
