@@ -45,7 +45,8 @@ button:disabled {
   cursor: default;
 }
 
-.d-pad button,
+.play-controls,
+.play-controls button,
 .lookout-pad button {
   -webkit-user-select: none;
   user-select: none;

@@ -192,6 +192,12 @@ export default function WinterTown() {
   return (
     <div
       class={`town-app season-${season} ${overview || reduced ? "is-overview" : ""}`}
+      onPointerDownCapture={(event) => {
+        event.currentTarget.dataset.inputMethod = "pointer";
+      }}
+      onKeyDownCapture={(event) => {
+        event.currentTarget.dataset.inputMethod = "keyboard";
+      }}
     >
       <header class="identity-bar">
         <div>
