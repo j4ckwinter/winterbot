@@ -67,3 +67,33 @@ test("project previews open their matching demos and CV downloads", async ({
   expect(download.suggestedFilename()).toBe("Jack-Winter-CV.pdf");
   expect(await download.failure()).toBeNull();
 });
+
+for (const [path, image] of [
+  ["/", "portfolio-social.png"],
+  ["/work/kto", "kto-social.png"],
+]) {
+  test(`sharing metadata resolves the correct image for ${path}`, async ({
+    page,
+    request,
+  }) => {
+    await page.goto(path);
+    const imageUrl = `https://winterbyte.vercel.app/${image}`;
+    await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
+      "content",
+      imageUrl,
+    );
+    await expect(page.locator('meta[name="twitter:image"]')).toHaveAttribute(
+      "content",
+      imageUrl,
+    );
+    await expect(
+      page.locator('meta[property="og:image:alt"]'),
+    ).not.toHaveAttribute("content", "");
+    const response = await request.get(`/${image}`);
+    expect(response.ok()).toBeTruthy();
+    expect(response.headers()["content-type"]).toContain("image/png");
+    const bytes = await response.body();
+    expect(bytes.readUInt32BE(16)).toBe(1200);
+    expect(bytes.readUInt32BE(20)).toBe(630);
+  });
+}

@@ -17,7 +17,8 @@
     "check": "npm run format:check && npm run lint && astro check",
     "test": "npm run test:unit && npm run test:browser",
     "test:unit": "playwright test --config playwright.unit.config.ts",
-    "test:browser": "playwright test"
+    "test:browser": "playwright test",
+    "social:render": "node scripts/render-social-cards.mjs"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.12",
