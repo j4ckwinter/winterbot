@@ -97,3 +97,31 @@ for (const [path, image] of [
     expect(bytes.readUInt32BE(20)).toBe(630);
   });
 }
+
+test("case study overview and section links work without JavaScript", async ({
+  browser,
+}) => {
+  const context = await browser.newContext({
+    javaScriptEnabled: false,
+    viewport: { width: 320, height: 850 },
+  });
+  const page = await context.newPage();
+  await page.goto("/work/kto");
+  await expect(page.locator(".case-overview dt")).toHaveText([
+    "Problem",
+    "My role",
+    "Result",
+  ]);
+  await page
+    .getByRole("navigation", { name: "On this page" })
+    .getByRole("link", { name: "Architecture", exact: true })
+    .click();
+  await expect(page).toHaveURL(/#architecture-title$/);
+  await expect(
+    page.getByRole("heading", { name: "Separating responsibilities" }),
+  ).toBeInViewport();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(
+    320,
+  );
+  await context.close();
+});
