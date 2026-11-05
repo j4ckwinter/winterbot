@@ -374,7 +374,7 @@ export default function WinterTown() {
                   <button
                     disabled={!ready}
                     key={p.id}
-                    class={`map-label ${near?.id === p.id ? "is-actionable" : ""} ${Math.hypot(position.x - p.x, position.y - p.y) < 90 ? "is-near" : ""}`}
+                    class={`map-label ${scene === "town" ? "town-label" : ""} ${near?.id === p.id ? "is-actionable" : ""} ${Math.hypot(position.x - p.x, position.y - p.y) < 90 ? "is-near" : ""}`}
                     onFocus={(e) => {
                       if (e.currentTarget.matches(":focus-visible"))
                         setOverview(true);
