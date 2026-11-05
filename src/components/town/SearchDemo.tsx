@@ -18,14 +18,19 @@ export default function SearchDemo() {
       aria-label="Sample code search"
     >
       <div class="demo-frame-label">
-        <span>brain-cache / source browser</span>
+        <span>brain-cache / find relevant code</span>
         <span aria-hidden="true">02</span>
       </div>
-      <span class="demo-kicker">Recorded AST chunks · 34a4ebb</span>
-      <h4>Inside brain-cache</h4>
-      <p>Explore four recorded functions from brain-cache’s own source.</p>
-      <TokenBudgetDemo />
-      <h4>Explore the recorded source</h4>
+      <h4>Find the code an agent needs</h4>
+      <p>
+        Instead of sending a whole repository to an AI agent, brain-cache
+        retrieves relevant code. Try “budget” to find the function that limits
+        how much code gets sent.
+      </p>
+      <p class="demo-scope-note">
+        This small example searches four recorded functions by keyword. It does
+        not run the full retrieval engine.
+      </p>
       <div class="demo-options" aria-label="Example queries">
         {["budget", "offline", "stale"].map((example) => (
           <button
@@ -55,22 +60,25 @@ export default function SearchDemo() {
       {results.length ? (
         <div class="demo-results">
           {results.map((result) => (
-            <details key={result.name} open={terms.length > 0}>
-              <summary>{result.path}</summary>
-              <p class="demo-explanation">
-                {result.why}{" "}
-                <a
-                  href={result.source}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Source ↗
-                </a>
-              </p>
-              <pre>
-                <code>{result.code}</code>
-              </pre>
-            </details>
+            <article class="demo-search-result" key={result.name}>
+              <h5>{result.name}</h5>
+              <p>{result.why}</p>
+              <details>
+                <summary>{result.path}</summary>
+                <p class="demo-explanation">
+                  <a
+                    href={result.source}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    View original source ↗
+                  </a>
+                </p>
+                <pre>
+                  <code>{result.code}</code>
+                </pre>
+              </details>
+            </article>
           ))}
         </div>
       ) : (
@@ -78,6 +86,10 @@ export default function SearchDemo() {
           No matching snippets. Try “budget” or clear the search.
         </p>
       )}
+      <details class="demo-secondary">
+        <summary>Try limiting how much code the agent receives</summary>
+        <TokenBudgetDemo />
+      </details>
     </section>
   );
 }

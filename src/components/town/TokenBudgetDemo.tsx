@@ -10,10 +10,12 @@ export default function TokenBudgetDemo() {
   const kept = decisions.filter((chunk) => chunk.kept).length;
   return (
     <section class="demo-budget" aria-label="Context token budget">
-      <h4>Keep whole functions within a budget</h4>
+      <h4>Choose how much code to send</h4>
       <p>
-        Whole functions stay intact. Smaller chunks can fit after a larger one
-        is skipped.
+        This separate example uses all four recorded functions, regardless of
+        your search. A token is a small piece of text. Lower the budget to send
+        less code; functions that do not fit are skipped rather than cut in
+        half.
       </p>
       <label htmlFor="context-budget">
         Estimated token budget{" "}
@@ -32,14 +34,14 @@ export default function TokenBudgetDemo() {
       />
       <div class="demo-options">
         <button onClick={() => setBudget(200)}>Tight budget</button>
-        <button onClick={() => setBudget(750)}>Fit all chunks</button>
+        <button onClick={() => setBudget(750)}>Fit all functions</button>
       </div>
       <p
         class="demo-budget-status"
         role="status"
         aria-label="Context selection"
       >
-        {kept} of 4 complete chunks · {tokens} / {budget} estimated tokens
+        {kept} of 4 complete functions · {tokens} / {budget} estimated tokens
       </p>
       <meter
         min="0"
@@ -55,15 +57,20 @@ export default function TokenBudgetDemo() {
             </span>
             <span>
               <code>{chunk.name}</code>
-              <small>{chunk.estimate} estimated tokens alone</small>
+              <small>
+                {chunk.estimate} estimated tokens alone ·{" "}
+                {chunk.kept
+                  ? "Fits the remaining budget"
+                  : "Does not fit the remaining budget"}
+              </small>
             </span>
           </li>
         ))}
       </ol>
       <details class="demo-context">
-        <summary>Assembled context</summary>
+        <summary>See the code sent to the agent</summary>
         <pre>
-          <code>{content || "No chunks fit this budget."}</code>
+          <code>{content || "No functions fit this budget."}</code>
         </pre>
       </details>
       <p class="demo-budget-note">

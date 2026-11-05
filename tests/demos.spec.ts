@@ -33,22 +33,25 @@ test("token budget responds to presets and keyboard input without horizontal ove
 }) => {
   await page.setViewportSize({ width: 320, height: 850 });
   await page.goto("/#projects/brain-cache");
+  await page
+    .getByText("Try limiting how much code the agent receives", { exact: true })
+    .click();
   const budget = page.getByRole("region", { name: "Context token budget" });
   await budget.getByRole("button", { name: "Tight budget" }).click();
   await expect(
     budget.getByRole("status", { name: "Context selection" }),
-  ).toHaveText("2 of 4 complete chunks · 134 / 200 estimated tokens");
+  ).toHaveText("2 of 4 complete functions · 134 / 200 estimated tokens");
   await expect(budget.locator('[data-kept="true"]')).toHaveCount(2);
   const slider = budget.getByRole("slider", { name: "Estimated token budget" });
   await slider.focus();
   await page.keyboard.press("Home");
   await expect(
     budget.getByRole("status", { name: "Context selection" }),
-  ).toHaveText("0 of 4 complete chunks · 0 / 0 estimated tokens");
-  await budget.getByRole("button", { name: "Fit all chunks" }).click();
+  ).toHaveText("0 of 4 complete functions · 0 / 0 estimated tokens");
+  await budget.getByRole("button", { name: "Fit all functions" }).click();
   await expect(
     budget.getByRole("status", { name: "Context selection" }),
-  ).toHaveText("4 of 4 complete chunks · 723 / 750 estimated tokens");
+  ).toHaveText("4 of 4 complete functions · 723 / 750 estimated tokens");
   await budget.locator("summary").click();
   await expect(budget.locator("pre")).toContainText("function assembleContext");
   const width = await page
@@ -95,4 +98,25 @@ test("workflow guides visitors through steps and resets when the task changes", 
   await expect(
     board.getByRole("button", { name: "Previous step" }),
   ).toBeDisabled();
+});
+
+test("code search explains the match before showing its source", async ({
+  page,
+}) => {
+  await page.goto("/#projects/brain-cache");
+  const demo = page.getByRole("region", { name: "Sample code search" });
+  await expect(
+    demo.getByRole("heading", { name: "assembleContext", exact: true }),
+  ).toBeVisible();
+  await expect(demo.locator(".demo-results pre")).toBeHidden();
+  await demo.getByRole("button", { name: "offline", exact: true }).click();
+  await expect(
+    demo.getByRole("heading", { name: "requireOllama", exact: true }),
+  ).toBeVisible();
+  await demo.locator(".demo-results summary").click();
+  await expect(demo.locator(".demo-results pre")).toContainText(
+    "async function requireOllama",
+  );
+  await demo.getByRole("searchbox").fill("no-such-function");
+  await expect(demo.getByText(/No matching snippets/)).toBeVisible();
 });

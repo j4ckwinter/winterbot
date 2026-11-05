@@ -501,3 +501,26 @@
   color: #626c5e;
   margin-top: 20px;
 }
+
+.demo-search-result {
+  padding: 16px;
+  background: var(--surface);
+  border-radius: 8px;
+  min-width: 0;
+}
+.demo-search-result h5 {
+  font: 600 16px/1.4 var(--font-ui);
+  overflow-wrap: anywhere;
+  margin: 0 0 8px;
+}
+.demo-search-result > p {
+  margin: 0 0 16px;
+}
+.demo-source-browser .demo-budget {
+  border: 0;
+  margin: 0;
+  padding: 12px 0;
+}
+.demo-budget-chunks li > span:last-child {
+  min-width: 0;
+}
