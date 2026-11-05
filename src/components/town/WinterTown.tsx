@@ -238,7 +238,7 @@ export default function WinterTown() {
             Jack Winter<span class="identity-dot">.</span>
           </h1>
           <span class="identity-role">
-            Frontend engineer · {profile.location}
+            Software Engineer · {profile.location}
           </span>
         </div>
         <div class="identity-links">
@@ -397,7 +397,7 @@ export default function WinterTown() {
                   <button
                     disabled={!ready}
                     key={p.id}
-                    class={`map-label ${scene === "town" ? "town-label" : ""} ${activeDestination?.id === p.id ? "is-destination" : ""} ${near?.id === p.id ? "is-actionable" : ""} ${Math.hypot(position.x - p.x, position.y - p.y) < 90 ? "is-near" : ""}`}
+                    class={`map-label ${scene === "town" ? "town-label" : "room-label"} ${activeDestination?.id === p.id ? "is-destination" : ""} ${near?.id === p.id ? "is-actionable" : ""} ${Math.hypot(position.x - p.x, position.y - p.y) < 90 ? "is-near" : ""}`}
                     onFocus={(e) => {
                       if (e.currentTarget.matches(":focus-visible"))
                         setOverview(true);

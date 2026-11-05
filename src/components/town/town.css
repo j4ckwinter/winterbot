@@ -244,37 +244,8 @@
 .map-label::before {
   content: "";
 }
-.town-app:not(.is-overview)
-  .map-label:not(.town-label):not(.is-near):not(:hover):not(:focus-visible) {
-  min-width: 44px;
-  width: 44px;
-  height: 44px;
-  padding: 10px;
-  background: #faf5dfed;
-  box-shadow: 2px 2px #36472d44;
-}
-.town-app:not(.is-overview)
-  .map-label:not(.town-label):not(.is-near):not(:hover):not(:focus-visible)
-  > span,
-.town-app:not(.is-overview)
-  .map-label:not(.town-label):not(.is-near):not(:hover):not(:focus-visible)
-  > small {
-  display: none;
-}
-.town-app:not(.is-overview)
-  .map-label:not(.town-label):not(.is-near):not(:hover):not(
-    :focus-visible
-  )::before {
-  content: "";
-  display: block;
-  width: 12px;
-  height: 12px;
-  margin: auto;
-  border: 3px solid #526f4b;
-  background: #d4bf85;
-  box-shadow: inset 2px 2px #f8e7af;
-}
-.town-label {
+.town-label,
+.room-label {
   min-width: 0;
   min-height: 44px;
   padding: 7px 10px;
@@ -283,7 +254,8 @@
   background: #f3edd7;
   box-shadow: 0 2px 3px #36472d30;
 }
-.town-label > span {
+.town-label > span,
+.room-label > span {
   font: 600 13px var(--font-ui);
   white-space: nowrap;
 }

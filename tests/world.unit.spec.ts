@@ -35,8 +35,9 @@ test("scenery blocks walking while bridge and entrances remain open", () => {
   expect(canWalk("home", 650, 430)).toBe(false);
   expect(canWalk("station", 700, 250)).toBe(false);
   expect(canWalk("station", 700, 390)).toBe(true);
-  expect(canWalk("post", 700, 400)).toBe(false);
-  expect(canWalk("workshop", 230, 470)).toBe(false);
+  expect(canWalk("post", 700, 400)).toBe(true);
+  expect(canWalk("post", 480, 280)).toBe(false);
+  expect(canWalk("workshop", 230, 470)).toBe(true);
 });
 
 test("routes reach all objects without crossing collision rectangles", () => {
@@ -80,16 +81,17 @@ test("room objects route clicks to the matching interaction", () => {
 });
 
 test("routes reach points beside furniture without clipping the final segment", () => {
+  const [left, , , bottom] = roomLayouts.post.furniture[0];
   for (const destination of [
-    { x: 406, y: 366 },
-    { x: 406, y: 364 },
+    { x: left - 2, y: bottom - 3 },
+    { x: left - 2, y: bottom - 5 },
   ]) {
     const entrance = { x: 480, y: 550 };
     for (const [start, end] of [
       [entrance, destination],
       [destination, entrance],
     ]) {
-      const route = findRoute("station", start, end);
+      const route = findRoute("post", start, end);
       expect(route.length).toBeGreaterThan(0);
       expect(route.at(-1)).toEqual(end);
       let previous = start;
@@ -102,7 +104,7 @@ test("routes reach points beside furniture without clipping the final segment", 
           const fraction = sample / samples;
           expect(
             canWalk(
-              "station",
+              "post",
               previous.x + (point.x - previous.x) * fraction,
               previous.y + (point.y - previous.y) * fraction,
             ),

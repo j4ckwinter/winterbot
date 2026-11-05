@@ -430,28 +430,6 @@ export default function InteriorMap({
               REVIEW BENCH
             </text>
           </g>
-          <g transform="translate(150 431)">
-            <path d="M-4-4h188v78H-4z" fill="#514d38" />
-            <path d="M0 0h180v22H0z" fill="#c39b66" />
-            <path d="M0 0h180v4H0z" fill="#e0bc84" />
-            <path d="M7 22h166v47H7z" fill="#806143" />
-            <path d="M20 30h66v22H20z M94 30h66v22H94z" fill="#a58054" />
-            <path
-              d="M25 6h39v5H25z M105-8h9v25h-9z M96-6h27v7H96z"
-              fill="#67746a"
-            />
-            <path d="M52 37h10v4H52z M121 37h10v4h-10z" fill="#d8c692" />
-            <path d="M28-30h58v34H28z" fill="#455b48" />
-            <path d="M32-26h50v25H32z" fill="#82966a" />
-            <path
-              d="M38-20h18v14H38z M65-22h9v7h-9z M63-10h14v4H63z"
-              fill="#374f42"
-            />
-            <path d="M44-16h6v6h-6z M59-20h3v18h-3z" fill="#ceb77d" />
-            <path d="M88-22h18v26H88z M90-20h14v4H90z" fill="#9b9d7d" />
-            <path d="M125-14h29v17h-29z" fill="#dfd3a8" />
-            <path d="M129-10h21v3h-21z M129-4h12v3h-12z" fill="#7f8b6a" />
-          </g>
           {roomLayouts.workshop.objects.map(
             (object, index) =>
               inspectedProjects.includes(index) && (
@@ -482,10 +460,7 @@ export default function InteriorMap({
             />
             <path d="M63 25h4v4h-4z" fill="#e6d7ae" />
           </g>
-          <Shelf x={315} />
-          <g transform="translate(0 -18)">
-            <Desk x={480} />
-          </g>
+          <Shelf x={480} />
           <path d="M386 376h198v148H386z" fill="#495f52" opacity=".35" />
           <path d="M390 380h190v140H390z" fill="#63847e" />
           <path
@@ -515,7 +490,6 @@ export default function InteriorMap({
             <path d="M0 44h14v45H0z M106 44h14v45h-14z" fill="#838960" />
             <path d="M20 61h30v5H20z" fill="#d9cda4" />
           </g>
-          <path d="M272 346h74v7h-74z M281 339h53v7h-53z" fill="#a18c69" />
           <g transform="translate(279 409)" data-exhibit-preview="notebook">
             <path d="M0 0h32l8 4 8-4h32v30H48l-8 4-8-4H0z" fill="#eee0b5" />
             <path
@@ -574,10 +548,10 @@ export default function InteriorMap({
             <path key={i} d={`M${88 + i * 31} 307h14v4h-14z`} fill="#f0d793" />
           ))}
           <path d="M80 317h800v4H80z" fill="#687b64" />
-          <g transform="translate(0 40)">
+          <g transform="translate(-96 1.2) scale(1.2)">
             <Board x={480} />
           </g>
-          <path d="M408 380h144v22H408z" fill="#789184" opacity=".5" />
+          <path d="M390 412h180v22H390z" fill="#789184" opacity=".5" />
           {[140, 640].map((x) => (
             <g key={x} transform={`translate(${x} 422)`}>
               <path d="M0 0h180v34H0z M0 39h180v22H0z" fill="#785e42" />
@@ -617,56 +591,25 @@ export default function InteriorMap({
               </g>
             ))}
           </g>
-          <path d="M150 226h550v74H150z M650 300h110v150H650z" fill="#916546" />
-          <path
-            d="M150 213h550v22H150z M650 235h110v19H650z M650 254h22v196h-22z"
-            fill="#d4b37b"
-          />
-          <path d="M165 249h465v35H165z M685 272h59v160h-59z" fill="#ad8359" />
-          <path d="M150 213h550v4H150z M650 235h110v4H650z" fill="#ead09b" />
-          <path d="M150 296h500v5H150z M756 254h4v196h-4z" fill="#624e39" />
-          {[190, 280, 370, 550].map((x) => (
-            <path key={x} d={`M${x} 252h3v29h-3z`} fill="#8a6747" />
-          ))}
-          <path d="M570 191h43v19h-43z M575 186h33v5h-33z" fill="#d3b17b" />
-          <path d="M588 186h6v24h-6z" fill="#eee0b2" />
-          <g
-            font-family="monospace"
-            font-size="10"
-            fill="#f2deb0"
-            text-anchor="middle"
-          >
-            {[
-              ["EMAIL", 234],
-              ["GITHUB", 386],
-              ["LINKEDIN", 568],
-            ].map(([channel, x]) => (
-              <g key={channel}>
-                <rect
-                  x={Number(x) - 47}
-                  y="258"
-                  width="94"
-                  height="18"
-                  fill="#75563f"
-                />
-                <text x={x} y="271">
-                  {channel}
-                </text>
-              </g>
-            ))}
+          <g data-exhibit-preview="writing-desk">
+            <path d="M385 304h190v24H385z" fill="#604e3c" opacity=".25" />
+            <path d="M396 246h168v60H396z" fill="#916546" />
+            <path d="M388 225h184v28H388z" fill="#d4b37b" />
+            <path d="M388 225h184v4H388z" fill="#f2d9a3" />
+            <path d="M400 294h12v32h-12z M548 294h12v32h-12z" fill="#775139" />
+            <path d="M418 263h124v30H418z" fill="#ad8359" />
+            <path d="M474 274h12v4h-12z" fill="#e5cb91" />
+            <path d="M437 204h74v36h-74z" fill="#f6e8c0" />
+            <path
+              d="M440 207l34 22 34-22"
+              fill="none"
+              stroke="#af8d65"
+              strokeWidth="3"
+            />
+            <path d="M524 208l4 1-9 30-4-1z" fill="#405e50" />
+            <path d="M529 187h20v32h-20z" fill="#ac7653" />
+            <path d="M535 175h4v20h-4z M542 179h4v17h-4z" fill="#526d5a" />
           </g>
-          <g transform="translate(308 194)">
-            <path d="M0 0h70v17H0z" fill="#eadbb1" />
-            <path d="M6 4h42v2H6z M6 9h34v2H6z" fill="#8b9978" />
-            <path d="M60-8h4v20h-4z" fill="#4f6658" />
-          </g>
-          <path d="M450 201h65v12h-65z M460 189h45v12h-45z" fill="#e9d9ad" />
-          <path
-            d="M460 189l23 13 22-13"
-            fill="none"
-            stroke="#a28660"
-            strokeWidth="3"
-          />
           <g transform="translate(100 422)">
             <path d="M0 0h150v78H0z" fill="#a8875f" />
             <path d="M7 8h136v60H7z" fill="#c4a67a" />
