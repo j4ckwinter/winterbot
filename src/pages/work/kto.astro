@@ -44,6 +44,51 @@ import "../../styles/case-study.css";
           real-time data processing.
         </p>
       </section>
+      <section class="case-prose" aria-labelledby="loading-title">
+        <h2 id="loading-title">Getting the first view on screen</h2>
+        <p>
+          I changed the loading sequence to fetch and render the initial events,
+          main markets and odds before setting up live updates and progressively
+          subscribing the markets. This reduced the work that had to finish
+          before the first view could appear.
+        </p>
+        <p>
+          Alongside that, I split code, lazy-loaded non-critical services,
+          removed unused translations and used lighter dependency builds.
+          Deferring work can make a feature’s first use slower, and the initial
+          market snapshot still needs to transition correctly into live state.
+        </p>
+      </section>
+      <section class="case-prose" aria-labelledby="return-title">
+        <h2 id="return-title">Avoiding repeated setup on return visits</h2>
+        <p>
+          Returning to the sportsbook could repeat expensive Kambi client
+          initialisation. Keeping the initialised client alive for reuse avoided
+          that bootstrap work and made the tested return journey around 11 times
+          faster. This result applies to leaving the sportsbook and coming back,
+          rather than a first visit.
+        </p>
+        <p>
+          Reuse retains state and memory, so session validity, the client’s
+          container, subscriptions and listeners all matter to a usable return.
+        </p>
+      </section>
+      <section class="case-prose" aria-labelledby="icons-title">
+        <h2 id="icons-title">Making consumers pay for one icon</h2>
+        <p>
+          Importing one icon from our shared package’s root entry retained
+          roughly 65 KB gzip. Inspecting the built output showed that generated
+          icon components were flattened into the root module; marking the
+          package side-effect-free had not achieved the expected isolation.
+        </p>
+        <p>
+          I changed the package API to generate isolated per-icon entry points.
+          A representative single-icon import then retained roughly 0.3–0.4 KB
+          gzip. I added a bundle budget and structural tests to protect that
+          behaviour. This was a separate package measurement, not the overall
+          sportsbook’s transferred-data result.
+        </p>
+      </section>
       <section class="case-prose" aria-labelledby="architecture-title">
         <h2 id="architecture-title">Separating responsibilities</h2>
         <p>
@@ -59,14 +104,32 @@ import "../../styles/case-study.css";
         </ul>
         <h3>Keeping high-frequency processing off the main thread</h3>
         <p>
-          I built a real-time sports data pipeline using Web Workers, Socket.IO
-          and Zustand. Moving events and odds processing off the main thread
-          kept the live betting interface responsive.
+          The real-time pipeline used browser Web Workers, Socket.IO and
+          Zustand. Heavier normalisation, filtering and sorting ran in a worker,
+          with batched snapshots containing the fields each subscriber needed
+          sent back to main-thread stores for React to consume.
         </p>
         <p>
-          A design consideration with this approach is the coordination required
-          across worker boundaries. The interface and background processing need
-          a clear contract for updates and lifecycle management.
+          Workers add messaging overhead and another lifecycle boundary;
+          batching can add display latency. Rendering still happens on the main
+          thread, so focused UI updates remain important. The loading-time
+          blocking result does not isolate the worker’s effect on live
+          interactions.
+        </p>
+      </section>
+      <section class="case-prose" aria-labelledby="measurement-title">
+        <h2 id="measurement-title">How I measured the work</h2>
+        <p>
+          I used Lighthouse, network profiling and browser performance marks
+          around bootstrap stages, including route loading, session
+          availability, hydration and client initialisation. Testing included
+          slow-4G conditions.
+        </p>
+        <p>
+          The paint, blocking-time and transferred-data figures are combined
+          results across the wider loading work. They do not isolate any single
+          optimisation. Return navigation and the icon-package comparison are
+          separate measurements.
         </p>
       </section>
       <footer class="case-contact">
