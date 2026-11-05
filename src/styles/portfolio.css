@@ -111,8 +111,7 @@
 .plain-portfolio .place-content {
   max-width: 780px;
 }
-.plain-portfolio .station-board,
-.plain-portfolio .post-vignette {
+.plain-portfolio .station-board {
   display: none;
 }
 .plain-portfolio .place-career {

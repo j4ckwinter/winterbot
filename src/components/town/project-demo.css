@@ -306,7 +306,8 @@
 }
 .demo-workflow-board .demo-stage {
   border-left: 0;
-  border-top: 3px solid #a46b41;
+  border-top: 0;
+  border-radius: 8px;
   padding: 18px;
 }
 .demo-stage-index {
@@ -478,7 +479,7 @@
 }
 .demo-secondary {
   margin-top: 20px;
-  border-top: 1px solid #bdc2a6;
+  border-top: 0;
 }
 .demo-secondary > .project-demo {
   margin-top: 0;

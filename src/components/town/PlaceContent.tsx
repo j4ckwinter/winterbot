@@ -1,4 +1,5 @@
 import { useRef } from "preact/hooks";
+import ProjectIcon from "./ProjectIcon";
 import FeaturedWork from "./FeaturedWork";
 import "./place-content.css";
 import ProjectDemo from "./ProjectDemo";
@@ -102,13 +103,8 @@ function Workshop({
               onProjectChange?.(index as 0 | 1 | 2);
             }}
           >
-            <span
-              class={`project-object project-object--${item.kind}`}
-              aria-hidden="true"
-            >
-              <i />
-              <b />
-              <em />
+            <span class="project-icon-badge">
+              <ProjectIcon kind={item.kind} />
             </span>
             <small>NO. {item.number}</small>
             <span>{item.name}</span>
@@ -166,8 +162,10 @@ function Workshop({
 export function About() {
   return (
     <>
-      <p>{profile.summary}</p>
-      <p>{profile.approach}</p>
+      <div class="about-intro">
+        <p>{profile.summary}</p>
+      </div>
+      <p class="about-approach">{profile.approach}</p>
     </>
   );
 }
@@ -180,18 +178,23 @@ export function Skills() {
         {skills.map((group) => (
           <div key={group.name}>
             <h4>{group.name}</h4>
-            <p>{group.tools}</p>
+            <ul aria-label={group.name}>
+              {group.tools.split(" · ").map((tool) => (
+                <li key={tool}>{tool}</li>
+              ))}
+            </ul>
           </div>
         ))}
       </div>
-      <h3>Education</h3>
-      <p>
-        <strong>BSc Computer Science · 2:1</strong>
-        <br />
-        University of the West of England
-        <br />
-        Sep 2013 — Apr 2017
-      </p>
+      <div class="place-education">
+        <h3>Education</h3>
+        <p>
+          <strong>BSc Computer Science · 2:1</strong>
+          <br />
+          University of the West of England
+        </p>
+        <span>Sep 2013 — Apr 2017</span>
+      </div>
     </>
   );
 }
@@ -242,22 +245,20 @@ export function Station({ featured = true }: { featured?: boolean }) {
 export function PostOffice() {
   return (
     <>
-      <div class="post-vignette" aria-hidden="true">
-        <div class="post-envelope">
-          <i />
-        </div>
-      </div>
       <div class="place-contact">
         <a href={`mailto:${profile.email}`}>
-          <small>EMAIL</small>
-          <span>{profile.email} ↗</span>
+          <small>Email Jack</small>
+          <span>
+            {profile.email.split("@")[0]}@<wbr />
+            {profile.email.split("@")[1]} ↗
+          </span>
         </a>
         <a
           href="https://github.com/j4ckwinter"
           target="_blank"
           rel="noopener noreferrer"
         >
-          <small>GITHUB</small>
+          <small>GitHub</small>
           <span>j4ckwinter ↗</span>
         </a>
         <a
@@ -265,7 +266,7 @@ export function PostOffice() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <small>LINKEDIN</small>
+          <small>LinkedIn</small>
           <span>Jack Winter ↗</span>
         </a>
       </div>

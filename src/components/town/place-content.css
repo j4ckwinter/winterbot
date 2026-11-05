@@ -67,87 +67,23 @@
 .project-machine:hover {
   background: #f5e9c8;
 }
+.project-icon-badge {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 6px;
+  border-radius: 16px;
+  background: var(--surface);
+}
+.project-machine[aria-pressed="true"] .project-icon-badge {
+  background: #fff8e9;
+}
 .project-object {
-  position: relative;
   display: block;
-  width: 46px;
-  height: 44px;
-  margin-bottom: 10px;
-}
-.project-object--console {
-  width: 32px;
-  background: #bcad8b;
-  border: 3px solid #655e49;
-  box-shadow: 3px 3px #c7b78c;
-}
-.project-object--console i {
-  position: absolute;
-  top: 4px;
-  left: 3px;
-  width: 20px;
-  height: 16px;
-  background: #74875c;
-  border: 3px solid #4f6049;
-}
-.project-object--console b {
-  position: absolute;
-  left: 3px;
-  bottom: 6px;
-  width: 10px;
-  height: 4px;
-  background: #5d5a48;
-}
-.project-object--console em {
-  position: absolute;
-  right: 3px;
-  bottom: 5px;
-  width: 4px;
-  height: 4px;
-  background: #aa644b;
-}
-.project-object--memory {
-  background: #687d71;
-  border: 3px solid #435f52;
-  box-shadow: 3px 3px #c7b78c;
-}
-.project-object--memory i {
-  position: absolute;
-  top: 7px;
-  left: 5px;
-  width: 30px;
-  height: 5px;
-  background: #b8ca8b;
-  box-shadow:
-    0 9px #b8ca8b,
-    0 18px #b8ca8b;
-}
-.project-object--memory b {
-  position: absolute;
-  bottom: 3px;
-  right: 3px;
-  background: #eac17a;
-  width: 4px;
-  height: 4px;
-}
-.project-object--pancakes {
-  height: 30px;
-  margin-top: 14px;
-  background: #c59155;
-  border-top: 6px solid #e5bd75;
-  box-shadow:
-    0 -8px #a77243,
-    0 -13px #edc57d,
-    0 -19px #b17b47,
-    0 -24px #efcd8c,
-    4px 4px #d4c5a4;
-}
-.project-object--pancakes i {
-  position: absolute;
-  top: -27px;
-  left: 17px;
-  width: 13px;
-  height: 7px;
-  background: #fae2a2;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
 }
 .project-detail {
   padding: 10px 0 0;
@@ -193,8 +129,9 @@
   gap: 12px;
 }
 .place-toolkit > div {
-  border-left: 3px solid #9ba380;
-  padding: 0 16px;
+  padding: 18px;
+  border-radius: 12px;
+  background: var(--surface-muted);
 }
 .place-toolkit p {
   font-size: 15px;
@@ -252,49 +189,6 @@
 .place-career li li {
   margin: 7px 0;
 }
-.post-vignette {
-  height: 145px;
-  background: repeating-linear-gradient(
-    135deg,
-    #e8e2c8 0 12px,
-    #e0dac0 12px 24px
-  );
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid #b5ac8c;
-  padding: 20px;
-  margin-bottom: 20px;
-}
-.post-envelope {
-  position: relative;
-  width: 78px;
-  height: 54px;
-  background: #f7efd5;
-  border: 3px solid #9a7253;
-  box-shadow: 5px 5px #c6b999;
-  transform: rotate(-7deg);
-}
-.post-envelope:before {
-  content: "";
-  position: absolute;
-  left: 10px;
-  top: -20px;
-  width: 49px;
-  height: 49px;
-  border-right: 3px solid #9a7253;
-  border-bottom: 3px solid #9a7253;
-  transform: rotate(45deg);
-}
-.post-envelope i {
-  position: absolute;
-  right: 6px;
-  top: 6px;
-  width: 13px;
-  height: 16px;
-  background: #aa6c50;
-  border: 2px solid #d2a47a;
-}
 .place-contact {
   display: grid;
   gap: 10px;
@@ -303,20 +197,21 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
-  border: 1px solid #d5c8a8;
-  padding: 16px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  padding: 20px;
   text-decoration: none;
-  background: #f7f0dc;
+  background: var(--surface-muted);
   overflow-wrap: anywhere;
 }
 .place-contact a:hover {
-  border-color: #9a7253;
-  background: #f0e3c3;
+  border-color: #a6b69b;
+  background: #e8eddf;
 }
 .place-contact small {
-  font-size: 9px;
-  letter-spacing: 1.5px;
-  color: #726b52;
+  font-size: 13px;
+  font-weight: 650;
+  color: var(--text-muted);
 }
 .place-contact span {
   font-size: 15px;
@@ -344,7 +239,7 @@
 
 .project-story {
   margin: 20px 0;
-  border-block: 1px solid #c7bda0;
+  border: 0;
   font-family:
     system-ui,
     -apple-system,
@@ -384,8 +279,14 @@
     padding: 12px 4px 9px;
     font-size: 12px;
   }
+  .project-icon-badge {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+  }
   .project-machine .project-object {
-    display: none;
+    width: 38px;
+    height: 38px;
   }
   .project-detail {
     padding: 12px 0 0;
@@ -444,4 +345,105 @@
 }
 .project-highlights li {
   padding-left: 4px;
+}
+
+.about-intro {
+  padding: 22px 24px;
+  border-radius: 14px;
+  background: #e8eddf;
+}
+.place-content .about-intro p {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.65;
+}
+.place-content .about-approach {
+  margin: 20px 0 28px;
+}
+.place-toolkit {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 16px 0 28px;
+}
+.place-toolkit > div:last-child {
+  grid-column: 1 / -1;
+}
+.place-toolkit h4 {
+  margin: 0 0 12px;
+  color: #40543c;
+}
+.place-toolkit ul {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  gap: 6px;
+  padding: 0;
+  margin: 0;
+}
+.place-toolkit li {
+  padding: 4px 9px;
+  border-radius: 6px;
+  background: var(--surface);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.place-education {
+  padding: 20px;
+  border-radius: 12px;
+  background: #f3ede3;
+}
+.place-content .place-education h3 {
+  font-size: 18px;
+  margin: 0 0 10px;
+}
+.place-content .place-education p {
+  margin: 0 0 8px;
+}
+.place-education > span {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.place-contact {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.place-contact a:first-child {
+  grid-column: 1 / -1;
+  background: #e8eddf;
+  padding: 24px;
+}
+.place-contact a:first-child span {
+  font-size: 20px;
+  font-weight: 600;
+}
+.project-detail > .project-story {
+  background: var(--surface-muted);
+  border-radius: 10px;
+  padding: 0 16px;
+  margin-block: 16px;
+}
+.project-detail > .project-story[open] {
+  padding-bottom: 16px;
+}
+.project-detail > .project-story .project-summary {
+  margin-bottom: 0;
+}
+@media (max-width: 520px) {
+  .place-toolkit {
+    grid-template-columns: 1fr;
+  }
+  .about-intro {
+    padding: 18px;
+  }
+  .place-content .about-intro p {
+    font-size: 16px;
+  }
+  .place-contact {
+    grid-template-columns: 1fr;
+  }
+  .place-contact a:first-child {
+    padding: 20px;
+  }
+  .place-contact a:first-child span {
+    font-size: 17px;
+  }
 }
