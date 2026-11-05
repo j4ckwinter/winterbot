@@ -1,0 +1,29 @@
+.content-page {
+  --content-section-space: 24px;
+  --content-card-space: 20px;
+  --content-heading-space: 16px;
+  --content-text-space: 14px;
+  --content-grid-space: 20px;
+  max-width: 1160px;
+  margin-inline: auto;
+  padding-inline: 28px;
+  line-height: 1.65;
+}
+.content-page-nav {
+  gap: var(--content-grid-space);
+  padding-block: var(--content-card-space);
+}
+.content-page-intro {
+  padding-block: var(--content-card-space);
+}
+@media (max-width: 700px) {
+  .content-page {
+    padding-inline: 18px;
+  }
+}
+@media print {
+  .content-page {
+    max-width: none;
+    padding-inline: 0;
+  }
+}

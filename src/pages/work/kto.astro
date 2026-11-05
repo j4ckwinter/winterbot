@@ -4,6 +4,7 @@ import Layout from "../../layouts/Layout.astro";
 import { profile } from "../../components/town/profile";
 import { ktoCaseStudy as study } from "../../data/ktoCaseStudy";
 import "../../styles/case-study.css";
+import "../../styles/content-layout.css";
 ---
 
 <Layout
@@ -12,13 +13,13 @@ import "../../styles/case-study.css";
   imagePath="/kto-social.png"
   imageAlt="KTO frontend case study — 40% faster FCP, 25% faster LCP and 11 times faster return navigation in performance testing."
 >
-  <div class="case-study">
-    <nav class="case-nav" aria-label="Case study navigation">
+  <div class="case-study content-page">
+    <nav class="case-nav content-page-nav" aria-label="Case study navigation">
       <a href="/portfolio#experience">← Experience</a>
       <a href="/#profile">Meet Jack ↗</a>
     </nav>
     <main id="main">
-      <header class="case-intro">
+      <header class="case-intro content-page-intro">
         <p class="case-eyebrow">KTO Group · Jun 2025 — Present</p>
         <h1>{study.title}</h1>
         <p class="case-lead">{study.summary}</p>

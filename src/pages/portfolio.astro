@@ -13,19 +13,20 @@ import {
 import ProjectPreview from "../components/town/ProjectPreview";
 import { projects } from "../components/town/projects";
 import "../styles/portfolio.css";
+import "../styles/content-layout.css";
 ---
 
 <Layout
   title="Jack Winter — Projects & Experience"
   description={profile.description}
 >
-  <div class="plain-portfolio">
-    <header class="portfolio-header">
+  <div class="plain-portfolio content-page">
+    <header class="portfolio-header content-page-nav">
       <a href="/">← Explore the town</a>
       <a href={`mailto:${profile.email}`}>Get in touch ↗</a>
     </header>
     <main id="main">
-      <div class="portfolio-intro">
+      <div class="portfolio-intro content-page-intro">
         <img
           src="/profile.jpeg"
           width="319"
