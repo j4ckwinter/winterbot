@@ -483,3 +483,21 @@
 .demo-secondary > .project-demo {
   margin-top: 0;
 }
+
+.project-demo .demo-task-context {
+  padding: 14px;
+  border-radius: 8px;
+  background: #fffefa99;
+  margin-block: 18px;
+}
+.demo-step-controls {
+  justify-content: space-between;
+}
+.project-demo button:disabled {
+  opacity: 0.45;
+}
+.project-demo .demo-scope-note {
+  font-size: 12px;
+  color: #626c5e;
+  margin-top: 20px;
+}

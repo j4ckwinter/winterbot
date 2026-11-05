@@ -6,22 +6,22 @@ const workflows = {
     {
       name: "Reproduce",
       detail:
-        "Click-to-walk left the player at the starting point. Keyboard movement still worked. A frame trace showed 393.898 ms arriving after a click recorded at 400.900 ms.",
+        "Clicking a destination left the player stuck, although keyboard movement worked. A timing trace revealed a frame timestamp earlier than the click.",
     },
     {
       name: "Test",
       detail:
-        "Inject an earlier timestamp only after a walk route exists, then assert that the player reaches the target and the route marker disappears.",
+        "Write a test that recreates the early frame, then checks that the player reaches the destination. It should fail before the fix.",
     },
     {
       name: "Fix",
       detail:
-        "Clamp elapsed time to zero before calculating movement. Reject non-finite coordinates in collision checks so NaN cannot enter the player state.",
+        "Treat negative elapsed time as zero. Reject invalid coordinates so a bad calculation cannot corrupt the player’s position.",
     },
     {
       name: "Verify",
       detail:
-        "Check automatic walking, held diagonal keys, blur cancellation, and idle frame scheduling. The regression lives in tests/town.spec.ts.",
+        "Run the regression test and check keyboard movement, leaving the window and stopping at the destination. The test protects against the bug returning.",
     },
   ],
   Feature: [
@@ -79,12 +79,14 @@ export default function WorkflowDemo() {
       aria-label="Workflow example"
     >
       <div class="demo-frame-label">
-        <span>pancake-stack / task board</span>
+        <span>pancake-stack / guided example</span>
         <span aria-hidden="true">03</span>
       </div>
-      <span class="demo-kicker">A bug from this portfolio</span>
-      <h4>From failure to regression test</h4>
-      {task === "Bug" && <FrameBugDemo />}
+      <h4>How I guide an AI coding agent</h4>
+      <p>
+        Pick a task, then follow the steps. Each step gives the agent a specific
+        job and something to check before moving on.
+      </p>
       <div class="demo-options" aria-label="Task type">
         {(Object.keys(workflows) as (keyof typeof workflows)[]).map((name) => (
           <button
@@ -100,7 +102,14 @@ export default function WorkflowDemo() {
           </button>
         ))}
       </div>
-      <ol class="demo-workflow">
+      <p class="demo-task-context">
+        {task === "Bug"
+          ? "Example: clicking a destination stopped the player walking in this town."
+          : task === "Feature"
+            ? "General workflow: take a new feature from a defined outcome to a working change."
+            : "General workflow: review a change and report issues backed by evidence."}
+      </p>
+      <ol class="demo-workflow" aria-label="Workflow steps">
         {workflows[task].map((step, index) => (
           <li key={step.name}>
             <button
@@ -121,6 +130,26 @@ export default function WorkflowDemo() {
         <h5>{workflows[task][stage].name}</h5>
         <p>{workflows[task][stage].detail}</p>
       </div>
+      <div class="demo-options demo-step-controls" aria-label="Step navigation">
+        <button disabled={stage === 0} onClick={() => setStage(stage - 1)}>
+          Previous step
+        </button>
+        <button
+          disabled={stage === workflows[task].length - 1}
+          onClick={() => setStage(stage + 1)}
+        >
+          Next step
+        </button>
+      </div>
+      {task === "Bug" && (
+        <details class="demo-secondary">
+          <summary>Try the bug and fix yourself</summary>
+          <FrameBugDemo />
+        </details>
+      )}
+      <p class="demo-scope-note">
+        This is a walkthrough of the workflow, not a live AI agent.
+      </p>
     </section>
   );
 }
