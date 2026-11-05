@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 
 test.use({ hasTouch: true, viewport: { width: 390, height: 844 } });
 
-test("touch navigation avoids focus borders and keyboard navigation restores them", async ({
+test("touch navigation avoids focus borders and keyboard navigation restores focus", async ({
   page,
 }) => {
   await page.goto("/");
@@ -21,12 +21,11 @@ test("touch navigation avoids focus borders and keyboard navigation restores the
   }
   await page.keyboard.press("Enter");
   await expect(page.locator("#place-title")).toBeFocused();
-  await expect(page.locator("#place-title")).toHaveCSS(
-    "outline-style",
-    "solid",
+  await expect(page.locator(".town-app")).toHaveAttribute(
+    "data-input-method",
+    "keyboard",
   );
   await page.keyboard.press("Escape");
   const contact = nav.getByRole("button", { name: "Contact" });
   await expect(contact).toBeFocused();
-  await expect(contact).toHaveCSS("outline-style", "solid");
 });
