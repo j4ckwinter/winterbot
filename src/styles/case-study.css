@@ -191,15 +191,43 @@
   margin: 0;
 }
 .case-sections {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 24px;
+  max-width: 800px;
   margin-bottom: var(--content-section-space);
 }
+.case-sections-label {
+  margin: 0 0 10px;
+  font-size: 12px;
+  font-weight: 650;
+  color: var(--text-muted);
+}
+.case-section-links {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 8px;
+}
 .case-sections a {
-  display: inline-block;
-  padding-block: 10px;
-  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 10px 8px;
+  border-radius: var(--radius-control);
+  background: var(--surface-muted);
+  font-size: 13px;
+  text-decoration: none;
+}
+.case-sections a:hover {
+  background: #e8eddf;
+}
+@media (max-width: 760px) {
+  .case-section-links {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 400px) {
+  .case-section-links {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 .case-study h2[id] {
   scroll-margin-top: 24px;
