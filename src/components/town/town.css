@@ -187,7 +187,8 @@
 }
 .season-fire .town-map,
 .season-fire .town-object {
-  filter: sepia(0.3) saturate(0.85) hue-rotate(338deg);
+  --season-filter: sepia(0.3) saturate(0.85) hue-rotate(338deg);
+  filter: var(--season-filter);
 }
 .location-badge {
   position: absolute;
@@ -300,7 +301,7 @@
   box-shadow: 0 2px 5px #273b3026;
   visibility: hidden;
 }
-.town-label:is(:hover, :focus-visible, .is-near) small {
+.town-label:is(:hover, :focus-visible, .is-near, .is-destination) small {
   visibility: visible;
 }
 .player {
@@ -988,4 +989,43 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
+}
+
+.town-object.is-destination {
+  filter: var(--season-filter, brightness(1)) drop-shadow(0 0 3px #fff0a8)
+    drop-shadow(0 0 5px #e5b85c);
+}
+.map-label.is-destination {
+  border-color: #9a582e;
+  background: #fff6d8;
+  box-shadow: 0 0 0 2px #e8c67c;
+}
+.tap-feedback {
+  position: absolute;
+  inset: 0;
+  z-index: 900;
+  pointer-events: none;
+}
+.tap-feedback circle {
+  fill: #fff5cf55;
+  stroke: #fff5cf;
+  stroke-width: 2;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: tap-ring 550ms ease-out forwards;
+}
+@keyframes tap-ring {
+  from {
+    transform: scale(0.4);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tap-feedback circle {
+    animation: none;
+  }
 }

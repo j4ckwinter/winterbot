@@ -2,7 +2,13 @@ import type { ComponentChildren } from "preact";
 import { useTownCat } from "./useTownCat";
 import { trees, fences, TOWN_SIGNPOST, type Point } from "./world";
 
-export default function TownMap({ player }: { player?: Point }) {
+export default function TownMap({
+  player,
+  destination,
+}: {
+  player?: Point;
+  destination?: string;
+}) {
   const cat = useTownCat();
   const near = (x: number, y: number, distance = 68) =>
     player !== undefined && Math.hypot(player.x - x, player.y - y) < distance;
@@ -242,7 +248,11 @@ export default function TownMap({ player }: { player?: Point }) {
           stroke-width="8"
         />
       </svg>
-      <TownObject name="workshop" depth={285}>
+      <TownObject
+        name="workshop"
+        highlighted={destination === "workshop"}
+        depth={285}
+      >
         <g>
           <rect x="128" y="178" width="164" height="98" fill="#e8d9aa" />
           <path d="M128 251h164v25H128z" fill="#bdab7e" />
@@ -283,7 +293,7 @@ export default function TownMap({ player }: { player?: Point }) {
           <path d="M192 197h12v3h-12z M196 195h4v9h-4z M212 195h4v9h-4z M219 195h4v9h-4z M215 201h5v3h-5z" />
         </g>
       </TownObject>
-      <TownObject name="home" depth={265}>
+      <TownObject name="home" highlighted={destination === "home"} depth={265}>
         <g>
           <rect x="596" y="173" width="128" height="83" fill="#f0e2b6" />
           <rect x="596" y="241" width="128" height="15" fill="#b7a57c" />
@@ -310,7 +320,11 @@ export default function TownMap({ player }: { player?: Point }) {
           <path d="M649 190h3v8h-7v-3h4z M657 190h3v6h3v-6h3v8h-9z" />
         </g>
       </TownObject>
-      <TownObject name="station" depth={575}>
+      <TownObject
+        name="station"
+        highlighted={destination === "station"}
+        depth={575}
+      >
         <g>
           <rect x="126" y="490" width="178" height="76" fill="#e6d7ac" />
           <rect x="126" y="552" width="178" height="14" fill="#ad9a70" />
@@ -334,7 +348,7 @@ export default function TownMap({ player }: { player?: Point }) {
         <path d="M133 503h164v6H133z" fill="#d4b16e" />
         <path d="M133 505h164v3H133z" fill="#658c91" />
       </TownObject>
-      <TownObject name="post" depth={575}>
+      <TownObject name="post" highlighted={destination === "post"} depth={575}>
         <g>
           <rect x="576" y="496" width="138" height="70" fill="#efddb0" />
           <rect x="576" y="551" width="138" height="15" fill="#bba279" />
@@ -525,14 +539,16 @@ function TownObject({
   name,
   depth,
   children,
+  highlighted = false,
 }: {
+  highlighted?: boolean;
   name: string;
   depth: number;
   children: ComponentChildren;
 }) {
   return (
     <svg
-      class="town-object"
+      class={`town-object ${highlighted ? "is-destination" : ""}`}
       data-scenery={name}
       style={{ zIndex: Math.floor(depth) }}
       viewBox="0 0 960 640"

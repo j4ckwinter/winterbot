@@ -75,6 +75,12 @@ export default function WinterTown() {
   const [overview, setOverview] = useState(false);
   const [reduced, setReduced] = useState(false);
   const [notice, setNotice] = useState("");
+  const [tap, setTap] = useState<(Point & { id: number }) | null>(null);
+  useEffect(() => {
+    if (!tap) return;
+    const timer = window.setTimeout(() => setTap(null), 550);
+    return () => window.clearTimeout(timer);
+  }, [tap]);
   const [size, setSize] = useState({ width: 960, height: 640 });
   const world = useRef<HTMLDivElement>(null);
   const dialog = useRef<HTMLDialogElement>(null);
@@ -121,6 +127,7 @@ export default function WinterTown() {
         ? { x: door?.x ?? 480, y: door?.y ?? 390 }
         : { x: 480, y: 550 };
     engine.current = { scene: next, position: point };
+    setTap(null);
     setScene(next);
     setPosition(point);
     setDirection(next === "town" ? "down" : "up");
@@ -178,6 +185,7 @@ export default function WinterTown() {
     world.current?.focus({ preventScroll: true });
   };
   const walkTo = (point: Point) => {
+    setTap({ ...point, id: performance.now() });
     const landmark = destinationAt(scene, point);
     if (landmark) {
       travel(landmark);
@@ -202,6 +210,9 @@ export default function WinterTown() {
     world.current?.focus({ preventScroll: true });
   };
   const destinations = landmarks(scene);
+  const activeDestination = walkTarget
+    ? destinations.find((p) => p.x === walkTarget.x && p.y === walkTarget.y)
+    : undefined;
   const near = [...destinations, ...(scene === "town" ? [] : [exit])].find(
     (p) => Math.hypot(position.x - p.x, position.y - p.y) < 48,
   );
@@ -349,13 +360,26 @@ export default function WinterTown() {
             >
               <div class="scene-layer" key={scene} data-scene={scene}>
                 {scene === "town" ? (
-                  <Scenery player={position} />
+                  <Scenery
+                    player={position}
+                    destination={activeDestination?.id}
+                  />
                 ) : (
                   <Interior
                     room={scene}
                     player={position}
                     inspectedProjects={inspectedProjects}
                   />
+                )}
+                {tap && (
+                  <svg
+                    key={tap.id}
+                    class="tap-feedback"
+                    viewBox="0 0 960 640"
+                    aria-hidden="true"
+                  >
+                    <circle cx={tap.x} cy={tap.y} r="12" />
+                  </svg>
                 )}
                 {walkTarget && (
                   <svg
@@ -373,7 +397,7 @@ export default function WinterTown() {
                   <button
                     disabled={!ready}
                     key={p.id}
-                    class={`map-label ${scene === "town" ? "town-label" : ""} ${near?.id === p.id ? "is-actionable" : ""} ${Math.hypot(position.x - p.x, position.y - p.y) < 90 ? "is-near" : ""}`}
+                    class={`map-label ${scene === "town" ? "town-label" : ""} ${activeDestination?.id === p.id ? "is-destination" : ""} ${near?.id === p.id ? "is-actionable" : ""} ${Math.hypot(position.x - p.x, position.y - p.y) < 90 ? "is-near" : ""}`}
                     onFocus={(e) => {
                       if (e.currentTarget.matches(":focus-visible"))
                         setOverview(true);

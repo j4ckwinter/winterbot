@@ -48,3 +48,22 @@ test("cat wanders and reduced motion returns it to a resting spot", async ({
   await expect(cat).toHaveAttribute("transform", resting!);
   await expect(cat).toHaveAttribute("data-cat-walking", "false");
 });
+
+test("destination highlighting follows travel and clears on cancellation", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Map", exact: true }).click();
+  const house = page.getByRole("button", { name: "Walk to Jack’s House" });
+  await house.click();
+  await expect(house).toHaveClass(/is-destination/);
+  await expect(page.locator('[data-scenery="home"]')).toHaveClass(
+    /is-destination/,
+  );
+  await page.getByRole("button", { name: "Cancel walk" }).click();
+  await expect(house).not.toHaveClass(/is-destination/);
+  await expect(page.locator('[data-scenery="home"]')).not.toHaveClass(
+    /is-destination/,
+  );
+  await expect(page.locator(".walk-route")).toHaveCount(0);
+});
