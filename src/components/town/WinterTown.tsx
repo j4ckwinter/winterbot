@@ -23,9 +23,11 @@ import { useProgress } from "./useProgress";
 import { useSound } from "./useSound";
 import { useMovement } from "./useMovement";
 import StationAttendant from "./StationAttendant";
+import RoomNote from "./RoomNote";
 import StationTrip from "./StationTrip";
 import "./town.css";
 import "./journey.css";
+import "./interaction-feedback.css";
 
 const Scenery = memo(TownMap);
 const Interior = memo(InteriorMap);
@@ -128,7 +130,7 @@ export default function WinterTown() {
     world.current?.focus({ preventScroll: true });
   };
   const act = (action: Action) => {
-    sound.play();
+    sound.play(action.kind === "inspect" ? "inspect" : "door");
     if (action.kind === "enter") changeScene(action.place);
     else if (action.kind === "exit") changeScene("town");
     else {
@@ -369,7 +371,7 @@ export default function WinterTown() {
                   <button
                     disabled={!ready}
                     key={p.id}
-                    class={`map-label ${Math.hypot(position.x - p.x, position.y - p.y) < 90 ? "is-near" : ""}`}
+                    class={`map-label ${near?.id === p.id ? "is-actionable" : ""} ${Math.hypot(position.x - p.x, position.y - p.y) < 90 ? "is-near" : ""}`}
                     onFocus={(e) => {
                       if (e.currentTarget.matches(":focus-visible"))
                         setOverview(true);
@@ -425,6 +427,9 @@ export default function WinterTown() {
                   </button>
                 )}
               </div>
+            </div>
+            <div class="scene-arrival" key={scene} aria-hidden="true">
+              <span>{sceneName}</span>
             </div>
             <div class="location-badge" aria-hidden="true">
               {scene === "town"
@@ -498,6 +503,9 @@ export default function WinterTown() {
               <span>↵</span>
             </button>
           </div>
+          {scene !== "town" && scene !== "station" && (
+            <RoomNote place={scene} />
+          )}
           {scene === "station" && <StationAttendant />}
           {scene === "station" && (
             <StationTrip

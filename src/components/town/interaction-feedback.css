@@ -1,0 +1,82 @@
+.scene-arrival {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  display: grid;
+  place-items: center;
+  background: #273b30;
+  color: #f4e8bc;
+  pointer-events: none;
+  opacity: 0;
+  animation: room-arrival 320ms steps(4, end) both;
+}
+.scene-arrival span {
+  padding: 12px 20px;
+  border-block: 2px solid #c4b37c;
+  font:
+    22px DotGothic16,
+    monospace;
+}
+@keyframes room-arrival {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+.map-label.is-actionable {
+  border-color: #9a582e;
+  box-shadow:
+    0 0 0 2px #f1d88f,
+    3px 4px #36472d55;
+}
+.map-label.is-actionable::before {
+  position: absolute;
+  content: "";
+  width: 10px;
+  height: 8px;
+  left: calc(50% - 5px);
+  top: -14px;
+  background: #9a582e;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+.interaction-button:not(:disabled) {
+  border-color: #83966b;
+  background: #e8edd4;
+  box-shadow: inset 3px 0 #728751;
+}
+.room-note {
+  grid-column: 1 / -1;
+  border-top: 1px solid #b8c2a7;
+  padding: 0 18px;
+  background: #eeecd9;
+}
+.room-note summary {
+  cursor: pointer;
+  min-height: 44px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 12px;
+}
+.room-note summary::after {
+  content: "+";
+  margin-left: auto;
+}
+.room-note[open] summary::after {
+  content: "−";
+}
+.room-note p {
+  max-width: 65ch;
+  margin: 0 0 14px;
+  font:
+    15px/1.6 system-ui,
+    sans-serif;
+}
+@media (prefers-reduced-motion: reduce) {
+  .scene-arrival {
+    display: none;
+    animation: none;
+  }
+}

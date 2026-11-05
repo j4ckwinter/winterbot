@@ -1,18 +1,28 @@
 import { useEffect, useRef, useState } from "preact/hooks";
 
+type Cue = "inspect" | "door";
+const cueNotes = {
+  inspect: [660, 880, 990],
+  door: [220, 330, 440],
+} satisfies Record<Cue, number[]>;
+
 export function useSound() {
   const [enabled, setEnabled] = useState(false);
   const pending = useRef(false);
   const mounted = useRef(true);
   const context = useRef<AudioContext | null>(null);
-  const play = () => {
+  const play = (cue: Cue = "inspect") => {
     const audio = context.current;
     if (!audio || audio.state !== "running") return;
     const note = audio.createOscillator();
     const volume = audio.createGain();
     note.type = "triangle";
-    note.frequency.setValueAtTime(660, audio.currentTime);
-    note.frequency.setValueAtTime(880, audio.currentTime + 0.07);
+    cueNotes[cue].forEach((frequency, index) =>
+      note.frequency.setValueAtTime(
+        frequency,
+        audio.currentTime + index * 0.05,
+      ),
+    );
     volume.gain.setValueAtTime(0.035, audio.currentTime);
     volume.gain.exponentialRampToValueAtTime(0.001, audio.currentTime + 0.16);
     note.connect(volume).connect(audio.destination);
@@ -54,8 +64,8 @@ export function useSound() {
   return {
     enabled,
     toggle,
-    play: () => {
-      if (enabled) play();
+    play: (cue: Cue = "inspect") => {
+      if (enabled) play(cue);
     },
   };
 }
