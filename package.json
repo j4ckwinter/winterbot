@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.1",
   "engines": {
-    "node": "^22.22.3 || ^24.16.0 || >=26.3.0"
+    "node": "^22.23.4 || ^24.16.0 || >=26.3.0"
   },
   "scripts": {
     "dev": "astro dev",
@@ -15,23 +15,23 @@
     "lint": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --fix --max-warnings 0",
     "check": "npm run format:check && npm run lint && astro check",
-    "test": "playwright test"
+    "test": "npm run test:unit && npm run test:browser",
+    "test:unit": "playwright test --config playwright.unit.config.ts",
+    "test:browser": "playwright test"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.8",
-    "@astrojs/preact": "^5.0.2",
-    "@iconify-json/devicon": "^1.2.60",
-    "@iconify-json/simple-icons": "^1.2.73",
-    "@tailwindcss/vite": "^4.2.1",
-    "astro": "^6.0.4",
-    "astro-icon": "^1.1.5",
+    "@astrojs/check": "^0.9.12",
+    "@astrojs/preact": "^6.1.1",
+    "@tailwindcss/vite": "^4.3.4",
+    "astro": "^7.4.5",
     "preact": "^10.29.0",
-    "tailwindcss": "^4.2.1",
+    "tailwindcss": "^4.3.4",
     "typescript": "^5.9.3"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.58.2",
+    "@types/node": "^24.19.2",
     "eslint": "^10.14.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-astro": "^3.2.1",

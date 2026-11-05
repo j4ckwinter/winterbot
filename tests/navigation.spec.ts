@@ -69,6 +69,38 @@ test("copy-link failure offers a usable permalink", async ({ page }) => {
   );
 });
 
+test("a completed copy does not report success for a different project", async ({
+  page,
+}) => {
+  await page.addInitScript(() =>
+    Object.defineProperty(navigator, "clipboard", {
+      value: {
+        writeText: () =>
+          new Promise<void>((resolve) =>
+            window.addEventListener("finish-copy", () => resolve(), {
+              once: true,
+            }),
+          ),
+      },
+    }),
+  );
+  await page.goto("/#projects/brain-cache");
+  await page.getByRole("button", { name: "Copy link", exact: true }).click();
+  await page.getByRole("button", { name: /NO. 003 pancake-stack/ }).click();
+  await expect(page).toHaveURL(/#projects\/pancake-stack$/);
+  await page.evaluate(async () => {
+    window.dispatchEvent(new Event("finish-copy"));
+    await new Promise(requestAnimationFrame);
+    await new Promise(requestAnimationFrame);
+  });
+  await expect(page.locator(".share-content [role=status]")).toBeEmpty();
+  await page.getByRole("button", { name: "Copy link", exact: true }).click();
+  await page.evaluate(() => window.dispatchEvent(new Event("finish-copy")));
+  await expect(page.locator(".share-content [role=status]")).toHaveText(
+    "Link copied",
+  );
+});
+
 test.describe("without JavaScript", () => {
   test.use({ javaScriptEnabled: false });
   test("plain portfolio exposes all content and real links", async ({

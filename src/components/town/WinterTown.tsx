@@ -1,10 +1,11 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "preact/hooks";
+import { useEffect, useRef, useState } from "preact/hooks";
 import { memo } from "preact/compat";
 import TownMap from "./TownMap";
 import InteriorMap from "./InteriorMap";
 import PlaceContent from "./PlaceContent";
 import Player from "./Player";
-import { contentHash, parseContentHash, type Content } from "./navigation";
+import type { Content } from "./navigation";
+import { useContentNavigation } from "./useContentNavigation";
 import {
   findRoute,
   destinationAt,
@@ -70,8 +71,6 @@ export default function WinterTown() {
   const [logOpen, setLogOpen] = useState(false);
   const [overview, setOverview] = useState(false);
   const [reduced, setReduced] = useState(false);
-  const [content, setContent] = useState<Content | null>(null);
-  const [copyState, setCopyState] = useState("");
   const [notice, setNotice] = useState("");
   const [size, setSize] = useState({ width: 960, height: 640 });
   const world = useRef<HTMLDivElement>(null);
@@ -98,30 +97,18 @@ export default function WinterTown() {
     stepDirection,
     wake,
   } = useMovement(dialog, onArrival);
-  const previousFocus = useRef<HTMLElement | null>(null);
-  const navigateContent = (value: Content | null) => {
+  const {
+    content,
+    copyState,
+    openContent,
+    closeContent,
+    selectContent,
+    copyLink,
+    permalink,
+  } = useContentNavigation(dialog, stop, (value) => {
     recordInspection(value);
-    const hash = contentHash(value);
-    if (window.location.hash !== hash)
-      window.history.pushState(
-        null,
-        "",
-        `${window.location.pathname}${window.location.search}${hash}`,
-      );
-    setCopyState("");
-    setContent(value);
-  };
-  const openContent = (value: Content) => {
-    stop();
-    previousFocus.current = document.activeElement as HTMLElement;
-    navigateContent(value);
     markVisited(value.place);
-  };
-  const closeContent = () => {
-    dialog.current?.close();
-    navigateContent(null);
-    previousFocus.current?.focus();
-  };
+  });
   const changeScene = (next: Scene) => {
     stop();
     const from = engine.current.scene;
@@ -167,40 +154,6 @@ export default function WinterTown() {
       observer.disconnect();
     };
   }, []);
-  useEffect(() => {
-    const sync = () => {
-      stop();
-      const value = parseContentHash(window.location.hash);
-      setContent(value);
-      setCopyState("");
-      if (value) {
-        recordInspection(value);
-        markVisited(value.place);
-      } else {
-        dialog.current?.close();
-        previousFocus.current?.focus();
-      }
-    };
-    sync();
-    window.addEventListener("popstate", sync);
-    window.addEventListener("hashchange", sync);
-    return () => {
-      window.removeEventListener("popstate", sync);
-      window.removeEventListener("hashchange", sync);
-    };
-  }, []);
-  useLayoutEffect(() => {
-    if (content && !dialog.current?.open) dialog.current?.showModal();
-    else if (!content && dialog.current?.open) dialog.current.close();
-  }, [content]);
-  const copyLink = async () => {
-    try {
-      await navigator.clipboard.writeText(window.location.href);
-      setCopyState("Link copied");
-    } catch {
-      setCopyState("Copy the URL from your address bar.");
-    }
-  };
   const travel = (landmark: Landmark) => {
     stop();
     setNotice("");
@@ -631,13 +584,13 @@ export default function WinterTown() {
               place={content.place}
               initialProject={content.project}
               onProjectChange={(project) =>
-                navigateContent({ place: "workshop", project })
+                selectContent({ place: "workshop", project })
               }
             />
           )}
           <div class="share-content">
             <button onClick={copyLink}>Copy link</button>
-            <a href={contentHash(content)}>Permalink ↗</a>
+            <a href={permalink}>Permalink ↗</a>
             <span role="status">{copyState}</span>
           </div>
           <button class="back-to-town" onClick={closeContent}>

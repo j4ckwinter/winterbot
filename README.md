@@ -10,7 +10,7 @@ Project and section URLs can be shared. `/portfolio` provides the same content w
 
 ## Development
 
-Requires Node.js 22.22.3+, 24.16.0+, or 26.3.0+.
+Requires Node.js 22.23.4+, 24.16.0+, or 26.3.0+.
 
 ```sh
 npm ci
@@ -24,15 +24,18 @@ npm run format       # Format source, styles, and docs
 npm run lint:fix     # Apply available lint fixes
 npm run check        # Formatting, lint, and Astro/TypeScript checks
 npm run build
+npm run test:unit    # Pure logic; no build, server, or browser needed
 npx playwright install chromium firefox webkit  # First run only
-npm test
+npm test             # Unit tests, then browser tests
 ```
 
 Prettier handles formatting; ESLint checks JavaScript, TypeScript, TSX, and Astro files. Configuration follows the [Astro ESLint guide](https://ota-meshi.github.io/eslint-plugin-astro/user-guide/) and [Astro Prettier plugin](https://github.com/withastro/prettier-plugin-astro).
 
-Browser tests run in Chromium, Firefox, and WebKit against a production build on port 4323. Use `npm test -- --project=chromium` for a single browser. They cover room entry/exit, movement, collisions, camera behaviour, project demos, keyboard access, mobile layouts, shareable links, the no-JavaScript portfolio, and saved progress.
+Unit tests cover collision rules, pathfinding, room destinations, and recorded chunk selection. Run them with `npm run test:unit`. Files named `*.unit.spec.ts` run once, without starting a browser or server.
 
-GitHub Actions runs formatting, lint, type checks, the production build, and all three browser projects on pushes and pull requests. Failed browser runs retain traces for seven days.
+Browser tests run in Chromium, Firefox, and WebKit against a production build on port 4323. Use `npm run test:browser` for all browsers or `npm run test:browser -- --project=chromium` for a single browser. They cover room entry/exit, movement, collisions, camera behaviour, project demos, keyboard access, mobile layouts, shareable links, the no-JavaScript portfolio, and saved progress.
+
+GitHub Actions runs formatting, lint, type checks, unit tests, the production build, and all three browser projects on pushes and pull requests. Failed browser runs retain traces for seven days.
 
 The town and plain portfolio have separate page metadata and canonical URLs. Social previews use `public/social-card.png`; its editable artwork is `public/social-card.svg`.
 

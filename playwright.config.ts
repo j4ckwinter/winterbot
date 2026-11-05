@@ -2,6 +2,7 @@ import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
   testDir: "./tests",
+  testIgnore: "**/*.unit.spec.ts",
   fullyParallel: false,
   forbidOnly: !!process.env.CI,
   retries: 0,
@@ -26,7 +27,7 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: "npm run build && npm run preview -- --port 4323",
+    command: "npm run build && npm run preview -- --port 4323 --ignore-lock",
     url: "http://localhost:4323",
     reuseExistingServer: false,
     timeout: 60000,

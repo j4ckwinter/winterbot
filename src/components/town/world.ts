@@ -211,35 +211,31 @@ function canTraverse(scene: Scene, start: Point, end: Point) {
   );
 }
 export function findRoute(scene: Scene, start: Point, end: Point): Point[] {
-  const snap = (p: Point) => ({
-    x: Math.round(p.x / 10) * 10,
-    y: Math.round(p.y / 10) * 10,
-  });
-  const snapped = snap(start);
-  const candidates = [-10, 0, 10]
-    .flatMap((dx) =>
-      [-10, 0, 10].map((dy) => ({ x: snapped.x + dx, y: snapped.y + dy })),
-    )
-    .filter((p) => canTraverse(scene, start, p))
-    .sort(
-      (a, b) =>
-        Math.hypot(a.x - start.x, a.y - start.y) -
-        Math.hypot(b.x - start.x, b.y - start.y),
-    );
-  const origin = candidates[0],
-    goal = snap(end);
-  if (
-    !origin ||
-    !canWalk(scene, end.x, end.y) ||
-    !canWalk(scene, goal.x, goal.y)
-  )
-    return [];
+  const nearbyGridPoints = (point: Point) => {
+    const snapped = {
+      x: Math.round(point.x / 10) * 10,
+      y: Math.round(point.y / 10) * 10,
+    };
+    return [-10, 0, 10]
+      .flatMap((dx) =>
+        [-10, 0, 10].map((dy) => ({ x: snapped.x + dx, y: snapped.y + dy })),
+      )
+      .filter((candidate) => canTraverse(scene, point, candidate))
+      .sort(
+        (a, b) =>
+          Math.hypot(a.x - point.x, a.y - point.y) -
+          Math.hypot(b.x - point.x, b.y - point.y),
+      );
+  };
   const key = (p: Point) => `${p.x},${p.y}`;
+  const origin = nearbyGridPoints(start)[0];
+  const goals = new Set(nearbyGridPoints(end).map(key));
+  if (!origin || goals.size === 0) return [];
   const queue = [origin];
   const previous = new Map<string, Point | null>([[key(origin), null]]);
   for (let i = 0; i < queue.length; i++) {
     const current = queue[i];
-    if (key(current) === key(goal)) {
+    if (goals.has(key(current))) {
       const path: Point[] = [end];
       let node: Point | null = current;
       while (node) {

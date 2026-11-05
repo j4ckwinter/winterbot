@@ -75,3 +75,38 @@ test("room objects route clicks to the matching interaction", () => {
     });
   }
 });
+
+test("routes reach points beside furniture without clipping the final segment", () => {
+  for (const destination of [
+    { x: 406, y: 366 },
+    { x: 406, y: 364 },
+  ]) {
+    const entrance = { x: 480, y: 550 };
+    for (const [start, end] of [
+      [entrance, destination],
+      [destination, entrance],
+    ]) {
+      const route = findRoute("station", start, end);
+      expect(route.length).toBeGreaterThan(0);
+      expect(route.at(-1)).toEqual(end);
+      let previous = start;
+      for (const point of route) {
+        const samples = Math.max(
+          1,
+          Math.ceil(Math.hypot(point.x - previous.x, point.y - previous.y) * 4),
+        );
+        for (let sample = 0; sample <= samples; sample++) {
+          const fraction = sample / samples;
+          expect(
+            canWalk(
+              "station",
+              previous.x + (point.x - previous.x) * fraction,
+              previous.y + (point.y - previous.y) * fraction,
+            ),
+          ).toBe(true);
+        }
+        previous = point;
+      }
+    }
+  }
+});
