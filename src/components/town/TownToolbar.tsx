@@ -51,7 +51,7 @@ export default function TownToolbar({
             aria-label="Leave room"
             title="Back to town"
           >
-            ←<span class="leave-room-label"> Town</span>
+            ←
           </button>
         )}
       </div>

@@ -2,16 +2,19 @@ import { test, expect } from "@playwright/test";
 
 test.use({ hasTouch: true });
 
-for (const width of [320, 390]) {
-  test(`mobile room toolbar keeps controls in place at ${width}px`, async ({
+for (const width of [320, 390, 1280]) {
+  test(`room toolbar keeps controls in place at ${width}px`, async ({
     page,
   }) => {
     await page.setViewportSize({ width, height: 844 });
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto("/");
-    await page
-      .getByRole("button", { name: "Walk controls", exact: true })
-      .tap();
+    if (width <= 760) {
+      await page
+        .getByRole("button", { name: "Walk controls", exact: true })
+        .tap();
+    }
+    const portrait = await page.locator(".trainer-button").boundingBox();
     const geometry = () =>
       page.locator(".world-toolbar").evaluate((el) => ({
         height: el.getBoundingClientRect().height,
@@ -26,6 +29,9 @@ for (const width of [320, 390]) {
       "Winter Station",
       "The Post Office",
     ]) {
+      if (width > 760) {
+        await page.getByRole("button", { name: "Map", exact: true }).click();
+      }
       await page
         .getByRole("button", { name: `Walk to ${name}`, exact: true })
         .tap();
@@ -34,6 +40,9 @@ for (const width of [320, 390]) {
         exact: true,
       });
       await expect(back).toBeVisible();
+      const bounds = await back.boundingBox();
+      expect(bounds?.x).toBe(portrait?.x);
+      expect(bounds?.y).toBe(portrait?.y);
       await expect.poll(geometry).toEqual(town);
       await expect(page.locator(".world-menu > summary")).toBeVisible();
       await expect(page.locator(".toolbar-actions > button")).toBeVisible();

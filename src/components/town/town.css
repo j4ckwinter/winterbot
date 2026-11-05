@@ -1053,19 +1053,16 @@
   }
 }
 
-@media (max-width: 760px) {
-  .room-toolbar .trainer-button {
-    display: none;
-  }
-  .room-toolbar button[aria-label="Leave room"] {
-    order: -1;
-    flex: 0 0 44px;
-    width: 44px;
-    height: 44px;
-    padding: 0;
-    font-size: 20px;
-  }
-  .room-toolbar .leave-room-label {
-    display: none;
-  }
+.room-toolbar .trainer-button {
+  display: none;
+}
+.room-toolbar button[aria-label="Leave room"] {
+  order: -1;
+  display: grid;
+  place-items: center;
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  font-size: 20px;
 }
