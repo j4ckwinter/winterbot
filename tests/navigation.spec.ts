@@ -107,7 +107,7 @@ test.describe("without JavaScript", () => {
     page,
   }) => {
     await page.goto("/");
-    await page.getByRole("link", { name: "Plain portfolio" }).click();
+    await page.getByRole("link", { name: "View portfolio" }).click();
     await expect(page).toHaveURL(/\/portfolio\/?$/);
     await expect(
       page.getByRole("heading", { name: "brain-cache", exact: true }),

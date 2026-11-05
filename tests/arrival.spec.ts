@@ -6,6 +6,27 @@ for (const width of [320, 390, 1440]) {
   }) => {
     await page.setViewportSize({ width, height: 850 });
     await page.goto("/");
+    const navigation = page.getByRole("navigation", { name: "Quick access" });
+    const projects = navigation.getByRole("button", { name: "Projects" });
+    await expect(projects).toBeEnabled();
+    const links = await navigation.boundingBox();
+    const map = await page.locator(".world-shell").boundingBox();
+    expect(links!.y + links!.height).toBeLessThanOrEqual(map!.y);
+    expect(links!.y + links!.height).toBeLessThan(850);
+    expect(
+      await page.evaluate(() => document.documentElement.scrollWidth),
+    ).toBeLessThanOrEqual(width);
+    await expect(
+      page.getByRole("link", { name: "View portfolio" }),
+    ).toBeVisible();
+    await projects.click();
+    await expect(page.getByRole("dialog")).toBeVisible();
+    await expect(page.locator(".scene-layer")).toHaveAttribute(
+      "data-scene",
+      "town",
+    );
+    await page.keyboard.press("Escape");
+    await expect(projects).toBeFocused();
     const workshop = page.getByRole("button", {
       name: "Walk to The Workshop",
       exact: true,
