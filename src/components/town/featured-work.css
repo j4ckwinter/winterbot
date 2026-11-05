@@ -25,3 +25,11 @@
   font-size: 13px;
   color: #526347;
 }
+.place-content .featured-work {
+  display: grid;
+  gap: 12px;
+  margin: 20px 0 0;
+}
+.place-content .featured-work p {
+  margin: 0;
+}

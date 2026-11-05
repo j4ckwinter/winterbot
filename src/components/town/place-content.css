@@ -217,6 +217,9 @@
   font-size: 9px;
   letter-spacing: 1.5px;
 }
+.featured-work + .place-career {
+  margin-top: 24px;
+}
 .place-career {
   list-style: none;
   margin: 28px 0 0;
