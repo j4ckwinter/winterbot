@@ -8,7 +8,6 @@ import { profile } from "./profile";
 import type { Content } from "./navigation";
 import { useContentNavigation } from "./useContentNavigation";
 import {
-  findRoute,
   destinationAt,
   landmarks,
   places,
@@ -35,16 +34,6 @@ const exit: Landmark = {
   labelY: 590,
   action: { kind: "exit" },
 };
-const movementKeys = [
-  "arrowup",
-  "arrowdown",
-  "arrowleft",
-  "arrowright",
-  "w",
-  "a",
-  "s",
-  "d",
-];
 export default function WinterTown() {
   const sound = useSound();
   const {
@@ -77,24 +66,21 @@ export default function WinterTown() {
   const onArrival = useRef<(action: Action) => void>(() => {});
   const {
     scene,
-    setScene,
     position,
-    setPosition,
-    engine,
     direction,
-    setDirection,
+    face,
     walking,
-    keys,
-    route,
-    destination,
     walkTarget,
-    setWalkTarget,
     walkPath,
-    setWalkPath,
-    cancelRoute,
+    enterScene,
+    followRoute,
+    pressKey,
+    releaseKey,
+    releaseKeys,
+    startWalking,
+    cancelWalk,
     stop,
     stepDirection,
-    wake,
   } = useMovement(dialog, onArrival);
   const { ready, reduced, overview, setOverview, size, cameraStyle } =
     useTownCamera(world, position);
@@ -111,18 +97,8 @@ export default function WinterTown() {
     if (value.place !== "profile") markVisited(value.place);
   });
   const changeScene = (next: Scene) => {
-    stop();
-    const from = engine.current.scene;
-    const door = places.find((p) => p.id === from);
-    const point =
-      next === "town"
-        ? { x: door?.x ?? 480, y: door?.y ?? 390 }
-        : { x: 480, y: 550 };
-    engine.current = { scene: next, position: point };
+    enterScene(next);
     setTap(null);
-    setScene(next);
-    setPosition(point);
-    setDirection(next === "town" ? "down" : "up");
     setOverview(size.width <= 760 && !manualControls);
     setNotice("");
     if (next !== "town") markVisited(next);
@@ -133,28 +109,22 @@ export default function WinterTown() {
     if (action.kind === "enter") changeScene(action.place);
     else if (action.kind === "exit") changeScene("town");
     else {
-      setDirection("up");
+      face("up");
       openContent({ place: action.place, project: action.project });
     }
   };
   onArrival.current = act;
   const travel = (landmark: Landmark) => {
-    stop();
     setNotice("");
     if (reduced) {
+      stop();
       act(landmark.action);
       return;
     }
-    const path = findRoute(scene, engine.current.position, landmark);
-    if (!path.length) {
+    if (!followRoute(landmark, { action: landmark.action })) {
       setNotice("No path from here. Move back to the path and try again.");
       return;
     }
-    route.current = path;
-    setWalkTarget(landmark);
-    setWalkPath(path);
-    destination.current = landmark.action;
-    wake();
     setOverview(false);
     world.current?.focus({ preventScroll: true });
   };
@@ -165,22 +135,11 @@ export default function WinterTown() {
       travel(landmark);
       return;
     }
-    stop();
-    const path = findRoute(scene, engine.current.position, point);
-    if (!path.length) {
+    if (!followRoute(point, { instant: reduced })) {
       setNotice("That spot is blocked.");
       return;
     }
     setNotice("");
-    if (reduced) {
-      engine.current.position = point;
-      setPosition(point);
-    } else {
-      route.current = path;
-      setWalkPath(path);
-      setWalkTarget(point);
-      wake();
-    }
     world.current?.focus({ preventScroll: true });
   };
   const destinations = landmarks(scene);
@@ -251,15 +210,12 @@ export default function WinterTown() {
                   ) * 10,
               });
             }}
-            onBlur={() => keys.current.clear()}
+            onBlur={releaseKeys}
             onKeyDown={(e) => {
               if (e.target !== world.current) return;
               const key = e.key.toLowerCase();
-              if (movementKeys.includes(key)) {
+              if (pressKey(key)) {
                 e.preventDefault();
-                cancelRoute();
-                keys.current.add(key);
-                wake();
                 setOverview(false);
               }
               if (key === "enter" && near) {
@@ -268,11 +224,10 @@ export default function WinterTown() {
               }
               if (key === "escape") {
                 e.preventDefault();
-                if (route.current.length) stop();
-                else if (scene !== "town") changeScene("town");
+                if (!cancelWalk() && scene !== "town") changeScene("town");
               }
             }}
-            onKeyUp={(e) => keys.current.delete(e.key.toLowerCase())}
+            onKeyUp={(e) => releaseKey(e.key.toLowerCase())}
           >
             <div class="camera-layer" style={cameraStyle}>
               <TownScene
@@ -323,13 +278,11 @@ export default function WinterTown() {
               setOverview(false);
             }}
             onStartWalking={(direction) => {
-              stop();
+              startWalking(direction);
               setOverview(false);
-              keys.current.add(`arrow${direction}`);
-              wake();
               world.current?.focus({ preventScroll: true });
             }}
-            onStopWalking={() => keys.current.clear()}
+            onStopWalking={releaseKeys}
             onInteract={() => near && act(near.action)}
           />
           {scene !== "town" && scene !== "station" && (

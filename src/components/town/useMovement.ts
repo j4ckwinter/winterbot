@@ -2,12 +2,25 @@ import { useEffect, useRef, useState } from "preact/hooks";
 import type { RefObject } from "preact";
 import {
   canWalk,
+  findRoute,
+  places,
   TOWN_START,
   type Action,
   type Direction,
   type Point,
   type Scene,
 } from "./world";
+
+const movementKeys = new Set([
+  "arrowup",
+  "arrowdown",
+  "arrowleft",
+  "arrowright",
+  "w",
+  "a",
+  "s",
+  "d",
+]);
 
 export function useMovement(
   dialog: RefObject<HTMLDialogElement>,
@@ -65,6 +78,59 @@ export function useMovement(
       last.current = performance.now();
       frame.current = requestAnimationFrame(tick);
     }
+  };
+  const enterScene = (next: Scene) => {
+    stop();
+    const door = places.find((place) => place.id === engine.current.scene);
+    const point =
+      next === "town"
+        ? { x: door?.x ?? 480, y: door?.y ?? 390 }
+        : { x: 480, y: 550 };
+    engine.current = { scene: next, position: point };
+    setScene(next);
+    setPosition(point);
+    setDirection(next === "town" ? "down" : "up");
+  };
+  const followRoute = (
+    point: Point,
+    options: { action?: Action; instant?: boolean } = {},
+  ) => {
+    stop();
+    const path = findRoute(
+      engine.current.scene,
+      engine.current.position,
+      point,
+    );
+    if (!path.length) return false;
+    if (options.instant) {
+      engine.current.position = point;
+      setPosition(point);
+    } else {
+      route.current = path;
+      setWalkPath(path);
+      setWalkTarget(point);
+      destination.current = options.action ?? null;
+      wake();
+    }
+    return true;
+  };
+  const pressKey = (key: string) => {
+    if (!movementKeys.has(key)) return false;
+    cancelRoute();
+    keys.current.add(key);
+    wake();
+    return true;
+  };
+  const releaseKey = (key: string) => keys.current.delete(key);
+  const releaseKeys = () => keys.current.clear();
+  const startWalking = (direction: Direction) => {
+    stop();
+    pressKey(`arrow${direction}`);
+  };
+  const cancelWalk = () => {
+    if (!route.current.length) return false;
+    stop();
+    return true;
   };
   const tick = (time: number) => {
     frame.current = null;
@@ -148,23 +214,20 @@ export function useMovement(
   }, []);
   return {
     scene,
-    setScene,
     position,
-    setPosition,
-    engine,
     direction,
-    setDirection,
+    face: (next: Direction) => setDirection(next),
     walking,
-    keys,
-    route,
-    destination,
     walkTarget,
-    setWalkTarget,
     walkPath,
-    setWalkPath,
-    cancelRoute,
+    enterScene,
+    followRoute,
+    pressKey,
+    releaseKey,
+    releaseKeys,
+    startWalking,
+    cancelWalk,
     stop,
     stepDirection,
-    wake,
   };
 }
