@@ -45,7 +45,7 @@ jobs:
       - run: npx playwright install --with-deps ${{ matrix.browser }}
       - name: Start audio output for browser tests
         run: |
-          sudo apt-get install -y pulseaudio
+          sudo apt-get install -y --no-install-recommends pulseaudio pulseaudio-utils
           pulseaudio --start --exit-idle-time=-1
           pactl load-module module-null-sink sink_name=browser_tests
           pactl set-default-sink browser_tests

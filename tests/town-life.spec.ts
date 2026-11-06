@@ -1,4 +1,9 @@
 import { test, expect } from "@playwright/test";
+import {
+  installMovementClock,
+  pauseMovementClock,
+  advanceToScene,
+} from "./helpers/movement-clock";
 
 test("inspected machines remember project switches for the current visit", async ({
   page,
@@ -71,8 +76,10 @@ test.describe("mobile touch navigation", () => {
     test(`mobile town starts with tappable signs and optional controls at ${width}px`, async ({
       page,
     }) => {
+      await installMovementClock(page);
       await page.setViewportSize({ width, height: 844 });
       await page.goto("/");
+      await pauseMovementClock(page);
       await expect(
         page.getByRole("button", { name: "Follow player", exact: true }),
       ).toHaveAttribute("aria-pressed", "true");
@@ -110,11 +117,7 @@ test.describe("mobile touch navigation", () => {
         .tap();
       await expect(page.locator(".d-pad")).toBeHidden();
       await page.getByRole("button", { name: "Walk to Jack’s House" }).tap();
-      await expect(page.locator(".scene-layer")).toHaveAttribute(
-        "data-scene",
-        "home",
-        { timeout: 10000 },
-      );
+      await advanceToScene(page, "home");
       const about = page.getByRole("button", {
         name: "Inspect About & skills",
         exact: true,
@@ -123,7 +126,12 @@ test.describe("mobile touch navigation", () => {
         .poll(async () => (await about.boundingBox())?.height ?? 0)
         .toBeGreaterThanOrEqual(43.9);
       await about.tap();
-      await expect(page.getByRole("dialog")).toBeVisible({ timeout: 10000 });
+      await expect
+        .poll(async () => {
+          await page.clock.runFor(500);
+          return page.getByRole("dialog").isVisible();
+        })
+        .toBe(true);
       await page
         .getByRole("button", { name: "Close details", exact: true })
         .tap();
@@ -134,11 +142,7 @@ test.describe("mobile touch navigation", () => {
       await page
         .getByRole("button", { name: "Walk to The Workshop", exact: true })
         .tap();
-      await expect(page.locator(".scene-layer")).toHaveAttribute(
-        "data-scene",
-        "workshop",
-        { timeout: 10000 },
-      );
+      await advanceToScene(page, "workshop");
       await page.getByRole("button", { name: "Leave room" }).tap();
       await expect(page.locator(".scene-layer")).toHaveAttribute(
         "data-scene",

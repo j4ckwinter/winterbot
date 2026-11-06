@@ -6,7 +6,11 @@ export async function installMovementClock(page: Page) {
 
 export async function pauseMovementClock(page: Page) {
   await expect(
-    page.getByRole("button", { name: "Move up", exact: true }),
+    page.getByRole("button", {
+      name: "Move up",
+      exact: true,
+      includeHidden: true,
+    }),
   ).toBeEnabled();
   await page.clock.pauseAt(new Date("2026-01-01T01:00:00Z"));
 }
