@@ -7,10 +7,15 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  verify:
+  static:
+    name: Formatting, lint, types and unit tests
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -19,7 +24,25 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run check
-      - run: npx playwright install --with-deps chromium firefox webkit
+      - run: npm run test:unit
+
+  browser:
+    name: Browser (${{ matrix.browser }})
+    needs: static
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps ${{ matrix.browser }}
       - name: Start audio output for browser tests
         run: |
           sudo apt-get install -y pulseaudio
@@ -27,10 +50,26 @@ jobs:
           pactl load-module module-null-sink sink_name=browser_tests
           pactl set-default-sink browser_tests
           pactl info
-      - run: npm test
+      - run: npm run test:browser -- --project=${{ matrix.browser }}
       - uses: actions/upload-artifact@v4
-        if: failure()
+        if: ${{ !cancelled() }}
         with:
-          name: browser-test-results
-          path: test-results/
+          name: browser-results-${{ matrix.browser }}
+          path: |
+            playwright-report/
+            test-results/
           retention-days: 7
+
+  verify:
+    if: ${{ always() }}
+    needs: [static, browser]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Require every check to pass
+        env:
+          STATIC_RESULT: ${{ needs.static.result }}
+          BROWSER_RESULT: ${{ needs.browser.result }}
+        run: |
+          test "$STATIC_RESULT" = success
+          test "$BROWSER_RESULT" = success
