@@ -1,0 +1,182 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import CaseFlow from "../../components/CaseFlow.astro";
+import { winterTownCaseStudy as study } from "../../data/winterTownCaseStudy";
+import { profile } from "../../components/town/profile";
+import "../../styles/case-study.css";
+import "../../styles/content-layout.css";
+---
+
+<Layout
+  title="Building Winter Town — Jack Winter"
+  description={study.summary}
+  canonicalPath={study.href}
+>
+  <div class="case-study content-page">
+    <nav class="case-nav content-page-nav" aria-label="Case study navigation">
+      <a href="/portfolio#projects">← Projects</a>
+      <a href="/">Explore the town ↗</a>
+    </nav>
+    <main id="main">
+      <header class="case-intro content-page-intro">
+        <p class="case-eyebrow">Winter Town · Personal project</p>
+        <h1>{study.title}</h1>
+        <p class="case-lead">{study.summary}</p>
+        <dl class="case-overview" aria-label="Case study overview">
+          <div>
+            <dt>Problem</dt>
+            <dd>
+              Make exploration enjoyable without making visitors play a game to
+              find my work.
+            </dd>
+          </div>
+          <div>
+            <dt>My role</dt>
+            <dd>
+              Visual design, frontend architecture, movement, interactions and
+              browser testing.
+            </dd>
+          </div>
+          <div>
+            <dt>Result</dt>
+            <dd>
+              A walkable town and a plain portfolio, sharing content and linking
+              directly to individual projects.
+            </dd>
+          </div>
+        </dl>
+      </header>
+      <figure class="town-study-preview">
+        <img
+          src="/previews/winter-town.png"
+          width="960"
+          height="640"
+          alt="Winter Town: paths connect the workshop, house, station and post office."
+        />
+        <figcaption>
+          The buildings give the portfolio a setting; direct links keep the
+          information accessible.
+        </figcaption>
+      </figure>
+      <section class="case-prose" aria-labelledby="access-title">
+        <h2 id="access-title">Two ways in, one source of content</h2>
+        <div class="case-body">
+          <p>
+            The town is a Preact application inside an Astro page. The plain
+            portfolio renders the same project and profile content as HTML, so
+            visitors can read it without JavaScript.
+          </p>
+          <p>
+            Quick-access buttons and project URLs bypass walking. Exploration
+            adds personality, but it is optional.
+          </p>
+        </div>
+      </section>
+      <section class="case-prose" aria-labelledby="movement-title">
+        <h2 id="movement-title">Keep movement state together</h2>
+        <div class="case-body">
+          <p>
+            Keyboard input, held touch controls and tap-to-walk all affect the
+            same character. The movement hook owns position, held keys, routes
+            and the animation loop. The page asks it to enter a scene or follow
+            a route instead of coordinating mutable state itself.
+          </p>
+          <CaseFlow
+            title="From a tap to a room"
+            steps={[
+              {
+                title: "Choose a destination",
+                detail: "Resolve the ground point or building",
+              },
+              {
+                title: "Find a route",
+                detail: "Check the grid and the space between steps",
+              },
+              {
+                title: "Walk and arrive",
+                detail: "Advance frames, then run the destination action",
+              },
+            ]}
+            caption="The world defines where movement is allowed. The movement hook executes the route; the page handles the resulting interaction."
+          />
+          <p>
+            A four-direction search on a 10-pixel grid is sufficient for this
+            small, fixed world. It is straightforward to inspect and test, at
+            the cost of less natural paths than free-form navigation.
+          </p>
+        </div>
+      </section>
+      <section class="case-prose" aria-labelledby="navigation-title">
+        <h2 id="navigation-title">Treat navigation as part of the interface</h2>
+        <div class="case-body">
+          <p>
+            Project slugs identify content across URLs, workshop machines and
+            demos. Changing the display order does not change what a link opens.
+            Browser history and reloads restore the selected content.
+          </p>
+          <p>
+            Dialogs focus their headings and return focus when closed through
+            the interface. Reduced-motion preferences skip automatic travel to
+            destinations. Saved discoveries are optional: malformed data is
+            validated, and denied storage leaves the town usable for the current
+            visit.
+          </p>
+        </div>
+      </section>
+      <section class="case-prose" aria-labelledby="verification-title">
+        <h2 id="verification-title">Test the difficult boundaries</h2>
+        <div class="case-body">
+          <p>
+            Unit tests check collision boundaries, route segments, URL parsing
+            and saved-progress validation. Browser journeys cover touch and
+            keyboard input, deep links, focus, and the JavaScript-free portfolio
+            across Chromium, Firefox and WebKit.
+          </p>
+          <p>
+            Movement tests advance a controlled clock to avoid relying on a CI
+            runner’s frame rate. They still exercise the real route and movement
+            code.
+          </p>
+          <p>
+            These checks do not establish that first-time visitors find
+            everything easily. The next design check is to watch people find a
+            project, explain what I do, and locate a contact route without
+            guidance.
+          </p>
+        </div>
+      </section>
+      <footer class="case-contact">
+        <img src="/profile.jpeg" width="319" height="319" alt="" />
+        <div>
+          <h2>From a personal project to production work</h2>
+          <p>
+            For frontend architecture and performance in a commercial product,
+            read the KTO case study.
+          </p>
+          <a href="/work/kto">Read the KTO case study ↗</a>
+          <p>
+            <a href={`mailto:${profile.email}`}>Email Jack ↗</a>
+          </p>
+        </div>
+      </footer>
+    </main>
+  </div>
+</Layout>
+
+<style>
+  .town-study-preview {
+    max-width: 800px;
+    margin: var(--content-section-space) 0;
+  }
+  .town-study-preview img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-panel);
+  }
+  .town-study-preview figcaption {
+    margin-top: 10px;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+</style>
