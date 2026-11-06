@@ -15,7 +15,12 @@ const destinations = [
   { name: "Inside the pond", point: { x: 360, y: 320 } },
 ];
 
-export default function RouteDemo() {
+export default function RouteDemo({
+  headingLevel = 4,
+}: {
+  headingLevel?: 3 | 4;
+}) {
+  const Heading = headingLevel === 3 ? "h3" : "h4";
   const [target, setTarget] = useState<Point>(destinations[0].point);
   const [collisions, setCollisions] = useState(true);
   const route = findRoute("town", start, target);
@@ -39,7 +44,7 @@ export default function RouteDemo() {
         <span>WinterBot / route inspector</span>
         <span aria-hidden="true">01</span>
       </div>
-      <h4>How the town finds a path</h4>
+      <Heading>How the town finds a path</Heading>
       <p>
         This runs the same collision checks and pathfinder as the town. Pick a
         destination or tap the grid.

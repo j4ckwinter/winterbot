@@ -6,7 +6,7 @@
   background: var(--surface-muted);
   color: #354332;
 }
-.project-demo h4 {
+.project-demo :is(h3, h4) {
   font: 600 18px var(--font-ui);
   margin: 0 0 12px;
 }

@@ -21,10 +21,32 @@ test.describe("Winter Town case study without JavaScript", () => {
       expect(
         await page.evaluate(() => document.documentElement.scrollWidth),
       ).toBe(width);
+      await expect(page.getByText(/historical local baseline/)).toBeVisible();
+      await expect(
+        page.getByText(/Enable JavaScript to try the route inspector/),
+      ).toBeVisible();
       await page
         .getByRole("link", { name: "Read the KTO case study ↗" })
         .click();
       await expect(page).toHaveURL(/\/work\/kto\/?$/);
     });
   }
+});
+
+test("case study route inspector uses the real collision rules", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 320, height: 844 });
+  await page.goto("/work/winter-town");
+  const inspector = page.getByRole("region", { name: "Town route inspector" });
+  await inspector.getByRole("button", { name: "Inside the pond" }).click();
+  await expect(inspector.getByRole("status")).toHaveText(
+    "No route: the destination is blocked.",
+  );
+  await inspector.getByRole("button", { name: "Across the bridge" }).focus();
+  await page.keyboard.press("Enter");
+  await expect(inspector.getByRole("status")).toContainText("Route found");
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(
+    320,
+  );
 });

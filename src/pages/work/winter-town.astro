@@ -1,10 +1,17 @@
 ---
+import RouteDemo from "../../components/town/RouteDemo";
+import baseline from "../../../reports/portfolio-baseline.json";
 import Layout from "../../layouts/Layout.astro";
 import CaseFlow from "../../components/CaseFlow.astro";
 import { winterTownCaseStudy as study } from "../../data/winterTownCaseStudy";
 import { profile } from "../../components/town/profile";
 import "../../styles/case-study.css";
 import "../../styles/content-layout.css";
+import "../../components/town/project-demo.css";
+const source = "https://github.com/j4ckwinter/winterbot/blob/486dfa1";
+const homepageRuns = baseline.results.filter((run) => run.path === "/");
+const range = (field: "fcpMs" | "observedLcpMs") =>
+  `${Math.min(...homepageRuns.map((run) => run[field]))}–${Math.max(...homepageRuns.map((run) => run[field]))} ms`;
 ---
 
 <Layout
@@ -106,6 +113,32 @@ import "../../styles/content-layout.css";
           </p>
         </div>
       </section>
+      <section class="case-prose" aria-labelledby="routing-title">
+        <h2 id="routing-title">Try the routing decision</h2>
+        <div class="case-body town-study-demo">
+          <p>
+            Choose the bridge or the pond to see how the same pathfinder used by
+            the town handles a reachable destination and a blocked one.
+          </p>
+          <RouteDemo client:only="preact" headingLevel={3}>
+            <p slot="fallback">
+              Enable JavaScript to try the route inspector. The{" "}
+              <a href={`${source}/tests/world.unit.spec.ts`}>route tests</a>{" "}
+              also show how blocked destinations and collision boundaries are
+              checked.
+            </p>
+          </RouteDemo>
+          <p>
+            <a href={`${source}/src/components/town/world.ts`}>
+              Pathfinding and collision code ↗
+            </a>{" "}
+            ·{" "}
+            <a href={`${source}/src/components/town/useMovement.ts`}>
+              Movement lifecycle ↗
+            </a>
+          </p>
+        </div>
+      </section>
       <section class="case-prose" aria-labelledby="navigation-title">
         <h2 id="navigation-title">Treat navigation as part of the interface</h2>
         <div class="case-body">
@@ -145,6 +178,47 @@ import "../../styles/content-layout.css";
           </p>
         </div>
       </section>
+      <section class="case-prose" aria-labelledby="measurement-title">
+        <h2 id="measurement-title">Recorded evidence</h2>
+        <div class="case-body">
+          <p>
+            In the homepage baseline recorded on{" "}
+            <time datetime={baseline.date}>{baseline.date}</time>, first
+            contentful paint ranged from <strong>{range("fcpMs")}</strong> and
+            the observed largest-contentful-paint candidate from{" "}
+            <strong>{range("observedLcpMs")}</strong>, across three local runs.
+          </p>
+          <p>
+            The measurement used revision{" "}
+            <code>{baseline.measuredRevision}</code>, a 390 × 844 viewport, 4×
+            CPU slowdown, 150 ms network latency and a 200,000-byte/s download
+            limit. Each run used a fresh browser context; observation ended
+            three seconds after load.
+          </p>
+          <p>
+            This is a historical local baseline, not a current production
+            measurement or evidence of improved hiring outcomes.
+          </p>
+          <p>
+            <a href={`${source}/reports/portfolio-baseline.json`}>
+              Read the recorded baseline ↗
+            </a>{" "}
+            ·{" "}
+            <a href={`${source}/scripts/measure-pages.mjs`}>
+              Measurement script ↗
+            </a>
+          </p>
+          <p>
+            <a href={`${source}/tests/navigation.spec.ts`}>
+              History and focus checks ↗
+            </a>{" "}
+            ·{" "}
+            <a href={`${source}/tests/world.unit.spec.ts`}>
+              Collision and route checks ↗
+            </a>
+          </p>
+        </div>
+      </section>
       <footer class="case-contact">
         <img src="/profile.jpeg" width="319" height="319" alt="" />
         <div>
@@ -164,6 +238,14 @@ import "../../styles/content-layout.css";
 </Layout>
 
 <style>
+  .town-study-demo :global(.project-demo) {
+    margin-top: var(--content-section-space);
+    margin-bottom: var(--content-text-space);
+  }
+  .town-study-demo :global(.project-demo h3) {
+    margin: 0 0 12px;
+    font-size: 18px;
+  }
   .town-study-preview {
     max-width: 800px;
     margin: var(--content-section-space) 0;
