@@ -29,7 +29,7 @@ jobs:
   browser:
     name: Browser (${{ matrix.browser }})
     needs: static
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
     strategy:
       fail-fast: false
@@ -42,6 +42,8 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
+      - name: Use Ubuntu archive mirrors
+        run: sudo sed -i '\|azure\.archive\.ubuntu\.com|d' /etc/apt/apt-mirrors.txt
       - run: npx playwright install --with-deps ${{ matrix.browser }}
       - name: Start audio output for browser tests
         run: |
