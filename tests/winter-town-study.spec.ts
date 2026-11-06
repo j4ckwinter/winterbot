@@ -50,3 +50,38 @@ test("case study route inspector uses the real collision rules", async ({
     320,
   );
 });
+
+test.describe("case study discovery without JavaScript", () => {
+  test.use({ javaScriptEnabled: false });
+  test("portfolio keeps KTO featured and links to Winter Town engineering", async ({
+    page,
+  }) => {
+    await page.goto("/portfolio");
+    await expect(
+      page
+        .getByRole("complementary", { name: "Featured work" })
+        .getByRole("link"),
+    ).toHaveAttribute("href", "/work/kto");
+    await page
+      .locator("#winterbot")
+      .getByRole("link", { name: "How I built Winter Town" })
+      .click();
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+      "A portfolio you can explore",
+    );
+    await page.getByRole("link", { name: "← Projects", exact: true }).click();
+    await expect(page).toHaveURL(/\/portfolio#projects$/);
+  });
+});
+
+test("workshop links the engineering story to the correct project", async ({
+  page,
+}) => {
+  await page.goto("/#projects/winterbot");
+  await page.getByRole("link", { name: "How I built Winter Town" }).click();
+  await expect(page).toHaveURL(/\/work\/winter-town\/?$/);
+  await page.goto("/#projects/brain-cache");
+  await expect(
+    page.getByRole("link", { name: "How I built Winter Town" }),
+  ).toHaveCount(0);
+});

@@ -41,4 +41,6 @@ these cover formatting, lint, types, unit tests and browser journeys. GitHub Act
 
 ## a bit more
 
+[how i built winter town](https://winterbyte.vercel.app/work/winter-town) covers the architecture, tradeoffs and route inspector.
+
 [the project guide](docs/project-guide.md) covers controls, focused tests, sharing cards, performance measurements and visitor walkthroughs.

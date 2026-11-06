@@ -1,6 +1,9 @@
+import { winterTownCaseStudy } from "../../data/winterTownCaseStudy";
+
 export const projects = [
   {
     name: "WinterBot",
+    caseStudy: winterTownCaseStudy,
     slug: "winterbot" as const,
     kind: "console",
     number: "001",

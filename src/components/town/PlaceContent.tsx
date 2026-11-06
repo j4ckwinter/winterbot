@@ -121,6 +121,11 @@ function Workshop({
           {project.name}
         </h3>
         <p>{project.description}</p>
+        {project.caseStudy && (
+          <p>
+            <a href={project.caseStudy.href}>{project.caseStudy.linkLabel} ↗</a>
+          </p>
+        )}
         <button
           class="project-demo-jump"
           onClick={() => {

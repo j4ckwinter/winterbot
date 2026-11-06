@@ -70,6 +70,13 @@ import "../styles/content-layout.css";
             <article class="portfolio-project" id={project.slug}>
               <h3>{project.name}</h3>
               <ProjectPreview project={project} />
+              {project.caseStudy && (
+                <p>
+                  <a href={project.caseStudy.href}>
+                    {project.caseStudy.linkLabel} ↗
+                  </a>
+                </p>
+              )}
               <ProjectSummary project={project} />
               <ProjectStory project={project} />
               <ul class="portfolio-tags" aria-label="Technologies">
