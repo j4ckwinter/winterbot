@@ -1,6 +1,6 @@
-import { projects } from "./projects";
+import { projects, DEFAULT_PROJECT, type ProjectId } from "./projects";
 import type { Place } from "./world";
-export type Content = { place: Place | "profile"; project?: 0 | 1 | 2 };
+export type Content = { place: Place | "profile"; project?: ProjectId };
 const sectionHashes = {
   home: "#about",
   station: "#experience",
@@ -10,14 +10,15 @@ export function contentHash(content: Content | null): string {
   if (!content) return "";
   if (content.place === "profile") return "#profile";
   if (content.place === "workshop")
-    return `#projects/${projects[content.project ?? 0].slug}`;
+    return `#projects/${content.project ?? DEFAULT_PROJECT}`;
   return sectionHashes[content.place];
 }
 export function parseContentHash(hash: string): Content | null {
   if (hash === "#profile") return { place: "profile" };
-  if (hash === "#projects") return { place: "workshop", project: 0 };
-  const index = projects.findIndex((p) => `#projects/${p.slug}` === hash);
-  if (index >= 0) return { place: "workshop", project: index as 0 | 1 | 2 };
+  if (hash === "#projects")
+    return { place: "workshop", project: DEFAULT_PROJECT };
+  const project = projects.find((p) => `#projects/${p.slug}` === hash);
+  if (project) return { place: "workshop", project: project.slug };
   const section = Object.entries(sectionHashes).find(
     ([, value]) => value === hash,
   );

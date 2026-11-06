@@ -1,3 +1,4 @@
+import { DEFAULT_PROJECT, type ProjectId } from "./projects";
 import TownScene from "./TownScene";
 import { useTownCamera } from "./useTownCamera";
 import TownToolbar from "./TownToolbar";
@@ -44,10 +45,10 @@ export default function WinterTown() {
     resetExploration,
     storageAvailable,
   } = useProgress();
-  const [inspectedProjects, setInspectedProjects] = useState<number[]>([]);
+  const [inspectedProjects, setInspectedProjects] = useState<ProjectId[]>([]);
   const recordInspection = (value: Content | null) => {
     if (value?.place !== "workshop") return;
-    const project = value.project ?? 0;
+    const project = value.project ?? DEFAULT_PROJECT;
     setInspectedProjects((current) =>
       current.includes(project) ? current : [...current, project],
     );

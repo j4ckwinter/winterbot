@@ -5,7 +5,12 @@ import "./place-content.css";
 import ProjectDemo from "./ProjectDemo";
 import { ktoCaseStudy } from "../../data/ktoCaseStudy";
 
-import { projects } from "./projects";
+import {
+  projects,
+  getProject,
+  DEFAULT_PROJECT,
+  type ProjectId,
+} from "./projects";
 import { profile, skills, experience } from "./profile";
 
 export function ProjectSummary({
@@ -79,28 +84,28 @@ export function ProjectStory({
 }
 
 function Workshop({
-  initialProject = 0,
+  initialProject = DEFAULT_PROJECT,
   onProjectChange,
 }: {
-  initialProject?: 0 | 1 | 2;
-  onProjectChange?: (project: 0 | 1 | 2) => void;
+  initialProject?: ProjectId;
+  onProjectChange?: (project: ProjectId) => void;
 }) {
   const demoRef = useRef<HTMLDivElement>(null);
   const selected = initialProject;
-  const project = projects[selected];
+  const project = getProject(selected);
   return (
     <>
       <div class="project-machines" aria-label="Choose a project">
-        {projects.map((item, index) => (
+        {projects.map((item) => (
           <button
             type="button"
             key={item.name}
             class="project-machine"
-            aria-pressed={selected === index}
+            aria-pressed={selected === item.slug}
             aria-controls="project-detail"
             onClick={(event) => {
               event.currentTarget.focus();
-              onProjectChange?.(index as 0 | 1 | 2);
+              onProjectChange?.(item.slug);
             }}
           >
             <span class="project-icon-badge">
@@ -280,8 +285,8 @@ export default function PlaceContent({
   onProjectChange,
 }: {
   place: "workshop" | "home" | "station" | "post";
-  initialProject?: 0 | 1 | 2;
-  onProjectChange?: (project: 0 | 1 | 2) => void;
+  initialProject?: ProjectId;
+  onProjectChange?: (project: ProjectId) => void;
 }) {
   return (
     <div class="place-content">

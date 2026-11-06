@@ -4,8 +4,10 @@ import PaletteDemo from "./PaletteDemo";
 import SearchDemo from "./SearchDemo";
 import WorkflowDemo from "./WorkflowDemo";
 
-export default function ProjectDemo({ project }: { project: 0 | 1 | 2 }) {
-  return project === 0 ? (
+import type { ProjectId } from "./projects";
+
+function WinterBotDemo() {
+  return (
     <>
       <RouteDemo />
       <details class="demo-secondary">
@@ -13,9 +15,16 @@ export default function ProjectDemo({ project }: { project: 0 | 1 | 2 }) {
         <PaletteDemo />
       </details>
     </>
-  ) : project === 1 ? (
-    <SearchDemo />
-  ) : (
-    <WorkflowDemo />
   );
+}
+
+const demos = {
+  winterbot: WinterBotDemo,
+  "brain-cache": SearchDemo,
+  "pancake-stack": WorkflowDemo,
+} satisfies Record<ProjectId, () => preact.JSX.Element>;
+
+export default function ProjectDemo({ project }: { project: ProjectId }) {
+  const Demo = demos[project];
+  return <Demo />;
 }

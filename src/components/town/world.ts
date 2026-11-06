@@ -1,3 +1,4 @@
+import { getProject, type ProjectId } from "./projects";
 export type Place = "workshop" | "home" | "station" | "post";
 export type Scene = "town" | Place;
 export type Point = { x: number; y: number };
@@ -6,7 +7,7 @@ export type Direction = "up" | "down" | "left" | "right";
 export type Action =
   | { kind: "enter"; place: Place }
   | { kind: "exit" }
-  | { kind: "inspect"; place: Place; project?: 0 | 1 | 2 };
+  | { kind: "inspect"; place: Place; project?: ProjectId };
 export type Landmark = Point & {
   id: string;
   name: string;
@@ -88,7 +89,13 @@ export const roomLayouts: Record<
   {
     bounds: Rect;
     furniture: Rect[];
-    objects: { bounds: Rect; x: number; y: number; labelY: number }[];
+    objects: {
+      bounds: Rect;
+      x: number;
+      y: number;
+      labelY: number;
+      project?: ProjectId;
+    }[];
   }
 > = {
   workshop: {
@@ -101,9 +108,27 @@ export const roomLayouts: Record<
       [650, 290, 810, 390],
     ],
     objects: [
-      { bounds: [150, 190, 310, 330], x: 230, y: 370, labelY: 170 },
-      { bounds: [400, 190, 560, 260], x: 480, y: 300, labelY: 170 },
-      { bounds: [650, 290, 810, 390], x: 730, y: 430, labelY: 270 },
+      {
+        bounds: [150, 190, 310, 330],
+        x: 230,
+        y: 370,
+        labelY: 170,
+        project: "winterbot",
+      },
+      {
+        bounds: [400, 190, 560, 260],
+        x: 480,
+        y: 300,
+        labelY: 170,
+        project: "brain-cache",
+      },
+      {
+        bounds: [650, 290, 810, 390],
+        x: 730,
+        y: 430,
+        labelY: 270,
+        project: "pancake-stack",
+      },
     ],
   },
   home: {
@@ -158,24 +183,22 @@ export function landmarks(scene: Scene): Landmark[] {
       ...p,
       action: { kind: "enter", place: p.id },
     }));
-  const names =
-    scene === "workshop"
-      ? ["WinterBot", "brain-cache", "pancake-stack"]
-      : scene === "home"
-        ? ["About & skills"]
-        : scene === "station"
-          ? ["Career history"]
-          : ["Contact"];
-  return names.map((name, i) => ({
-    id: `${scene}-${i}`,
-    name,
-    x: roomLayouts[scene].objects[i].x,
-    y: roomLayouts[scene].objects[i].y,
-    labelY: roomLayouts[scene].objects[i].labelY,
+  const name =
+    scene === "home"
+      ? "About & skills"
+      : scene === "station"
+        ? "Career history"
+        : "Contact";
+  return roomLayouts[scene].objects.map((object, i) => ({
+    id: `${scene}-${object.project ?? i}`,
+    name: object.project ? getProject(object.project).name : name,
+    x: object.x,
+    y: object.y,
+    labelY: object.labelY,
     action: {
       kind: "inspect" as const,
       place: scene,
-      project: scene === "workshop" ? (i as 0 | 1 | 2) : undefined,
+      project: object.project,
     },
   }));
 }

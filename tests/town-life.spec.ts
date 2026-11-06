@@ -12,18 +12,15 @@ test("inspected machines remember project switches for the current visit", async
   await page
     .getByRole("button", { name: "Walk to The Workshop", exact: true })
     .click();
-  await expect(page.locator('[data-project-machine="0"]')).toHaveAttribute(
-    "data-inspected",
-    "false",
-  );
-  await expect(page.locator('[data-project-machine="1"]')).toHaveAttribute(
-    "data-inspected",
-    "true",
-  );
-  await expect(page.locator('[data-project-machine="2"]')).toHaveAttribute(
-    "data-inspected",
-    "true",
-  );
+  await expect(
+    page.locator('[data-project-machine="winterbot"]'),
+  ).toHaveAttribute("data-inspected", "false");
+  await expect(
+    page.locator('[data-project-machine="brain-cache"]'),
+  ).toHaveAttribute("data-inspected", "true");
+  await expect(
+    page.locator('[data-project-machine="pancake-stack"]'),
+  ).toHaveAttribute("data-inspected", "true");
   await page.getByRole("button", { name: "Leave room" }).click();
   await page
     .getByRole("button", { name: "Walk to Winter Station", exact: true })

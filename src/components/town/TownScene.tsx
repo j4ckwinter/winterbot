@@ -1,3 +1,4 @@
+import type { ProjectId } from "./projects";
 import { memo } from "preact/compat";
 import TownMap from "./TownMap";
 import InteriorMap from "./InteriorMap";
@@ -21,7 +22,7 @@ type Props = {
   direction: Direction;
   walking: boolean;
   visited: Place[];
-  inspectedProjects: number[];
+  inspectedProjects: ProjectId[];
   destinations: Landmark[];
   near?: Landmark;
   walkTarget: Point | null;

@@ -1,7 +1,7 @@
 export const projects = [
   {
     name: "WinterBot",
-    slug: "winterbot",
+    slug: "winterbot" as const,
     kind: "console",
     number: "001",
     description: "This portfolio, built with Astro, Preact, and TypeScript.",
@@ -23,7 +23,7 @@ export const projects = [
   },
   {
     name: "brain-cache",
-    slug: "brain-cache",
+    slug: "brain-cache" as const,
     kind: "memory",
     number: "002",
     description:
@@ -51,7 +51,7 @@ export const projects = [
   },
   {
     name: "pancake-stack",
-    slug: "pancake-stack",
+    slug: "pancake-stack" as const,
     kind: "pancakes",
     number: "003",
     description:
@@ -79,3 +79,10 @@ export const projects = [
     action: "",
   },
 ];
+
+export type ProjectId = (typeof projects)[number]["slug"];
+export const DEFAULT_PROJECT: ProjectId = "winterbot";
+
+export function getProject(id: ProjectId) {
+  return projects.find((project) => project.slug === id)!;
+}

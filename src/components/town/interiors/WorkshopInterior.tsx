@@ -1,3 +1,4 @@
+import type { ProjectId } from "../projects";
 import { roomLayouts } from "../world";
 import { Window, Plant } from "./InteriorFurniture";
 
@@ -69,7 +70,7 @@ function Desk({ x, machine = false }: { x: number; machine?: boolean }) {
 export default function WorkshopInterior({
   inspectedProjects,
 }: {
-  inspectedProjects: number[];
+  inspectedProjects: ProjectId[];
 }) {
   return (
     <>
@@ -117,16 +118,16 @@ export default function WorkshopInterior({
         strokeWidth="2"
       />
       <g
-        data-project-machine="0"
-        data-inspected={inspectedProjects.includes(0)}
+        data-project-machine="winterbot"
+        data-inspected={inspectedProjects.includes("winterbot")}
       >
         <Desk x={230} machine />
       </g>
       <g
         data-exhibit-preview="retrieval"
         transform="translate(409 178)"
-        data-project-machine="1"
-        data-inspected={inspectedProjects.includes(1)}
+        data-project-machine="brain-cache"
+        data-inspected={inspectedProjects.includes("brain-cache")}
       >
         <path d="M-4-4h150v91H-4z" fill="#344d41" />
         <path d="M0 0h142v83H0z" fill="#506c62" />
@@ -159,8 +160,8 @@ export default function WorkshopInterior({
       <g
         data-exhibit-preview="review"
         transform="translate(660 292)"
-        data-project-machine="2"
-        data-inspected={inspectedProjects.includes(2)}
+        data-project-machine="pancake-stack"
+        data-inspected={inspectedProjects.includes("pancake-stack")}
       >
         <path d="M0 58h140v40H0z" fill="#806143" />
         <path d="M-5 53h150v14H-5z" fill="#c89960" />
@@ -203,11 +204,12 @@ export default function WorkshopInterior({
         </text>
       </g>
       {roomLayouts.workshop.objects.map(
-        (object, index) =>
-          inspectedProjects.includes(index) && (
+        (object) =>
+          object.project &&
+          inspectedProjects.includes(object.project) && (
             <g
-              key={index}
-              data-machine-inspected={index}
+              key={object.project}
+              data-machine-inspected={object.project}
               transform={`translate(${object.x - 13} ${object.labelY - 30})`}
             >
               <path d="M0 0h26v20H0z" fill="#344d41" />

@@ -1,3 +1,4 @@
+import type { ProjectId } from "./projects";
 import WorkshopInterior from "./interiors/WorkshopInterior";
 import HomeInterior from "./interiors/HomeInterior";
 import StationInterior from "./interiors/StationInterior";
@@ -28,7 +29,7 @@ export default function InteriorMap({
 }: {
   room: Place;
   player?: Point;
-  inspectedProjects?: number[];
+  inspectedProjects?: ProjectId[];
 }) {
   const palette = palettes[room];
   const [left, , right] = roomLayouts[room].bounds;
