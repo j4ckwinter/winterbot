@@ -56,27 +56,6 @@ test("malformed progress cannot break startup", async ({ page }) => {
   ).toBeEnabled();
 });
 
-test("saved discoveries are validated and deduplicated", async ({ page }) => {
-  await page.addInitScript(
-    (key) =>
-      localStorage.setItem(
-        key,
-        JSON.stringify({
-          version: 1,
-          season: "fire",
-          visited: ["workshop", "unknown", "workshop", "post", null],
-        }),
-      ),
-    key,
-  );
-  await page.goto("/");
-  await expect(page.locator(".town-app")).toHaveClass(/season-fire/);
-  await page
-    .getByRole("button", { name: "Travel log: 2 of 4 places explored" })
-    .click();
-  await expect(page.locator(".travel-log li.is-visited")).toHaveCount(2);
-});
-
 test("denied storage keeps exploration usable for the current visit", async ({
   page,
 }) => {

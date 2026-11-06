@@ -19,7 +19,7 @@ npm run test:unit
 npm run test:browser -- --project=chromium
 ```
 
-unit tests cover pathfinding, collisions, room destinations and recorded context selection. browser tests run against a production build on port 4323 and cover navigation, movement, demos, mobile layouts, keyboard access and saved progress.
+unit tests cover pathfinding, collisions, room destinations, recorded context selection, project identity, URL parsing and saved-progress validation. browser tests run against a production build on port 4323 and cover navigation, movement, demos, mobile layouts, keyboard access and saved progress.
 
 CI runs all three browser projects: Chromium, Firefox and WebKit. failed runs retain traces for seven days. configuration follows the [Astro ESLint guide](https://ota-meshi.github.io/eslint-plugin-astro/user-guide/) and [Astro Prettier plugin](https://github.com/withastro/prettier-plugin-astro).
 
