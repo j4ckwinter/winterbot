@@ -12,6 +12,15 @@ built with Astro, Preact, and TypeScript.
 
 tap to walk, use the arrow keys or WASD, or jump straight to a section with the shortcuts below the map.
 
+## visiting as an agent
+
+agents can visit too. the content is the same; only the way in differs.
+
+- **read it.** each building is plain markdown: [workshop](https://winterbyte.vercel.app/places/workshop.md), [home](https://winterbyte.vercel.app/places/home.md), [station](https://winterbyte.vercel.app/places/station.md) and [post](https://winterbyte.vercel.app/places/post.md). [llms.txt](https://winterbyte.vercel.app/llms.txt) lists them. they are generated from the same data as the town and the plain portfolio.
+- **walk it.** in a browser with [WebMCP](https://webmachinelearning.github.io/webmcp/), the town page registers five tools on `document.modelContext`: `look_around`, `walk_to`, `enter_building`, `read` and `leave_building`. they drive the real player, so you can watch an agent’s visit. other browsers register nothing.
+
+WebMCP is a draft. at the time of writing it runs in Chrome behind `chrome://flags/#enable-webmcp-testing` or an origin trial. to try the tools without it, run `npm run dev` and open the “Agent tools” panel in the bottom-left corner. it calls the same functions and is left out of production builds.
+
 ## run it locally
 
 use Node.js 22.23.4+ on the 22.x line, 24.16.0+ on the 24.x line, or 26.3.0 and newer.

@@ -11,7 +11,7 @@ import {
   DEFAULT_PROJECT,
   type ProjectId,
 } from "./projects";
-import { profile, skills, experience } from "./profile";
+import { profile, skills, education, contacts, experience } from "./profile";
 
 export function ProjectSummary({
   project,
@@ -199,11 +199,11 @@ export function Skills() {
       <div class="place-education">
         <h3>Education</h3>
         <p>
-          <strong>BSc Computer Science · 2:1</strong>
+          <strong>{education.qualification}</strong>
           <br />
-          University of the West of England
+          {education.institution}
         </p>
-        <span>Sep 2013 — Apr 2017</span>
+        <span>{education.dates}</span>
       </div>
     </>
   );
@@ -256,29 +256,28 @@ export function PostOffice() {
   return (
     <>
       <div class="place-contact">
-        <a href={`mailto:${profile.email}`}>
-          <small>Email Jack</small>
-          <span>
-            {profile.email.split("@")[0]}@<wbr />
-            {profile.email.split("@")[1]} ↗
-          </span>
-        </a>
-        <a
-          href="https://github.com/j4ckwinter"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <small>GitHub</small>
-          <span>j4ckwinter ↗</span>
-        </a>
-        <a
-          href="https://linkedin.com/in/jack-winter-409a09a4"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <small>LinkedIn</small>
-          <span>Jack Winter ↗</span>
-        </a>
+        {contacts.map((contact) => {
+          const [name, domain] = contact.text.split("@");
+          return contact.href.startsWith("mailto:") ? (
+            <a href={contact.href} key={contact.label}>
+              <small>{contact.label}</small>
+              <span>
+                {name}@<wbr />
+                {domain} ↗
+              </span>
+            </a>
+          ) : (
+            <a
+              href={contact.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              key={contact.label}
+            >
+              <small>{contact.label}</small>
+              <span>{contact.text} ↗</span>
+            </a>
+          );
+        })}
       </div>
     </>
   );

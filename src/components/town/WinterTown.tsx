@@ -20,6 +20,7 @@ import {
 import { useProgress } from "./useProgress";
 import { useSound } from "./useSound";
 import { useMovement } from "./useMovement";
+import { useAgentTools } from "./useAgentTools";
 import StationAttendant from "./StationAttendant";
 import RoomNote from "./RoomNote";
 import StationTrip from "./StationTrip";
@@ -115,37 +116,40 @@ export default function WinterTown() {
     }
   };
   onArrival.current = act;
-  const travel = (landmark: Landmark) => {
+  const travel = (landmark: Landmark, instant = reduced) => {
     setNotice("");
-    if (reduced) {
+    if (instant) {
       stop();
       act(landmark.action);
-      return;
+      return true;
     }
     if (!followRoute(landmark, { action: landmark.action })) {
       setNotice("No path from here. Move back to the path and try again.");
-      return;
+      return false;
     }
     setOverview(false);
     world.current?.focus({ preventScroll: true });
+    return true;
   };
-  const walkTo = (point: Point) => {
+  const walkTo = (point: Point, instant = reduced) => {
     setTap({ ...point, id: performance.now() });
     const landmark = destinationAt(scene, point);
-    if (landmark) {
-      travel(landmark);
-      return;
-    }
-    if (!followRoute(point, { instant: reduced })) {
+    if (landmark) return travel(landmark, instant);
+    if (!followRoute(point, { instant })) {
       setNotice("That spot is blocked.");
-      return;
+      return false;
     }
     setNotice("");
     world.current?.focus({ preventScroll: true });
+    return true;
   };
   const destinations = landmarks(scene);
   const near = [...destinations, ...(scene === "town" ? [] : [exit])].find(
     (p) => Math.hypot(position.x - p.x, position.y - p.y) < 48,
+  );
+  useAgentTools(
+    { scene, position, near, reading: content, walking: !!walkTarget },
+    { exit, reduced, closeContent, walkTo, travel, stop },
   );
   const sceneName =
     scene === "town" ? "Winter Town" : places.find((p) => p.id === scene)!.name;

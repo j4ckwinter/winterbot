@@ -115,6 +115,11 @@
   border-top: 1px solid #cbd1bf;
   padding: var(--content-card-space) 0 36px;
 }
+.portfolio-agents {
+  margin: 0;
+  padding-bottom: 36px;
+  font-size: 11px;
+}
 .plain-portfolio .project-story {
   border: 0;
   margin: 0 0 var(--content-text-space);
@@ -144,7 +149,8 @@
 @media print {
   .portfolio-header,
   .portfolio-nav,
-  .portfolio-footer {
+  .portfolio-footer,
+  .portfolio-agents {
     display: none;
   }
   .portfolio-projects {

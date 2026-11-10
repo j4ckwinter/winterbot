@@ -1,6 +1,7 @@
 const jobTitle = "Senior Software Engineer";
 
 export const profile = {
+  siteUrl: "https://winterbyte.vercel.app",
   jobTitle,
   headline: `${jobTitle} · React, TypeScript & NodeJS`,
   role: "Senior Software Engineer, Frontend",
@@ -44,6 +45,30 @@ export const skills = [
   {
     name: "Engineering & platform",
     tools: "pnpm · Turborepo · Storybook · Docker · AWS · CI/CD · Git",
+  },
+];
+
+export const education = {
+  qualification: "BSc Computer Science · 2:1",
+  institution: "University of the West of England",
+  dates: "Sep 2013 — Apr 2017",
+};
+
+export const contacts = [
+  {
+    label: "Email Jack",
+    text: profile.email,
+    href: `mailto:${profile.email}`,
+  },
+  {
+    label: "GitHub",
+    text: "j4ckwinter",
+    href: "https://github.com/j4ckwinter",
+  },
+  {
+    label: "LinkedIn",
+    text: "Jack Winter",
+    href: "https://linkedin.com/in/jack-winter-409a09a4",
   },
 ];
 

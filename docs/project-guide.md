@@ -19,11 +19,11 @@ npm run test:unit
 npm run test:browser -- --project=chromium
 ```
 
-unit tests cover pathfinding, collisions, room destinations, recorded context selection, project identity, URL parsing and saved-progress validation. browser tests run against a production build on port 4323 and cover navigation, movement, demos, mobile layouts, keyboard access and saved progress.
+unit tests cover pathfinding, collisions, room destinations, agent tools, building markdown, recorded context selection, project identity, URL parsing and saved-progress validation. browser tests run against a production build on port 4323 and cover navigation, movement, demos, mobile layouts, keyboard access and saved progress.
 
 CI runs Chromium, Firefox and WebKit in separate jobs after static checks and unit tests. each browser job retains its HTML report and any failure traces for seven days. the final `verify` check requires every job to pass; newer commits cancel superseded runs. configuration follows the [Astro ESLint guide](https://ota-meshi.github.io/eslint-plugin-astro/user-guide/) and [Astro Prettier plugin](https://github.com/withastro/prettier-plugin-astro).
 
-portfolio copy lives in [`profile.ts`](../src/components/town/profile.ts) and [`projects.ts`](../src/components/town/projects.ts), shared by the town and plain portfolio. [`WinterTown.tsx`](../src/components/town/WinterTown.tsx) coordinates the town; [`world.ts`](../src/components/town/world.ts) defines terrain, destinations and pathfinding.
+portfolio copy lives in [`profile.ts`](../src/components/town/profile.ts) and [`projects.ts`](../src/components/town/projects.ts), shared by the town and plain portfolio. [`WinterTown.tsx`](../src/components/town/WinterTown.tsx) coordinates the town; [`world.ts`](../src/components/town/world.ts) defines terrain, destinations and pathfinding. [`agentTools.ts`](../src/components/town/agentTools.ts) defines the tools agents call and [`placeMarkdown.ts`](../src/components/town/placeMarkdown.ts) the markdown they read.
 
 ## sharing cards
 
