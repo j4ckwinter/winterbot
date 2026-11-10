@@ -271,17 +271,7 @@ test("mobile movement follows the player without shrinking the map", async ({
 
 test("keyboard focus reveals map signs without scrolling the camera container", async ({
   page,
-  browserName,
 }) => {
-  // macOS WebKit uses Option+Tab to include buttons in keyboard navigation.
-  const tab =
-    browserName === "webkit" && process.platform === "darwin"
-      ? "Alt+Tab"
-      : "Tab";
-  const backTab =
-    browserName === "webkit" && process.platform === "darwin"
-      ? "Alt+Shift+Tab"
-      : "Shift+Tab";
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/");
   await page
@@ -292,7 +282,7 @@ test("keyboard focus reveals map signs without scrolling the camera container", 
   ).toBeEnabled();
   const world = page.getByRole("group", { name: /^Town map/ });
   await world.focus();
-  await page.keyboard.press(tab);
+  await page.keyboard.press("Tab");
   await expect(
     page.getByRole("button", { name: "Follow player", exact: true }),
   ).toHaveAttribute("aria-pressed", "true");
@@ -323,15 +313,15 @@ test("keyboard focus reveals map signs without scrolling the camera container", 
   await page.waitForTimeout(1300);
   await page.keyboard.up("ArrowUp");
   await page.getByRole("button", { name: "Move up", exact: true }).focus();
-  await page.keyboard.press(backTab);
+  await page.keyboard.press("Shift+Tab");
   await expect(
     page.getByRole("button", { name: "Hide controls", exact: true }),
   ).toBeFocused();
-  await page.keyboard.press(backTab);
+  await page.keyboard.press("Shift+Tab");
   await expect(
     page.getByRole("button", { name: /^Travel log:/ }),
   ).toBeFocused();
-  await page.keyboard.press(backTab);
+  await page.keyboard.press("Shift+Tab");
   await expect(
     page.getByRole("button", { name: "Walk to exit" }),
   ).toBeFocused();

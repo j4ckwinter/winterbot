@@ -15,9 +15,8 @@ const {
   imagePath = "/portfolio-social.png",
   imageAlt = "Jack Winter — frontend engineer. Explore projects and experience in Winter Town.",
 } = Astro.props;
-const site = "https://winterbyte.vercel.app";
-const canonical = new URL(canonicalPath, site).href;
-const socialImage = new URL(imagePath, site).href;
+const canonical = new URL(canonicalPath, profile.siteUrl).href;
+const socialImage = new URL(imagePath, profile.siteUrl).href;
 ---
 
 <html lang="en">
