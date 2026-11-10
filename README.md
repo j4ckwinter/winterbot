@@ -35,7 +35,7 @@ npm run dev
 install the test browsers once:
 
 ```sh
-npx playwright install chromium firefox webkit
+npx playwright install chromium
 ```
 
 then run:
