@@ -1,0 +1,330 @@
+.town-app {
+  --snow: #edf2f7;
+  --snow-dim: #d5dfea;
+  --snow-lit: #ffffff;
+  --snow-edge: #bfcddc;
+  --path: #d9d0bb;
+  --path-mark: #c1b7a0;
+  --paving: #cfccc0;
+  --paving-line: #b1ad9e;
+  --paving-lit: #e9e6da;
+  --paving-edge: #a3a092;
+  --compass: #5d7b88;
+  --compass-lit: #f6f2e2;
+  --water: #5b91aa;
+  --water-lit: #a6cfdc;
+  --water-deep: #487c97;
+  --water-edge: #3c6c86;
+  --ice: #cde5ee;
+  --ice-lit: #f4fbfd;
+  --ice-mark: #a5ccdb;
+  --pine: #3e6f5b;
+  --pine-dark: #2a5046;
+  --pine-lit: #5c8d6d;
+  --trunk: #6f573c;
+  --trunk-lit: #96754a;
+  --berry: #c2513f;
+  --shadow: #3d5878;
+  --frame: #2c4558;
+  --wall: #ecdfb6;
+  --wall-base: #bfae84;
+  --wall-lit: #f8eecb;
+  --red: #b86347;
+  --red-dark: #954b3b;
+  --red-lit: #ce7c54;
+  --red-eave: #6d4a36;
+  --blue: #5f8794;
+  --blue-dark: #426777;
+  --blue-lit: #7ba2a6;
+  --blue-eave: #45616a;
+  --cap: #f9fbfd;
+  --cap-dim: #c9d7e6;
+  --wood: #a27d4e;
+  --wood-dark: #74543d;
+  --wood-lit: #c6a56f;
+  --ink: #6b6046;
+  --brass: #e6c77d;
+  --glass: #7ba5b4;
+  --glass-lit: #c3dfe3;
+  --sash: #f0e3ba;
+  --sill: #a39165;
+  --metal: #a5ac8d;
+  --metal-dark: #6a654f;
+  --iron: #37444d;
+  --lamp: #e6e6cf;
+  --glow: #ffd98a;
+  --glow-o: 0;
+  --smoke: #b7c5d4;
+  --door-dark: #3a4038;
+  --letterbox: #2c4558;
+  --sprite-filter: brightness(1);
+  --cat: #e7ca8a;
+  --cat-head: #f4dca2;
+  --cat-tail: #d7b477;
+  --print: #93a7bd;
+  --haze: #f4f7fa;
+  --pane-sky: #dfeaf2;
+  --pane-far: #c3d3e2;
+  --pane-near: #f4f8fb;
+  --pane-light: #fff8d6;
+  --pane-light-o: 0.2;
+  --look-sky: #cfe0ee;
+  --look-sky-low: #e6eef4;
+  --look-sun: #fff6cf;
+  --look-cloud: #f6f9fb;
+  --look-hill-far: #b3c5d8;
+  --look-hill-mid: #cbd9e6;
+  --look-hill-near: #e0e9f1;
+}
+:root[data-light="night"] .town-app {
+  --snow: #8894cc;
+  --snow-dim: #7482bd;
+  --snow-lit: #a9b4e4;
+  --snow-edge: #6371ae;
+  --path: #9590b0;
+  --path-mark: #7f7a9f;
+  --paving: #8d8bad;
+  --paving-line: #737197;
+  --paving-lit: #a7a5c4;
+  --paving-edge: #66648c;
+  --compass: #47597f;
+  --compass-lit: #c3c2dc;
+  --water: #2f4a80;
+  --water-lit: #5c7db3;
+  --water-deep: #253d6d;
+  --water-edge: #1d315c;
+  --ice: #93a8dc;
+  --ice-lit: #bfd0f4;
+  --ice-mark: #768dc6;
+  --pine: #2a4c63;
+  --pine-dark: #1c364f;
+  --pine-lit: #3d6478;
+  --trunk: #4b3d50;
+  --trunk-lit: #665266;
+  --berry: #a8485a;
+  --shadow: #18224f;
+  --frame: #151d3c;
+  --wall: #a79db8;
+  --wall-base: #857c9c;
+  --wall-lit: #bcb2c8;
+  --red: #8c4c5e;
+  --red-dark: #6c3a52;
+  --red-lit: #a56068;
+  --red-eave: #49304a;
+  --blue: #47648f;
+  --blue-dark: #334c78;
+  --blue-lit: #5b7aa0;
+  --blue-eave: #2e3f69;
+  --cap: #bcc8f0;
+  --cap-dim: #8c9bd2;
+  --wood: #765c6c;
+  --wood-dark: #54415a;
+  --wood-lit: #927a82;
+  --ink: #453e58;
+  --brass: #e9c670;
+  --glass: #ffc95e;
+  --glass-lit: #fff1b3;
+  --sash: #8a5b3e;
+  --sill: #6c6288;
+  --metal: #77809a;
+  --metal-dark: #4a4766;
+  --iron: #1b2038;
+  --lamp: #fff0a8;
+  --glow: #ffc56a;
+  --glow-o: 0.42;
+  --smoke: #a9b3df;
+  --door-dark: #1e2138;
+  --letterbox: #10172f;
+  --sprite-filter: brightness(0.78) saturate(0.85) hue-rotate(-8deg);
+  --cat: #b3a08c;
+  --cat-head: #c4b3a4;
+  --cat-tail: #a08d7c;
+  --print: #5564a3;
+  --haze: #8894cc;
+  --pane-sky: #1d2a55;
+  --pane-far: #33427a;
+  --pane-near: #8894cc;
+  --pane-light: #b9c6f5;
+  --pane-light-o: 0.14;
+  --moon-o: 1;
+  --look-sky: #141c3d;
+  --look-sky-low: #212c5a;
+  --look-sun: #f1eed2;
+  --look-cloud: #2a366a;
+  --look-hill-far: #3a4885;
+  --look-hill-mid: #55639f;
+  --look-hill-near: #6f7db8;
+  --surface: #1c2536;
+  --surface-muted: #28344a;
+  --border-soft: #46546d;
+  --text-muted: #a3b0c2;
+  --shell-ink: #e9edf2;
+  --rule: #8696ae;
+  --shell-shadow: #05080f66;
+  --hover: #28344a;
+  --key-down: #364560;
+  --ready: #303c56;
+  --accent: #ffc95e;
+  --notice: #ffb59e;
+  --pressed: #e9edf2;
+  --pressed-ink: #1c2536;
+  --sign: #e3d8bb;
+  --sign-lit: #f6ecc9;
+  --sign-snow: #c7d1f2;
+  --sign-snow-shade: #8c9bd2;
+  --route: #fff0a8;
+  --focus: #ffc95e;
+}
+:root[data-light="day"][data-weather="heavy"] .town-app {
+  --snow: #e0e6ed;
+  --snow-dim: #cbd5e0;
+  --snow-lit: #f3f6f9;
+  --snow-edge: #b9c5d2;
+  --path: #cfd1cf;
+  --path-mark: #bcc0bf;
+  --paving: #c5c8c8;
+  --paving-line: #a9aeb0;
+  --paving-lit: #dadddc;
+  --paving-edge: #9ba1a4;
+  --compass: #6a8088;
+  --compass-lit: #eceee8;
+  --water: #6b8a9b;
+  --water-lit: #a6bfca;
+  --water-deep: #587787;
+  --water-edge: #4b6878;
+  --ice: #c6d9e2;
+  --ice-lit: #e9f2f5;
+  --ice-mark: #a4bfcc;
+  --pine: #4a6e63;
+  --pine-dark: #36564f;
+  --pine-lit: #6a8b7a;
+  --trunk: #6b5a47;
+  --trunk-lit: #8c7557;
+  --berry: #b55a4a;
+  --shadow: #5b7089;
+  --frame: #56687a;
+  --wall: #e3d9ba;
+  --wall-base: #b9ac8c;
+  --wall-lit: #f0e8cc;
+  --red: #aa6a55;
+  --red-dark: #8b5446;
+  --red-lit: #bf8263;
+  --red-eave: #6b5044;
+  --blue: #66858d;
+  --blue-dark: #4b6a74;
+  --blue-lit: #819e9f;
+  --blue-eave: #4c6268;
+  --cap: #f1f5f8;
+  --cap-dim: #c8d4e0;
+  --wood: #9c7e58;
+  --wood-dark: #725a47;
+  --wood-lit: #bba07a;
+  --ink: #6b6250;
+  --brass: #e4c988;
+  --glass: #f3d27f;
+  --glass-lit: #fdf0c0;
+  --sash: #f0e5c2;
+  --sill: #a0926f;
+  --metal: #a4aa94;
+  --metal-dark: #6c6a5a;
+  --iron: #46525a;
+  --lamp: #fbe9a6;
+  --glow: #ffe2a0;
+  --glow-o: 0.16;
+  --smoke: #b4c0cc;
+  --door-dark: #3d423c;
+  --letterbox: #56687a;
+  --sprite-filter: saturate(0.9);
+  --print: #93a4b6;
+  --pane-sky: #d5dde5;
+  --pane-far: #bcc8d3;
+  --pane-light-o: 0.1;
+  --look-sky: #cdd5dd;
+  --look-sky-low: #dde3e8;
+  --look-sun: #e9edf0;
+  --look-cloud: #eef1f4;
+  --look-hill-far: #b4bfca;
+  --look-hill-mid: #c7d0d9;
+  --look-hill-near: #d8dfe6;
+}
+.player {
+  filter: drop-shadow(1px 2px #24304c33);
+}
+[data-scene="town"] .player {
+  filter: var(--sprite-filter) drop-shadow(1px 2px #24304c33);
+}
+:root[data-weather="heavy"] .town-app {
+  --deep-snow: inline;
+}
+.scene-layer > .town-prints {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  fill: var(--print);
+}
+.town-weather {
+  display: none;
+  position: absolute;
+  inset: 0;
+  z-index: 800;
+  overflow: hidden;
+  pointer-events: none;
+}
+:root:is([data-weather="snow"], [data-weather="heavy"]) .town-weather {
+  display: block;
+}
+.town-weather i {
+  position: absolute;
+  inset: -240px 0 0 -240px;
+  background-repeat: repeat;
+  will-change: transform;
+}
+.snow-far {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' shape-rendering='crispEdges'%3E%3Cpath d='M12 8h2v2h-2zM64 22h2v2h-2zM98 54h2v2h-2zM34 66h2v2h-2zM78 96h2v2h-2zM8 104h2v2H8zM50 40h2v2h-2z' fill='%23fff'/%3E%3C/svg%3E");
+  background-size: 120px 120px;
+  opacity: 0.8;
+  animation: snow-fall 12s linear infinite;
+}
+.snow-near {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' shape-rendering='crispEdges'%3E%3Cpath d='M21 14h4v4h-4zM140 40h4v4h-4zM200 110h4v4h-4zM70 130h4v4h-4zM170 200h4v4h-4zM30 210h4v4h-4zM108 84h3v3h-3zM228 20h3v3h-3zM90 226h3v3h-3z' fill='%23fff'/%3E%3Cpath d='M22 18h4v1h-4zM141 44h4v1h-4zM201 114h4v1h-4zM71 134h4v1h-4zM171 204h4v1h-4zM31 214h4v1h-4z' fill='%238fa3bd' opacity='.55'/%3E%3C/svg%3E");
+  background-size: 240px 240px;
+  animation: snow-fall 8s linear infinite;
+}
+.snow-gust {
+  display: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' shape-rendering='crispEdges'%3E%3Cpath d='M30 20h5v5h-5zM150 70h6v6h-6zM90 150h5v5h-5zM210 190h6v6h-6zM20 200h5v5h-5zM120 10h4v4h-4zM190 120h4v4h-4z' fill='%23fff'/%3E%3Cpath d='M31 25h5v1h-5zM151 76h6v1h-6zM91 155h5v1h-5zM211 196h6v1h-6zM21 205h5v1h-5z' fill='%238fa3bd' opacity='.6'/%3E%3C/svg%3E");
+  background-size: 240px 240px;
+  animation: snow-gust 2.6s linear infinite;
+}
+:root[data-weather="heavy"] .town-weather {
+  background: linear-gradient(
+    color-mix(in srgb, var(--haze) 32%, transparent),
+    color-mix(in srgb, var(--haze) 12%, transparent) 45%,
+    color-mix(in srgb, var(--haze) 24%, transparent)
+  );
+}
+:root[data-weather="heavy"] .snow-far {
+  background-size: 80px 80px;
+  animation-duration: 6s;
+}
+:root[data-weather="heavy"] .snow-near {
+  background-size: 160px 160px;
+  animation-duration: 3.6s;
+}
+:root[data-weather="heavy"] .snow-gust {
+  display: block;
+}
+@keyframes snow-fall {
+  to {
+    transform: translate3d(0, 240px, 0);
+  }
+}
+@keyframes snow-gust {
+  to {
+    transform: translate3d(240px, 240px, 0);
+  }
+}
+.lookout-stars {
+  opacity: var(--moon-o, 0);
+}

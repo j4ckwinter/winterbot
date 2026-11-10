@@ -16,9 +16,7 @@ test("town renders with destinations and no browser errors", async ({
   );
   await expect(page.getByRole("button", { name: /^Walk to/ })).toHaveCount(4);
   await page.locator(".world-menu > summary").click();
-  await page.getByRole("button", { name: "Switch to autumn" }).click();
-  await page.locator(".world-menu > summary").click();
-  await expect(page.locator(".town-app")).toHaveClass(/season-fire/);
+  await expect(page.getByRole("button", { name: /^Switch to/ })).toHaveCount(0);
   expect(errors).toEqual([]);
 });
 

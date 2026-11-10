@@ -4,17 +4,18 @@
   z-index: 8;
   display: grid;
   place-items: center;
-  background: #273b30;
-  color: #f4e8bc;
+  background: #1c2a38;
+  color: #f8eecb;
   pointer-events: none;
   opacity: 0;
   animation: room-arrival 320ms steps(4, end) both;
 }
 .scene-arrival span {
   padding: 12px 20px;
-  border-radius: var(--radius-control);
-  background: #354b3d;
-  font: 600 22px var(--font-ui);
+  border: 2px solid #f8eecb;
+  border-radius: 2px;
+  background: #26323f;
+  font: 22px var(--pixel);
 }
 @keyframes room-arrival {
   from {
@@ -25,10 +26,11 @@
   }
 }
 .map-label.is-actionable {
-  border-color: #9a582e;
+  border-color: var(--sign-snow) var(--rust) var(--rust);
+  background: var(--sign-lit);
   box-shadow:
-    0 0 0 2px #f1d88f,
-    3px 4px #36472d55;
+    0 -1px 0 var(--sign-snow-shade),
+    0 0 0 2px #e8c67c;
 }
 .map-label.is-actionable::before {
   position: absolute;
@@ -36,20 +38,20 @@
   width: 10px;
   height: 8px;
   left: calc(50% - 5px);
-  top: -14px;
-  background: #9a582e;
+  top: -16px;
+  background: var(--accent);
   clip-path: polygon(0 0, 100% 0, 50% 100%);
 }
 .interaction-button:not(:disabled) {
-  border-color: #83966b;
-  background: #e8edd4;
-  box-shadow: inset 3px 0 #728751;
+  border-color: var(--rule);
+  background: var(--ready);
+  box-shadow: inset 4px 0 var(--accent);
 }
 .room-note {
   grid-column: 1 / -1;
-  border-top: 1px solid #b8c2a7;
+  border-top: 1px solid var(--border-soft);
   padding: 0 18px;
-  background: #eeecd9;
+  background: var(--surface-muted);
 }
 .room-note summary {
   cursor: pointer;

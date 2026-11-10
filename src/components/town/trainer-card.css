@@ -4,19 +4,19 @@
   height: 44px;
   padding: 4px !important;
   border: 1px solid var(--border-soft);
-  border-radius: 10px;
+  border-radius: 4px;
   overflow: hidden;
-  background: #e5e8ce;
+  background: var(--surface-muted);
   box-shadow: none;
 }
 .trainer-button .trainer-portrait {
   width: 100%;
   height: 100%;
-  border-radius: 6px;
+  border-radius: 2px;
   object-fit: cover;
 }
 .trainer-button:hover {
-  background: #faf5df;
+  background: var(--hover);
 }
 .trainer-identity {
   display: flex;

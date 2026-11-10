@@ -3,6 +3,7 @@ import { memo } from "preact/compat";
 import TownMap from "./TownMap";
 import InteriorMap from "./InteriorMap";
 import Player from "./Player";
+import Footprints from "./Footprints";
 import {
   places,
   type Direction,
@@ -63,6 +64,14 @@ export default function TownScene({
           player={position}
           inspectedProjects={inspectedProjects}
         />
+      )}
+      {scene === "town" && <Footprints walker={position} />}
+      {scene === "town" && (
+        <div class="town-weather" aria-hidden="true">
+          <i class="snow-far" />
+          <i class="snow-near" />
+          <i class="snow-gust" />
+        </div>
       )}
       {tap && (
         <svg

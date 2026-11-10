@@ -67,6 +67,31 @@ function Desk({ x, machine = false }: { x: number; machine?: boolean }) {
   );
 }
 
+function Stove({ x }: { x: number }) {
+  return (
+    <g transform={`translate(${x} 110)`}>
+      <path
+        class="interior-glow"
+        d="M-16 94h102v6h12v22H86v8H-16v-8h-12v-22h12z"
+        fill="#ffb45e"
+        opacity=".18"
+      />
+      <path d="M30 -40h10v56H30z" fill="#3c4347" />
+      <path d="M30 -40h3v56h-3z" fill="#586267" />
+      <path d="M10 16h50v62H10z" fill="#2f3538" />
+      <path d="M6 12h58v6H6z" fill="#4a5357" />
+      <path d="M10 18h4v60h-4z" fill="#465055" />
+      <path d="M20 34h30v26H20z" fill="#1f2325" />
+      <path d="M24 38h22v18H24z" fill="#f08a3c" />
+      <path class="interior-flame" d="M28 44h14v12H28z" fill="#ffd46b" />
+      <path d="M22 66h26v4H22z" fill="#465055" />
+      <path d="M12 78h6v12h-6z M52 78h6v12h-6z" fill="#1f2325" />
+      <path d="M42 2h14v10H42z M56 5h4v3h-4z M46 -2h6v4h-6z" fill="#8b9499" />
+      <path d="M44 4h3v6h-3z" fill="#c3cacd" />
+    </g>
+  );
+}
+
 export default function WorkshopInterior({
   inspectedProjects,
 }: {
@@ -76,6 +101,7 @@ export default function WorkshopInterior({
     <>
       <Window x={126} />
       <Window x={741} />
+      <Stove x={642} />
       <g>
         <path d="M345 91h270v67H345z" fill="#776b4d" />
         <path d="M349 95h262v59H349z" fill="#a49c70" />

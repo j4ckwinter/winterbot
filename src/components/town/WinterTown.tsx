@@ -21,10 +21,12 @@ import { useProgress } from "./useProgress";
 import { useSound } from "./useSound";
 import { useMovement } from "./useMovement";
 import { useAgentTools } from "./useAgentTools";
+import { applyTownAtmosphere } from "./townAtmosphere";
 import StationAttendant from "./StationAttendant";
 import RoomNote from "./RoomNote";
 import StationTrip from "./StationTrip";
 import "./town.css";
+import "./town-winter.css";
 import "./journey.css";
 import "./interaction-feedback.css";
 
@@ -38,14 +40,8 @@ const exit: Landmark = {
 };
 export default function WinterTown() {
   const sound = useSound();
-  const {
-    season,
-    setSeason,
-    visited,
-    markVisited,
-    resetExploration,
-    storageAvailable,
-  } = useProgress();
+  const { visited, markVisited, resetExploration, storageAvailable } =
+    useProgress();
   const [inspectedProjects, setInspectedProjects] = useState<ProjectId[]>([]);
   const recordInspection = (value: Content | null) => {
     if (value?.place !== "workshop") return;
@@ -54,6 +50,11 @@ export default function WinterTown() {
       current.includes(project) ? current : [...current, project],
     );
   };
+  useEffect(() => {
+    applyTownAtmosphere();
+    const timer = window.setInterval(applyTownAtmosphere, 60000);
+    return () => window.clearInterval(timer);
+  }, []);
   const [logOpen, setLogOpen] = useState(false);
   const [manualControls, setManualControls] = useState(false);
   const [notice, setNotice] = useState("");
@@ -155,7 +156,7 @@ export default function WinterTown() {
     scene === "town" ? "Winter Town" : places.find((p) => p.id === scene)!.name;
   return (
     <div
-      class={`town-app season-${season} ${overview || reduced ? "is-overview" : ""}`}
+      class={`town-app ${overview || reduced ? "is-overview" : ""}`}
       onPointerDownCapture={(event) => {
         event.currentTarget.dataset.inputMethod = "pointer";
       }}
@@ -183,14 +184,10 @@ export default function WinterTown() {
             sceneName={sceneName}
             overview={overview}
             soundEnabled={sound.enabled}
-            season={season}
             onOpenProfile={() => openContent({ place: "profile" })}
             onLeaveRoom={() => changeScene("town")}
             onToggleOverview={() => setOverview((value) => !value)}
             onToggleSound={sound.toggle}
-            onToggleSeason={() =>
-              setSeason((value) => (value === "leaf" ? "fire" : "leaf"))
-            }
           />
           <div
             class="world"
