@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { parseProgress } from "../src/components/town/useProgress";
 
-const empty = { version: 1, season: "leaf", visited: [] };
+const empty = { version: 1, visited: [] };
 
 test("missing or invalid saved progress falls back to a fresh visit", () => {
   for (const value of [
@@ -12,24 +12,22 @@ test("missing or invalid saved progress falls back to a fresh visit", () => {
     "42",
     '"text"',
     "{}",
-    JSON.stringify({ version: 2, season: "leaf", visited: [] }),
-    JSON.stringify({ version: 1, season: "winter", visited: [] }),
-    JSON.stringify({ version: 1, season: "fire", visited: "workshop" }),
-    JSON.stringify({ version: 1, visited: [] }),
-    JSON.stringify({ season: "leaf", visited: [] }),
-    JSON.stringify({ version: 1, season: "leaf" }),
+    JSON.stringify({ version: 2, visited: [] }),
+    JSON.stringify({ version: 1, visited: "workshop" }),
+    JSON.stringify({ visited: [] }),
+    JSON.stringify({ version: 1 }),
   ]) {
     expect(parseProgress(value), `saved value: ${value}`).toEqual(empty);
   }
 });
 
-test("saved discoveries are validated and deduplicated while preserving season", () => {
-  for (const season of ["leaf", "fire"]) {
+test("saved discoveries are validated and deduplicated, with or without a season from before the town was always winter", () => {
+  for (const saved of [{}, { season: "leaf" }, { season: "fire" }]) {
     expect(
       parseProgress(
         JSON.stringify({
           version: 1,
-          season,
+          ...saved,
           visited: [
             "workshop",
             "unknown",
@@ -45,7 +43,6 @@ test("saved discoveries are validated and deduplicated while preserving season",
       ),
     ).toEqual({
       version: 1,
-      season,
       visited: ["workshop", "post", "home", "station"],
     });
   }

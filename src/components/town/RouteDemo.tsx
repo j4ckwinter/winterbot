@@ -66,11 +66,12 @@ export default function RouteDemo({
           });
         }}
       >
-        <rect width="960" height="640" fill="#d5dfb6" />
-        <path d="M810 0h150v640H810z M312 292h95v60h-95z" fill="#79afb0" />
+        <rect width="960" height="640" fill="#e6edf3" />
+        <path d="M810 0h150v640H810z" fill="#5b91aa" />
+        <path d="M312 292h95v60h-95z" fill="#bfdbe6" />
         <path
           d="M180 300h60v295h-60z M210 365h690v50H210z M630 280h40v315h-40z"
-          fill="#ead9ad"
+          fill="#d9d0bb"
         />
         <path d="M800 375h145v30H800z" fill="#a98d5a" />
         {places.map((place) => (
@@ -109,7 +110,7 @@ export default function RouteDemo({
             class="demo-calculated-route"
             points={route.map((point) => `${point.x},${point.y}`).join(" ")}
             fill="none"
-            stroke="#fffdf1"
+            stroke="#2c4558"
             stroke-width="8"
           />
         )}

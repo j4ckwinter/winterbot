@@ -32,10 +32,45 @@ function Shelf({ x }: { x: number }) {
   );
 }
 
+function Fireplace({ x }: { x: number }) {
+  return (
+    <g transform={`translate(${x} 96)`}>
+      <path
+        class="interior-glow"
+        d="M-18 106h128v8h14v28h-14v10H-18v-10h-14v-28h14z"
+        fill="#ffb45e"
+        opacity=".2"
+      />
+      <path d="M0 14h92v90H0z" fill="#8d8577" />
+      <path
+        d="M6 22h22v10H6z M34 22h24v10H34z M64 22h22v10H64z M0 60h12v12H0z M80 44h12v12H80z M80 76h12v12H80z M0 86h12v12H0z"
+        fill="#a39a8a"
+      />
+      <path d="M-6 6h104v10H-6z" fill="#6b5a47" />
+      <path d="M-6 6h104v3H-6z" fill="#8f7a5c" />
+      <path d="M16 38h60v66H16z" fill="#2b2523" />
+      <path d="M20 42h52v62H20z" fill="#3a2a22" />
+      <path d="M24 94h44v8H24z M30 88h32v6H30z" fill="#5c4332" />
+      <g class="interior-flame">
+        <path d="M32 92V78h6V66h6v8h6v-8h6v14h6v12z" fill="#f08a3c" />
+        <path d="M40 92v-8h6v-8h6v8h6v8z" fill="#ffd46b" />
+      </g>
+      <g class="interior-flame interior-flame-late">
+        <path d="M30 92V82h6V70h8v-8h6v10h6v8h6v12z" fill="#f08a3c" />
+        <path d="M38 92v-6h6v-8h8v6h4v8z" fill="#ffd46b" />
+      </g>
+      <path d="M10 -2h8v8h-8z M72 -4h10v10H72z" fill="#b65f43" />
+      <path d="M12 -8h4v6h-4z" fill="#f0ddaf" />
+      <path d="M13 -12h2v4h-2z" fill="#ffd46b" />
+    </g>
+  );
+}
+
 export default function HomeInterior() {
   return (
     <>
       <Window x={590} />
+      <Fireplace x={268} />
       <g transform="translate(395 91)">
         <path d="M0 0h110v64H0z" fill="#746c62" />
         <path d="M6 6h98v52H6z" fill="#e6d7ae" />

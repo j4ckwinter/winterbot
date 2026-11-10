@@ -4,10 +4,10 @@
   gap: 12px;
   padding: 0 14px;
   font-size: 12px;
-  color: #647058;
+  color: var(--text-muted);
 }
 .keyboard-help span {
-  color: #7d8670;
+  opacity: 0.8;
   margin-left: 8px;
 }
 .touch-help {
@@ -28,35 +28,35 @@
 .d-pad button {
   width: 44px;
   height: 44px;
-  background: #e0e5d5;
-  border: 1px solid #aab69b;
-  border-bottom-width: 3px;
-  border-radius: 9px;
+  background: var(--surface-muted);
+  border: 2px solid var(--rule);
+  border-bottom-width: 4px;
+  border-radius: 4px;
   touch-action: none;
   font-size: 15px;
 }
 .d-pad button:active {
-  background: #b9c9a1;
-  border-bottom-width: 1px;
+  background: var(--key-down);
+  border-bottom-width: 2px;
 }
 .interaction-button {
   display: flex;
   justify-content: space-between;
   gap: 20px;
   align-items: center;
-  border: 1px solid var(--border-soft);
-  background: #f7f5e9;
+  border: 2px solid var(--border-soft);
+  background: var(--surface-muted);
   padding: 10px 14px;
   min-width: 215px;
   min-height: 44px;
-  border-radius: 9px;
-  font-size: 13px;
+  border-radius: 4px;
+  font: 14px var(--pixel);
 }
 .interaction-button span {
-  color: #9e4f38;
+  color: var(--accent);
 }
 .interaction-button:disabled {
-  color: #8c9480;
+  color: var(--text-muted);
   background: transparent;
   border-color: transparent;
 }
@@ -66,12 +66,12 @@
   border: 0;
   padding: 8px 0;
   min-height: 44px;
-  color: #87452e;
+  color: var(--notice);
 }
 .cancel-walk span {
-  border: 1px solid #bac3ad;
+  border: 1px solid var(--border-soft);
   padding: 1px 4px;
-  color: #5c694e;
+  color: var(--text-muted);
   margin-left: 5px;
 }
 .progress-summary {
@@ -89,9 +89,9 @@
   margin-left: 6px;
 }
 .travel-log {
-  border-top: 1px solid #bcc8ac;
+  border-top: 1px solid var(--border-soft);
   padding: 18px 20px;
-  background: #e7ebdc;
+  background: var(--surface-muted);
 }
 .log-heading {
   display: flex;
@@ -130,14 +130,14 @@
   align-items: center;
   gap: 10px;
   padding: 12px;
-  border: 1px dashed #a6b496;
+  border: 1px dashed var(--border-soft);
   font-size: 12px;
-  color: #6d7862;
+  color: var(--text-muted);
 }
 .travel-log li.is-visited {
   border-style: solid;
-  background: #f5f2df;
-  color: #364c38;
+  background: var(--surface);
+  color: var(--shell-ink);
 }
 .travel-log small {
   display: block;
@@ -149,7 +149,7 @@
   place-items: center;
   width: 34px;
   height: 34px;
-  border: 2px solid #a7b097;
+  border: 2px solid var(--border-soft);
   border-radius: 50%;
   font:
     20px DotGothic16,
@@ -157,8 +157,8 @@
   flex-shrink: 0;
 }
 .is-visited .log-stamp {
-  border-color: #66815d;
-  color: #486f49;
+  border-color: #6f9a7f;
+  color: #6f9a7f;
   transform: rotate(-8deg);
 }
 .is-visited .stamp-workshop {
@@ -171,7 +171,7 @@
 }
 .travel-log p {
   font-size: 12px;
-  color: #727d66;
+  color: var(--text-muted);
   margin: 12px 0 0;
 }
 
@@ -252,8 +252,8 @@
     display: block;
     min-height: 44px;
     padding: 8px 12px;
-    border: 1px solid var(--border-soft);
-    border-radius: var(--radius-control);
+    border: 2px solid var(--rule);
+    border-radius: 4px;
     background: var(--surface-muted);
     font: 500 12px var(--font-ui);
   }

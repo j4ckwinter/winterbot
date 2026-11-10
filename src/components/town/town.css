@@ -1,9 +1,43 @@
 @import "./town-toolbar.css";
 @import "./town-controls.css";
 @import "./content-dialog.css";
+:root:has(.town-app) {
+  background: #eef2f5;
+}
+:root[data-light="night"] {
+  background: #121927;
+}
 .town-app {
   --rust: #a9472e;
-  --ink: #30372e;
+  --pixel: DotGothic16, monospace;
+  --paper: #fdfdfb;
+  --paper-muted: #edf1f3;
+  --paper-line: #cfd8df;
+  --paper-ink: #26323f;
+  --paper-dim: #56626e;
+  --surface: var(--paper);
+  --surface-muted: var(--paper-muted);
+  --border-soft: var(--paper-line);
+  --text-muted: var(--paper-dim);
+  --shell-ink: var(--paper-ink);
+  --rule: #26323f;
+  --shell-shadow: #26323f26;
+  --hover: #e4eaee;
+  --key-down: #d5dee4;
+  --ready: #fff6d8;
+  --accent: #c2513f;
+  --notice: #934127;
+  --pressed: #26323f;
+  --pressed-ink: #fff;
+  --sign: #f8eecb;
+  --sign-lit: #fff6d8;
+  --sign-ink: #4a3626;
+  --sign-edge: #74543d;
+  --sign-snow: #f9fbfd;
+  --sign-snow-shade: #c9d7e6;
+  --route: #2c4558;
+  --focus: #b34b31;
+  color: var(--shell-ink);
   max-width: 1488px;
   margin: auto;
   padding: 0 32px 22px;
@@ -36,15 +70,15 @@
 .identity-bar > a {
   font-size: 12px;
   text-decoration: none;
-  border-bottom: 1px solid #a9af9a;
+  border-bottom: 1px solid var(--border-soft);
   padding: 8px 0;
   white-space: nowrap;
 }
 .world-shell {
-  border: 1px solid var(--border-soft);
-  border-radius: var(--radius-panel);
+  border: 2px solid var(--rule);
+  border-radius: 6px;
   overflow: hidden;
-  box-shadow: 0 8px 28px #2532240a;
+  box-shadow: 5px 5px 0 var(--shell-shadow);
   background: var(--surface);
 }
 .world {
@@ -52,7 +86,7 @@
   position: relative;
   overflow: clip;
   isolation: isolate;
-  background: #4c654b;
+  background: var(--letterbox);
   background-image: linear-gradient(
     45deg,
     #ffffff03 25%,
@@ -84,20 +118,15 @@
   width: 960px;
   height: 640px;
 }
-.season-fire .town-map,
-.season-fire .town-object {
-  --season-filter: sepia(0.3) saturate(0.85) hue-rotate(338deg);
-  filter: var(--season-filter);
-}
 .location-badge {
   position: absolute;
   left: 18px;
   bottom: 16px;
   z-index: 4;
-  font-size: 12px;
+  font: 12px var(--pixel);
   letter-spacing: 1.5px;
-  color: #fff8dc;
-  background: #334c36cc;
+  color: #fff;
+  background: #26323fe6;
   padding: 8px 10px;
   pointer-events: none;
 }
@@ -147,29 +176,46 @@
 .room-label {
   min-width: 0;
   min-height: 44px;
-  padding: 7px 10px;
-  border: 1px solid #87917c;
-  border-radius: var(--radius-control);
-  background: var(--surface);
-  box-shadow: 0 2px 3px #36472d30;
+  padding: 5px 10px 7px;
+  border: 2px solid var(--sign-edge);
+  border-top: 4px solid var(--sign-snow);
+  border-radius: 2px;
+  background: var(--sign);
+  color: var(--sign-ink);
+  box-shadow:
+    0 -1px 0 var(--sign-snow-shade),
+    0 3px 0 #26323f33;
+}
+.town-label:hover,
+.room-label:hover {
+  background: var(--sign-lit);
+}
+.town-label::after,
+.room-label::after {
+  bottom: -9px;
+  left: calc(50% - 3px);
+  width: 6px;
+  height: 7px;
+  background: var(--sign-edge);
+  clip-path: none;
 }
 .town-label > span,
 .room-label > span {
-  font: 600 13px var(--font-ui);
+  font: 15px var(--pixel);
   white-space: nowrap;
 }
 .town-label small {
   position: absolute;
-  top: calc(100% + 9px);
+  top: calc(100% + 11px);
   left: 50%;
   transform: translateX(-50%);
   white-space: nowrap;
   margin: 0;
   padding: 5px 8px;
-  border-radius: 4px;
-  background: #fcfaf0;
-  color: #44513b;
-  box-shadow: 0 2px 5px #273b3026;
+  border-radius: 2px;
+  background: #26323f;
+  color: #fff;
+  font: 12px var(--pixel);
   visibility: hidden;
 }
 .town-label:is(:hover, :focus-visible, .is-near, .is-destination) small {
@@ -183,7 +229,6 @@
   margin-top: -32px;
   z-index: 3;
   pointer-events: none;
-  filter: drop-shadow(1px 2px #35442e33);
 }
 .player svg {
   display: block;
@@ -228,8 +273,9 @@
   min-height: 44px;
   position: absolute;
   transform: translate(-50%, -50%);
-  border: 2px solid #5d4d3b;
-  background: #f5e6bd;
+  border: 2px solid var(--sign-edge);
+  background: var(--sign);
+  color: var(--sign-ink);
   padding: 7px 16px;
   font:
     12px DotGothic16,
@@ -243,28 +289,28 @@
 }
 .quick-nav button {
   min-height: 44px;
-  border: 1px solid var(--border-soft);
+  border: 2px solid var(--rule);
   background: var(--surface);
   font-size: 14px;
   padding: 12px 16px;
   flex: 1;
   text-align: left;
-  border-radius: 10px;
+  border-radius: 4px;
   font-weight: 500;
 }
 .quick-nav button span {
   float: right;
   margin-left: 10px;
-  color: var(--rust);
+  color: var(--accent);
 }
 .quick-nav button:hover {
-  background: #e7e9dc;
+  background: var(--hover);
 }
 .route-notice {
   font-size: 12px;
   padding: 0 20px 12px;
   margin: 0;
-  color: #934127;
+  color: var(--notice);
 }
 @keyframes arrive {
   from {
@@ -411,14 +457,14 @@
 }
 .walk-route polyline {
   fill: none;
-  stroke: #f7f0c1;
+  stroke: var(--route);
   stroke-width: 3;
   stroke-dasharray: 4 8;
   opacity: 0.8;
 }
 .walk-route circle {
-  fill: #f7f0c144;
-  stroke: #fff9d9;
+  fill: color-mix(in srgb, var(--route) 25%, transparent);
+  stroke: var(--route);
   stroke-width: 3;
 }
 .identity-links {
@@ -432,7 +478,7 @@
   text-decoration: none;
   padding: 12px 0;
   min-height: 44px;
-  border-bottom: 1px solid #a9af9a;
+  border-bottom: 1px solid var(--border-soft);
 }
 @media (max-width: 600px) {
   .identity-links {
@@ -469,13 +515,14 @@
 }
 
 .town-object.is-destination {
-  filter: var(--season-filter, brightness(1)) drop-shadow(0 0 3px #fff0a8)
-    drop-shadow(0 0 5px #e5b85c);
+  filter: drop-shadow(0 0 3px #fff0a8) drop-shadow(0 0 5px #e5b85c);
 }
 .map-label.is-destination {
-  border-color: #9a582e;
-  background: #fff6d8;
-  box-shadow: 0 0 0 2px #e8c67c;
+  border-color: var(--sign-snow) var(--rust) var(--rust);
+  background: var(--sign-lit);
+  box-shadow:
+    0 -1px 0 var(--sign-snow-shade),
+    0 0 0 2px #e8c67c;
 }
 .tap-feedback {
   position: absolute;
@@ -484,8 +531,8 @@
   pointer-events: none;
 }
 .tap-feedback circle {
-  fill: #fff5cf55;
-  stroke: #fff5cf;
+  fill: color-mix(in srgb, var(--route) 30%, transparent);
+  stroke: var(--route);
   stroke-width: 2;
   transform-box: fill-box;
   transform-origin: center;
@@ -516,7 +563,7 @@
     transform: translate(-50%, -50%) scale(var(--map-label-scale, 1));
   }
   .town-label > span {
-    font-size: 12px;
+    font-size: 13px;
   }
 }
 
@@ -536,6 +583,12 @@
   }
 }
 
+.town-app :is(button, a, summary, [tabindex]):focus-visible {
+  outline-color: var(--focus);
+}
+.town-app ::selection {
+  color: #26323f;
+}
 .town-app[data-input-method="pointer"] :focus-visible {
   outline: none;
 }

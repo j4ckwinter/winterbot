@@ -1,17 +1,29 @@
+.town-app :is(.place-dialog, .lookout-dialog) {
+  --surface: var(--paper);
+  --surface-muted: var(--paper-muted);
+  --border-soft: var(--paper-line);
+  --text-muted: var(--paper-dim);
+  --shell-ink: var(--paper-ink);
+  --rule: var(--paper-ink);
+  --accent: #c2513f;
+  --focus: #b34b31;
+  color: var(--paper-ink);
+}
+.town-app .dialog-header {
+  --focus: #ffc95e;
+}
 .place-dialog {
   margin: auto;
-  border: 1px solid var(--border-soft);
+  border: 2px solid var(--rule);
   background: var(--surface);
-  color: #30372e;
   padding: 0;
   width: min(780px, calc(100% - 32px));
   max-height: 88dvh;
-  border-radius: 18px;
-  box-shadow: 0 24px 80px #17251f40;
+  border-radius: 6px;
+  box-shadow: 8px 8px 0 #10182040;
 }
 .place-dialog::backdrop {
-  background: #17251f80;
-  backdrop-filter: blur(8px);
+  background: #101820a6;
 }
 .dialog-body {
   padding: 28px;
@@ -21,9 +33,10 @@
   justify-content: space-between;
   gap: 20px;
   align-items: flex-start;
-  border-bottom: 1px solid var(--border-soft);
-  padding-bottom: 20px;
-  margin-bottom: 24px;
+  margin: -28px -28px 24px;
+  padding: 18px 28px;
+  background: var(--paper-ink);
+  color: #f8eecb;
 }
 .eyebrow {
   font-size: 12px;
@@ -31,19 +44,24 @@
   margin: 0 0 8px;
   color: #8e4935;
 }
+.dialog-header .eyebrow {
+  color: #ffc95e;
+  font: 13px var(--pixel);
+  text-transform: uppercase;
+}
 .dialog-header h2 {
-  font: 650 28px var(--font-ui);
+  font: 26px var(--pixel);
   margin: 0;
-  letter-spacing: -0.6px;
 }
 .dialog-header button {
   min-width: 44px;
   min-height: 44px;
-  border: 1px solid transparent;
-  background: var(--surface-muted);
+  border: 2px solid #f8eecb;
+  background: transparent;
+  color: #f8eecb;
   padding: 10px 14px;
   font-size: 16px;
-  border-radius: 50%;
+  border-radius: 4px;
 }
 .back-to-town {
   min-height: 44px;
@@ -76,6 +94,10 @@
 @media (max-width: 760px) {
   .dialog-body {
     padding: 20px;
+  }
+  .dialog-header {
+    margin: -20px -20px 20px;
+    padding: 14px 20px;
   }
   .dialog-header h2 {
     font-size: 23px;

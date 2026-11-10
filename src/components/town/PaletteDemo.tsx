@@ -1,28 +1,28 @@
 import { useState } from "preact/hooks";
 
 const palettes = {
-  Summer: {
-    grass: "#94b76b",
-    roof: "#b96446",
-    sky: "#c8ddbd",
-    window: "#b5d9cb",
-  },
-  Autumn: {
-    grass: "#b29a58",
-    roof: "#925542",
-    sky: "#ead3a0",
-    window: "#f1cc83",
+  Day: {
+    snow: "#edf2f7",
+    roof: "#b86347",
+    sky: "#cfe0ee",
+    window: "#7ba5b4",
   },
   Night: {
-    grass: "#435b55",
-    roof: "#645c70",
-    sky: "#303d52",
-    window: "#f5d48b",
+    snow: "#8894cc",
+    roof: "#8c4c5e",
+    sky: "#141c3d",
+    window: "#ffc95e",
+  },
+  "Heavy snow": {
+    snow: "#e0e6ed",
+    roof: "#aa6a55",
+    sky: "#cdd5dd",
+    window: "#f3d27f",
   },
 };
 
 export default function PaletteDemo() {
-  const [palette, setPalette] = useState<keyof typeof palettes>("Summer");
+  const [palette, setPalette] = useState<keyof typeof palettes>("Day");
   const colors = palettes[palette];
   return (
     <section
@@ -33,14 +33,14 @@ export default function PaletteDemo() {
         <span>WinterBot / palette workbench</span>
         <span aria-hidden="true">01</span>
       </div>
-      <h4>Change the season</h4>
+      <h4>Change the light</h4>
       <div
         class="demo-palette-scene"
         style={{ background: colors.sky }}
         aria-label={`${palette} house preview`}
         role="img"
       >
-        <div class="demo-ground" style={{ background: colors.grass }} />
+        <div class="demo-ground" style={{ background: colors.snow }} />
         <div class="demo-house">
           <i class="demo-roof" style={{ background: colors.roof }} />
           <i class="demo-window" style={{ background: colors.window }} />

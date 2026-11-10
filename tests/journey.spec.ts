@@ -17,9 +17,6 @@ test("mobile overview fits its frame and menu keeps controls accessible", async 
   await expect(
     page.getByRole("button", { name: "Sound", exact: true }),
   ).toBeVisible();
-  await expect(
-    page.getByRole("button", { name: "Switch to autumn" }),
-  ).toBeVisible();
   expect(
     await page.evaluate(() => document.documentElement.scrollWidth),
   ).toBeLessThanOrEqual(320);
