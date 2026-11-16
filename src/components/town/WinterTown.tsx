@@ -10,8 +10,12 @@ import type { Content } from "./navigation";
 import { useContentNavigation } from "./useContentNavigation";
 import {
   destinationAt,
+  GRID_STEP,
   landmarks,
+  MAP_HEIGHT,
+  MAP_WIDTH,
   places,
+  roomExit,
   type Action,
   type Landmark,
   type Point,
@@ -30,14 +34,6 @@ import "./town-winter.css";
 import "./journey.css";
 import "./interaction-feedback.css";
 
-const exit: Landmark = {
-  id: "exit",
-  name: "Return to town",
-  x: 480,
-  y: 590,
-  labelY: 590,
-  action: { kind: "exit" },
-};
 export default function WinterTown() {
   const sound = useSound();
   const { visited, markVisited, resetExploration, storageAvailable } =
@@ -145,12 +141,12 @@ export default function WinterTown() {
     return true;
   };
   const destinations = landmarks(scene);
-  const near = [...destinations, ...(scene === "town" ? [] : [exit])].find(
+  const near = [...destinations, ...(scene === "town" ? [] : [roomExit])].find(
     (p) => Math.hypot(position.x - p.x, position.y - p.y) < 48,
   );
   useAgentTools(
     { scene, position, near, reading: content, walking: !!walkTarget },
-    { exit, reduced, closeContent, walkTo, travel, stop },
+    { exit: roomExit, reduced, closeContent, walkTo, travel, stop },
   );
   const sceneName =
     scene === "town" ? "Winter Town" : places.find((p) => p.id === scene)!.name;
@@ -204,12 +200,16 @@ export default function WinterTown() {
               walkTo({
                 x:
                   Math.round(
-                    (e.clientX - layer.left) / (layer.width / 960) / 10,
-                  ) * 10,
+                    (e.clientX - layer.left) /
+                      (layer.width / MAP_WIDTH) /
+                      GRID_STEP,
+                  ) * GRID_STEP,
                 y:
                   Math.round(
-                    (e.clientY - layer.top) / (layer.height / 640) / 10,
-                  ) * 10,
+                    (e.clientY - layer.top) /
+                      (layer.height / MAP_HEIGHT) /
+                      GRID_STEP,
+                  ) * GRID_STEP,
               });
             }}
             onBlur={releaseKeys}
@@ -247,7 +247,7 @@ export default function WinterTown() {
                 walkPath={walkPath}
                 tap={tap}
                 onTravel={travel}
-                onExit={() => travel(exit)}
+                onExit={() => travel(roomExit)}
                 onRevealMap={() => setOverview(true)}
               />
             </div>

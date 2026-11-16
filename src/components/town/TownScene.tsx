@@ -5,6 +5,7 @@ import InteriorMap from "./InteriorMap";
 import Player from "./Player";
 import Footprints from "./Footprints";
 import {
+  MAP_VIEW_BOX,
   places,
   type Direction,
   type Landmark,
@@ -77,14 +78,14 @@ export default function TownScene({
         <svg
           key={tap.id}
           class="tap-feedback"
-          viewBox="0 0 960 640"
+          viewBox={MAP_VIEW_BOX}
           aria-hidden="true"
         >
           <circle cx={tap.x} cy={tap.y} r="12" />
         </svg>
       )}
       {walkTarget && (
-        <svg class="walk-route" viewBox="0 0 960 640" aria-hidden="true">
+        <svg class="walk-route" viewBox={MAP_VIEW_BOX} aria-hidden="true">
           <polyline points={walkPath.map((p) => `${p.x},${p.y}`).join(" ")} />
           <circle cx={walkTarget.x} cy={walkTarget.y} r="9" />
         </svg>

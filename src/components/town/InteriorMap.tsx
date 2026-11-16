@@ -3,7 +3,15 @@ import WorkshopInterior from "./interiors/WorkshopInterior";
 import HomeInterior from "./interiors/HomeInterior";
 import StationInterior from "./interiors/StationInterior";
 import PostInterior from "./interiors/PostInterior";
-import { landmarks, roomLayouts, type Place, type Point } from "./world";
+import {
+  landmarks,
+  MAP_HEIGHT,
+  MAP_VIEW_BOX,
+  MAP_WIDTH,
+  roomLayouts,
+  type Place,
+  type Point,
+} from "./world";
 
 const palettes = {
   workshop: {
@@ -38,7 +46,7 @@ export default function InteriorMap({
   return (
     <svg
       class="interior-map"
-      viewBox="0 0 960 640"
+      viewBox={MAP_VIEW_BOX}
       width="100%"
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
@@ -71,7 +79,7 @@ export default function InteriorMap({
           <path d="M0 0h48v2H0z M0 0h2v48H0z" fill="#7b8878" opacity=".5" />
         </pattern>
       </defs>
-      <rect width="960" height="640" fill="var(--letterbox)" />
+      <rect width={MAP_WIDTH} height={MAP_HEIGHT} fill="var(--letterbox)" />
       <rect
         x={shellLeft - 16}
         y="48"

@@ -3,6 +3,7 @@ import { placeContentMarkdown, placeMarkdownPath } from "./placeMarkdown";
 import { profile } from "./profile";
 import { getProject, projects, type ProjectId } from "./projects";
 import {
+  GRID_STEP,
   landmarks,
   places,
   type Landmark,
@@ -52,7 +53,9 @@ const compass = [
   "north-east",
 ];
 function wayTo(from: Point, to: Point) {
-  const steps = Math.round(Math.hypot(to.x - from.x, to.y - from.y) / 10);
+  const steps = Math.round(
+    Math.hypot(to.x - from.x, to.y - from.y) / GRID_STEP,
+  );
   const direction =
     compass[
       (Math.round(Math.atan2(to.y - from.y, to.x - from.x) / (Math.PI / 4)) +

@@ -2,7 +2,13 @@ import { getProject, type ProjectId } from "./projects";
 export type Place = "workshop" | "home" | "station" | "post";
 export type Scene = "town" | Place;
 export type Point = { x: number; y: number };
+export const MAP_WIDTH = 960;
+export const MAP_HEIGHT = 640;
+export const MAP_VIEW_BOX = `0 0 ${MAP_WIDTH} ${MAP_HEIGHT}`;
+export const GRID_STEP = 10;
 export const TOWN_START: Point = { x: 210, y: 330 };
+export const TOWN_SQUARE: Point = { x: 480, y: 390 };
+export const ROOM_ENTRY: Point = { x: 480, y: 550 };
 export type Direction = "up" | "down" | "left" | "right";
 export type Action =
   | { kind: "enter"; place: Place }
@@ -13,6 +19,14 @@ export type Landmark = Point & {
   name: string;
   labelY: number;
   action: Action;
+};
+export const roomExit: Landmark = {
+  id: "exit",
+  name: "Return to town",
+  x: 480,
+  y: 590,
+  labelY: 590,
+  action: { kind: "exit" },
 };
 export const places: {
   id: Place;
@@ -232,12 +246,13 @@ function canTraverse(scene: Scene, start: Point, end: Point) {
 export function findRoute(scene: Scene, start: Point, end: Point): Point[] {
   const nearbyGridPoints = (point: Point) => {
     const snapped = {
-      x: Math.round(point.x / 10) * 10,
-      y: Math.round(point.y / 10) * 10,
+      x: Math.round(point.x / GRID_STEP) * GRID_STEP,
+      y: Math.round(point.y / GRID_STEP) * GRID_STEP,
     };
-    return [-10, 0, 10]
+    const offsets = [-GRID_STEP, 0, GRID_STEP];
+    return offsets
       .flatMap((dx) =>
-        [-10, 0, 10].map((dy) => ({ x: snapped.x + dx, y: snapped.y + dy })),
+        offsets.map((dy) => ({ x: snapped.x + dx, y: snapped.y + dy })),
       )
       .filter((candidate) => canTraverse(scene, point, candidate))
       .sort(
@@ -264,10 +279,10 @@ export function findRoute(scene: Scene, start: Point, end: Point): Point[] {
       return path;
     }
     for (const [dx, dy] of [
-      [10, 0],
-      [-10, 0],
-      [0, 10],
-      [0, -10],
+      [GRID_STEP, 0],
+      [-GRID_STEP, 0],
+      [0, GRID_STEP],
+      [0, -GRID_STEP],
     ]) {
       const next = { x: current.x + dx, y: current.y + dy };
       if (canTraverse(scene, current, next) && !previous.has(key(next))) {

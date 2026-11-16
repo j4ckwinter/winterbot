@@ -1,5 +1,5 @@
 import { useTrail } from "./useTrail";
-import type { Point } from "./world";
+import { MAP_VIEW_BOX, type Point } from "./world";
 
 const STRIDE = 11;
 const VISIBLE_PRINTS = 16;
@@ -10,7 +10,7 @@ export default function Footprints({ walker }: { walker: Point }) {
     <svg
       class="town-prints"
       data-trail="player"
-      viewBox="0 0 960 640"
+      viewBox={MAP_VIEW_BOX}
       aria-hidden="true"
       shape-rendering="crispEdges"
     >

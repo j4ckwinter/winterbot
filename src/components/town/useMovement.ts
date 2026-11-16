@@ -3,7 +3,10 @@ import type { RefObject } from "preact";
 import {
   canWalk,
   findRoute,
+  GRID_STEP,
   places,
+  ROOM_ENTRY,
+  TOWN_SQUARE,
   TOWN_START,
   type Action,
   type Direction,
@@ -55,10 +58,10 @@ export function useMovement(
   const stepDirection = (direction: Direction) => {
     stop();
     const offsets = {
-      up: [0, -10],
-      down: [0, 10],
-      left: [-10, 0],
-      right: [10, 0],
+      up: [0, -GRID_STEP],
+      down: [0, GRID_STEP],
+      left: [-GRID_STEP, 0],
+      right: [GRID_STEP, 0],
     };
     const [dx, dy] = offsets[direction];
     const next = {
@@ -84,8 +87,8 @@ export function useMovement(
     const door = places.find((place) => place.id === engine.current.scene);
     const point =
       next === "town"
-        ? { x: door?.x ?? 480, y: door?.y ?? 390 }
-        : { x: 480, y: 550 };
+        ? { x: door?.x ?? TOWN_SQUARE.x, y: door?.y ?? TOWN_SQUARE.y }
+        : ROOM_ENTRY;
     engine.current = { scene: next, position: point };
     setScene(next);
     setPosition(point);

@@ -1,7 +1,7 @@
 import type { ComponentChildren } from "preact";
 import { useTownCat } from "./useTownCat";
 import { useTrail } from "./useTrail";
-import { trees, fences, type Point } from "./world";
+import { fences, MAP_VIEW_BOX, trees, type Point } from "./world";
 
 export default function TownMap({
   player,
@@ -24,7 +24,7 @@ export default function TownMap({
       {" "}
       <svg
         class="town-map"
-        viewBox="0 0 960 640"
+        viewBox={MAP_VIEW_BOX}
         width="100%"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
@@ -708,7 +708,7 @@ export default function TownMap({
       <svg
         class="town-prints"
         data-trail="cat"
-        viewBox="0 0 960 640"
+        viewBox={MAP_VIEW_BOX}
         aria-hidden="true"
         shape-rendering="crispEdges"
       >
@@ -923,7 +923,7 @@ function TownObject({
       class={`town-object ${highlighted ? "is-destination" : ""}`}
       data-scenery={name}
       style={{ zIndex: Math.floor(depth) }}
-      viewBox="0 0 960 640"
+      viewBox={MAP_VIEW_BOX}
       aria-hidden="true"
       shape-rendering="crispEdges"
     >

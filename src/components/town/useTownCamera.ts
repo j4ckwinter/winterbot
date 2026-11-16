@@ -1,6 +1,6 @@
 import type { RefObject } from "preact";
 import { useEffect, useState } from "preact/hooks";
-import type { Point } from "./world";
+import { MAP_HEIGHT, MAP_WIDTH, type Point } from "./world";
 
 const clamp = (n: number, min: number, max: number) =>
   Math.max(min, Math.min(max, n));
@@ -12,7 +12,7 @@ export function useTownCamera(
   const [ready, setReady] = useState(false);
   const [overview, setOverview] = useState(false);
   const [reduced, setReduced] = useState(false);
-  const [size, setSize] = useState({ width: 960, height: 640 });
+  const [size, setSize] = useState({ width: MAP_WIDTH, height: MAP_HEIGHT });
   useEffect(() => {
     setReady(true);
     if (window.matchMedia("(max-width: 760px)").matches) setOverview(true);
@@ -34,14 +34,14 @@ export function useTownCamera(
   }, []);
   const scale =
     overview || reduced
-      ? Math.min(size.width / 960, size.height / 640)
-      : Math.max(1, Math.min(size.width / 960, size.height / 640));
+      ? Math.min(size.width / MAP_WIDTH, size.height / MAP_HEIGHT)
+      : Math.max(1, Math.min(size.width / MAP_WIDTH, size.height / MAP_HEIGHT));
   const camera = (length: number, view: number, point: number) =>
     length * scale <= view
       ? (view - length * scale) / 2
       : clamp(view / 2 - point * scale, view - length * scale, 0);
-  const left = camera(960, size.width, position.x),
-    top = camera(640, size.height, position.y);
+  const left = camera(MAP_WIDTH, size.width, position.x),
+    top = camera(MAP_HEIGHT, size.height, position.y);
   return {
     ready,
     reduced,

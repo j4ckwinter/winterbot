@@ -1,13 +1,27 @@
 import { useState } from "preact/hooks";
-import { canWalk, findRoute, places, type Point } from "./world";
+import {
+  canWalk,
+  findRoute,
+  GRID_STEP,
+  MAP_HEIGHT,
+  MAP_VIEW_BOX,
+  MAP_WIDTH,
+  places,
+  TOWN_SQUARE,
+  type Point,
+} from "./world";
 
-const start = { x: 480, y: 390 };
-const blockedCells = Array.from({ length: 96 * 64 }, (_, index) => ({
-  x: (index % 96) * 10,
-  y: Math.floor(index / 96) * 10,
+const columns = MAP_WIDTH / GRID_STEP;
+const rows = MAP_HEIGHT / GRID_STEP;
+const blockedCells = Array.from({ length: columns * rows }, (_, index) => ({
+  x: (index % columns) * GRID_STEP,
+  y: Math.floor(index / columns) * GRID_STEP,
 }))
   .filter(({ x, y }) => !canWalk("town", x, y))
-  .map(({ x, y }) => `M${x - 5} ${y - 5}h10v10h-10z`)
+  .map(
+    ({ x, y }) =>
+      `M${x - GRID_STEP / 2} ${y - GRID_STEP / 2}h${GRID_STEP}v${GRID_STEP}h-${GRID_STEP}z`,
+  )
   .join(" ");
 const destinations = [
   { name: "Workshop", point: { x: 210, y: 300 } },
@@ -23,7 +37,7 @@ export default function RouteDemo({
   const Heading = headingLevel === 3 ? "h3" : "h4";
   const [target, setTarget] = useState<Point>(destinations[0].point);
   const [collisions, setCollisions] = useState(true);
-  const route = findRoute("town", start, target);
+  const route = findRoute("town", TOWN_SQUARE, target);
   const distance = route.reduce(
     (total, point, index) =>
       index === 0
@@ -51,7 +65,7 @@ export default function RouteDemo({
       </p>
       <svg
         class="demo-route-map"
-        viewBox="0 0 960 640"
+        viewBox={MAP_VIEW_BOX}
         role="img"
         aria-label="Town collision grid with the calculated walking route"
         onClick={(event) => {
@@ -66,7 +80,7 @@ export default function RouteDemo({
           });
         }}
       >
-        <rect width="960" height="640" fill="#e6edf3" />
+        <rect width={MAP_WIDTH} height={MAP_HEIGHT} fill="#e6edf3" />
         <path d="M810 0h150v640H810z" fill="#5b91aa" />
         <path d="M312 292h95v60h-95z" fill="#bfdbe6" />
         <path
@@ -114,7 +128,7 @@ export default function RouteDemo({
             stroke-width="8"
           />
         )}
-        <circle cx={start.x} cy={start.y} r="12" fill="#344c45" />
+        <circle cx={TOWN_SQUARE.x} cy={TOWN_SQUARE.y} r="12" fill="#344c45" />
         <path
           d={`M${target.x - 10} ${target.y - 10}l20 20m0-20l-20 20`}
           stroke="#a13225"

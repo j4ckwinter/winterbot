@@ -66,7 +66,7 @@ Each decision has one owner. Put new code with the owner of the decision it make
 
 ## Conventions
 
-- The town is drawn on a 960×640 map with a 10px movement grid. Map coordinates are in those units.
+- The town is drawn on a 960×640 map with a 10px movement grid, named `MAP_WIDTH`, `MAP_HEIGHT` and `GRID_STEP` in `world.ts`. Map coordinates are in those units; use the names, not the numbers.
 - Light and weather are set on the root element as `data-light` and `data-weather` before first paint. They recolour only the town, its rooms and their signs, through the variables in `town-winter.css`. The page around the town keeps the portfolio's colours and type from `global.css`, and a browser test checks that night and heavy snow leave it unchanged.
 - The town and the plain portfolio render the same copy from `profile.ts` and `projects.ts`. Agents read the same data as markdown.
 - Browser tests run against a production build, so check behaviour in `npm run build` output, not only in `npm run dev`.
