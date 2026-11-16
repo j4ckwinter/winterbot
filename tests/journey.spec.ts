@@ -64,8 +64,7 @@ for (const reduced of [false, true]) {
     ).toBeFocused();
     await page.getByRole("button", { name: "Take the train" }).click();
     await page.getByRole("button", { name: "Return to station" }).click();
-    await page.waitForTimeout(1900);
-    await expect(trip).not.toBeVisible();
+    await expect(trip).toBeHidden();
   });
 }
 

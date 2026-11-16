@@ -66,7 +66,12 @@ test("lookout keyboard movement stops at the railing and on blur", async ({
   await page.evaluate(() => window.dispatchEvent(new Event("blur")));
   await page.keyboard.up("ArrowLeft");
   const x = await page.locator(".lookout-player").getAttribute("data-x");
-  await page.waitForTimeout(150);
+  await page.evaluate(
+    () =>
+      new Promise((resolve) =>
+        requestAnimationFrame(() => requestAnimationFrame(resolve)),
+      ),
+  );
   await expect(page.locator(".lookout-player")).toHaveAttribute("data-x", x!);
   await page.keyboard.press("Escape");
   await expect(page.getByRole("dialog")).not.toBeVisible();
