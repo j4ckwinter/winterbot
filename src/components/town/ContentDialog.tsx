@@ -61,7 +61,7 @@ export default function ContentDialog({
             <PlaceContent
               key={content.place}
               place={content.place}
-              initialProject={content.project}
+              project={content.project}
               onProjectChange={(project) =>
                 onSelect({ place: "workshop", project })
               }

@@ -52,6 +52,8 @@ Each decision has one owner. Put new code with the owner of the decision it make
 | Sound cues                                                          | `src/components/town/useSound.ts`                                                                                                         |
 | Scene changes and actions                                           | `src/components/town/WinterTown.tsx`                                                                                                      |
 | Place content in dialogs and the plain portfolio                    | `src/components/town/PlaceContent.tsx`                                                                                                    |
+| The Workshop's project picker                                       | `src/components/town/WorkshopContent.tsx`                                                                                                 |
+| How a project is summarised and told                                | `src/components/town/ProjectDetails.tsx`                                                                                                  |
 | Portfolio colours, type and spacing outside the town                | `src/styles/global.css`                                                                                                                   |
 | Performance audit and sharing cards                                 | `scripts/`                                                                                                                                |
 

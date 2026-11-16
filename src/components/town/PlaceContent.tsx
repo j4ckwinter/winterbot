@@ -1,174 +1,11 @@
 import type { ComponentChildren } from "preact";
-import { useRef } from "preact/hooks";
-import ProjectIcon from "./ProjectIcon";
 import FeaturedWork from "./FeaturedWork";
 import "./place-content.css";
 import type { Place } from "./world";
-import ProjectDemo from "./ProjectDemo";
+import WorkshopContent from "./WorkshopContent";
 
-import {
-  projects,
-  getProject,
-  DEFAULT_PROJECT,
-  type ProjectId,
-} from "./projects";
+import type { ProjectId } from "./projects";
 import { profile, skills, education, contacts, experience } from "./profile";
-
-export function ProjectSummary({
-  project,
-  showDescription = true,
-}: {
-  project: (typeof projects)[number];
-  showDescription?: boolean;
-}) {
-  return (
-    <div class="project-summary">
-      {showDescription && <p>{project.description}</p>}
-      {project.highlights ? (
-        <ul class="project-highlights" aria-label="Project highlights">
-          {project.highlights.map((highlight) => (
-            <li key={highlight}>{highlight}</li>
-          ))}
-        </ul>
-      ) : (
-        <dl>
-          <dt>My contribution</dt>
-          <dd>{project.story.approach}</dd>
-          <dt>Evidence</dt>
-          <dd>
-            {project.story.evidence}{" "}
-            <a
-              href={project.story.evidenceUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Read more ↗
-            </a>
-          </dd>
-        </dl>
-      )}
-    </div>
-  );
-}
-
-export function ProjectStory({
-  project,
-}: {
-  project: (typeof projects)[number];
-}) {
-  return (
-    <details class="project-story">
-      <summary>Behind the project</summary>
-      <dl>
-        <dt>Problem</dt>
-        <dd>{project.story.problem}</dd>
-        <dt>Tradeoff</dt>
-        <dd>{project.story.tradeoff}</dd>
-        {project.highlights && (
-          <>
-            <dt>Evaluation</dt>
-            <dd>
-              {project.story.evidence}{" "}
-              <a
-                href={project.story.evidenceUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Read the evidence ↗
-              </a>
-            </dd>
-          </>
-        )}
-      </dl>
-    </details>
-  );
-}
-
-function Workshop({
-  initialProject = DEFAULT_PROJECT,
-  onProjectChange,
-}: {
-  initialProject?: ProjectId;
-  onProjectChange?: (project: ProjectId) => void;
-}) {
-  const demoRef = useRef<HTMLDivElement>(null);
-  const selected = initialProject;
-  const project = getProject(selected);
-  return (
-    <>
-      <div class="project-machines" aria-label="Choose a project">
-        {projects.map((item) => (
-          <button
-            type="button"
-            key={item.name}
-            class="project-machine"
-            aria-pressed={selected === item.slug}
-            aria-controls="project-detail"
-            onClick={(event) => {
-              event.currentTarget.focus();
-              onProjectChange?.(item.slug);
-            }}
-          >
-            <span class="project-icon-badge">
-              <ProjectIcon kind={item.kind} />
-            </span>
-            <small>NO. {item.number}</small>
-            <span>{item.name}</span>
-          </button>
-        ))}
-      </div>
-      <article id="project-detail" class="project-detail">
-        <h3 aria-live="polite" aria-atomic="true">
-          {project.name}
-        </h3>
-        <p>{project.description}</p>
-        {project.caseStudy && (
-          <p>
-            <a href={project.caseStudy.href}>{project.caseStudy.linkLabel} ↗</a>
-          </p>
-        )}
-        <button
-          class="project-demo-jump"
-          onClick={() => {
-            demoRef.current?.focus({ preventScroll: true });
-            demoRef.current?.scrollIntoView({ block: "start" });
-          }}
-        >
-          Try the demo ↓
-        </button>
-        <div
-          ref={demoRef}
-          tabIndex={-1}
-          role="region"
-          aria-label={`${project.name} demo`}
-          class="project-demo-target"
-        >
-          <ProjectDemo key={selected} project={selected} />
-        </div>
-        <details class="project-story" key={selected}>
-          <summary>My contribution & evidence</summary>
-          <ProjectSummary project={project} showDescription={false} />
-        </details>
-        <ul class="place-tags" aria-label="Technologies">
-          {project.tags.map((tag) => (
-            <li key={tag}>{tag}</li>
-          ))}
-        </ul>
-        <div class="place-actions">
-          <a href={project.github} target="_blank" rel="noopener noreferrer">
-            View source ↗
-          </a>
-          {project.live && (
-            <a href={project.live} target="_blank" rel="noopener noreferrer">
-              {project.action} ↗
-            </a>
-          )}
-        </div>
-        <ProjectStory project={project} />
-      </article>
-    </>
-  );
-}
 
 export function About() {
   return (
@@ -286,19 +123,16 @@ export function PostOffice() {
 
 export default function PlaceContent({
   place,
-  initialProject,
+  project,
   onProjectChange,
 }: {
   place: Place;
-  initialProject?: ProjectId;
+  project?: ProjectId;
   onProjectChange?: (project: ProjectId) => void;
 }) {
   const content: Record<Place, ComponentChildren> = {
     workshop: (
-      <Workshop
-        initialProject={initialProject}
-        onProjectChange={onProjectChange}
-      />
+      <WorkshopContent project={project} onProjectChange={onProjectChange} />
     ),
     home: <Home />,
     station: <Station />,
