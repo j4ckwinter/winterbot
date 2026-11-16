@@ -1,6 +1,6 @@
 import type { RefObject } from "preact";
 import { useEffect, useState } from "preact/hooks";
-import { MAP_HEIGHT, MAP_WIDTH, type Point } from "./world";
+import { MAP_HEIGHT, MAP_WIDTH, snapToGrid, type Point } from "./world";
 
 const clamp = (n: number, min: number, max: number) =>
   Math.max(min, Math.min(max, n));
@@ -42,8 +42,19 @@ export function useTownCamera(
       : clamp(view / 2 - point * scale, view - length * scale, 0);
   const left = camera(MAP_WIDTH, size.width, position.x),
     top = camera(MAP_HEIGHT, size.height, position.y);
+  const mapPointAt = (clientX: number, clientY: number) => {
+    const layer = world.current
+      ?.querySelector(".camera-layer")
+      ?.getBoundingClientRect();
+    if (!layer) return undefined;
+    return snapToGrid({
+      x: (clientX - layer.left) / (layer.width / MAP_WIDTH),
+      y: (clientY - layer.top) / (layer.height / MAP_HEIGHT),
+    });
+  };
   return {
     ready,
+    mapPointAt,
     reduced,
     overview,
     setOverview,

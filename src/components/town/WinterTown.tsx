@@ -1,20 +1,14 @@
-import { DEFAULT_PROJECT, type ProjectId } from "./projects";
 import TownScene from "./TownScene";
 import { useTownCamera } from "./useTownCamera";
 import TownToolbar from "./TownToolbar";
 import ContentDialog from "./ContentDialog";
 import TownControls, { TravelLog } from "./TownControls";
 import { useEffect, useRef, useState } from "preact/hooks";
-import { profile } from "./profile";
-import type { Content } from "./navigation";
 import { useContentNavigation } from "./useContentNavigation";
 import {
   destinationAt,
-  GRID_STEP,
   landmarkInReach,
   landmarks,
-  MAP_HEIGHT,
-  MAP_WIDTH,
   places,
   roomExit,
   type Action,
@@ -26,7 +20,9 @@ import { useProgress } from "./useProgress";
 import { useSound } from "./useSound";
 import { useMovement } from "./useMovement";
 import { useAgentTools } from "./useAgentTools";
-import { applyTownAtmosphere } from "./townAtmosphere";
+import { useTownAtmosphere } from "./useTownAtmosphere";
+import { useInspectedProjects } from "./useInspectedProjects";
+import IdentityBar from "./IdentityBar";
 import StationAttendant from "./StationAttendant";
 import RoomNote from "./RoomNote";
 import StationTrip from "./StationTrip";
@@ -39,19 +35,8 @@ export default function WinterTown() {
   const sound = useSound();
   const { visited, markVisited, resetExploration, storageAvailable } =
     useProgress();
-  const [inspectedProjects, setInspectedProjects] = useState<ProjectId[]>([]);
-  const recordInspection = (value: Content | null) => {
-    if (value?.place !== "workshop") return;
-    const project = value.project ?? DEFAULT_PROJECT;
-    setInspectedProjects((current) =>
-      current.includes(project) ? current : [...current, project],
-    );
-  };
-  useEffect(() => {
-    applyTownAtmosphere();
-    const timer = window.setInterval(applyTownAtmosphere, 60000);
-    return () => window.clearInterval(timer);
-  }, []);
+  const { inspectedProjects, recordInspection } = useInspectedProjects();
+  useTownAtmosphere();
   const [logOpen, setLogOpen] = useState(false);
   const [manualControls, setManualControls] = useState(false);
   const [notice, setNotice] = useState("");
@@ -82,8 +67,15 @@ export default function WinterTown() {
     stop,
     stepDirection,
   } = useMovement(dialog, onArrival);
-  const { ready, reduced, overview, setOverview, size, cameraStyle } =
-    useTownCamera(world, position);
+  const {
+    ready,
+    reduced,
+    overview,
+    setOverview,
+    size,
+    cameraStyle,
+    mapPointAt,
+  } = useTownCamera(world, position);
   const {
     content,
     copyState,
@@ -159,18 +151,7 @@ export default function WinterTown() {
         event.currentTarget.dataset.inputMethod = "keyboard";
       }}
     >
-      <header class="identity-bar">
-        <div>
-          <h1>
-            Jack Winter<span class="identity-dot">.</span>
-          </h1>
-          <span class="identity-role">{profile.jobTitle}</span>
-        </div>
-        <div class="identity-links">
-          <a href="/portfolio">Plain portfolio</a>
-          <a href={`mailto:${profile.email}`}>Get in touch ↗</a>
-        </div>
-      </header>
+      <IdentityBar />
       <main id="main">
         <section class="world-shell" aria-label="Explore Winter Town">
           <TownToolbar
@@ -192,24 +173,8 @@ export default function WinterTown() {
             aria-label={`${scene === "town" ? "Town map" : sceneName + " room"}. Arrow keys or WASD to walk. Enter to interact.`}
             onClick={(e) => {
               if (!ready || (e.target as Element).closest("button")) return;
-              const layer = world.current
-                ?.querySelector(".camera-layer")
-                ?.getBoundingClientRect();
-              if (!layer) return;
-              walkTo({
-                x:
-                  Math.round(
-                    (e.clientX - layer.left) /
-                      (layer.width / MAP_WIDTH) /
-                      GRID_STEP,
-                  ) * GRID_STEP,
-                y:
-                  Math.round(
-                    (e.clientY - layer.top) /
-                      (layer.height / MAP_HEIGHT) /
-                      GRID_STEP,
-                  ) * GRID_STEP,
-              });
+              const point = mapPointAt(e.clientX, e.clientY);
+              if (point) walkTo(point);
             }}
             onBlur={releaseKeys}
             onKeyDown={(e) => {

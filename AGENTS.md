@@ -32,6 +32,7 @@ Each decision has one owner. Put new code with the owner of the decision it make
 | Running movement: routes, held keys and animation frames            | `src/components/town/useMovement.ts`                                                                                                      |
 | Camera scale, overview and screen-to-map mapping                    | `src/components/town/useTownCamera.ts`                                                                                                    |
 | Light and weather for a moment and URL                              | `src/components/town/townAtmosphere.ts`                                                                                                   |
+| How often light and weather are refreshed                           | `src/components/town/useTownAtmosphere.ts`                                                                                                |
 | Town colours for each light and weather                             | `src/components/town/town-winter.css`                                                                                                     |
 | Interior colours                                                    | `src/components/town/InteriorMap.tsx` and `interiors/`                                                                                    |
 | Character colours                                                   | `src/components/town/characterPalette.ts`                                                                                                 |

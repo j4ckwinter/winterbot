@@ -14,6 +14,12 @@ export const LABEL_HIGHLIGHT_REACH = 90;
 export const OBJECT_GLOW_REACH = 75;
 export const DOOR_OPEN_REACH = 68;
 export const CAT_ALERT_REACH = 75;
+export function snapToGrid({ x, y }: Point): Point {
+  return {
+    x: Math.round(x / GRID_STEP) * GRID_STEP,
+    y: Math.round(y / GRID_STEP) * GRID_STEP,
+  };
+}
 export function isWithin(a: Point, b: Point, distance: number) {
   return Math.hypot(a.x - b.x, a.y - b.y) < distance;
 }
@@ -282,10 +288,7 @@ function canTraverse(scene: Scene, start: Point, end: Point) {
 }
 export function findRoute(scene: Scene, start: Point, end: Point): Point[] {
   const nearbyGridPoints = (point: Point) => {
-    const snapped = {
-      x: Math.round(point.x / GRID_STEP) * GRID_STEP,
-      y: Math.round(point.y / GRID_STEP) * GRID_STEP,
-    };
+    const snapped = snapToGrid(point);
     const offsets = [-GRID_STEP, 0, GRID_STEP];
     return offsets
       .flatMap((dx) =>
