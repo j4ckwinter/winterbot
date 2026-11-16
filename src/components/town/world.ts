@@ -117,6 +117,7 @@ export const roomLayouts: Record<
       y: number;
       labelY: number;
       project?: ProjectId;
+      name?: string;
     }[];
   }
 > = {
@@ -169,7 +170,15 @@ export const roomLayouts: Record<
       [140, 450, 320, 490],
       [640, 450, 820, 490],
     ],
-    objects: [{ bounds: [390, 230, 570, 400], x: 480, y: 430, labelY: 205 }],
+    objects: [
+      {
+        bounds: [390, 230, 570, 400],
+        x: 480,
+        y: 430,
+        labelY: 205,
+        name: "Career history",
+      },
+    ],
   },
   post: {
     bounds: [90, 190, 870, 605],
@@ -220,15 +229,12 @@ export function landmarks(scene: Scene): Landmark[] {
       ...p,
       action: { kind: "enter", place: p.id },
     }));
-  const name =
-    scene === "home"
-      ? "About & skills"
-      : scene === "station"
-        ? "Career history"
-        : "Contact";
+  const placeContent = places.find((place) => place.id === scene)!.content;
   return roomLayouts[scene].objects.map((object, i) => ({
     id: `${scene}-${object.project ?? i}`,
-    name: object.project ? getProject(object.project).name : name,
+    name: object.project
+      ? getProject(object.project).name
+      : (object.name ?? placeContent),
     x: object.x,
     y: object.y,
     labelY: object.labelY,

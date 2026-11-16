@@ -1,7 +1,9 @@
+import type { ComponentChildren } from "preact";
 import { useRef } from "preact/hooks";
 import ProjectIcon from "./ProjectIcon";
 import FeaturedWork from "./FeaturedWork";
 import "./place-content.css";
+import type { Place } from "./world";
 import ProjectDemo from "./ProjectDemo";
 import { ktoCaseStudy } from "../../data/ktoCaseStudy";
 
@@ -288,24 +290,20 @@ export default function PlaceContent({
   initialProject,
   onProjectChange,
 }: {
-  place: "workshop" | "home" | "station" | "post";
+  place: Place;
   initialProject?: ProjectId;
   onProjectChange?: (project: ProjectId) => void;
 }) {
-  return (
-    <div class="place-content">
-      {place === "workshop" ? (
-        <Workshop
-          initialProject={initialProject}
-          onProjectChange={onProjectChange}
-        />
-      ) : place === "home" ? (
-        <Home />
-      ) : place === "station" ? (
-        <Station />
-      ) : (
-        <PostOffice />
-      )}
-    </div>
-  );
+  const content: Record<Place, ComponentChildren> = {
+    workshop: (
+      <Workshop
+        initialProject={initialProject}
+        onProjectChange={onProjectChange}
+      />
+    ),
+    home: <Home />,
+    station: <Station />,
+    post: <PostOffice />,
+  };
+  return <div class="place-content">{content[place]}</div>;
 }
