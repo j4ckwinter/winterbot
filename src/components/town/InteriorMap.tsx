@@ -4,10 +4,12 @@ import HomeInterior from "./interiors/HomeInterior";
 import StationInterior from "./interiors/StationInterior";
 import PostInterior from "./interiors/PostInterior";
 import {
+  isWithin,
   landmarks,
   MAP_HEIGHT,
   MAP_VIEW_BOX,
   MAP_WIDTH,
+  OBJECT_GLOW_REACH,
   roomLayouts,
   type Place,
   type Point,
@@ -150,7 +152,7 @@ export default function InteriorMap({
       {landmarks(room).map(
         (object) =>
           player &&
-          Math.hypot(player.x - object.x, player.y - object.y) < 75 && (
+          isWithin(player, object, OBJECT_GLOW_REACH) && (
             <g key={object.id} class="interior-ready" fill="#f3dfa0">
               <path
                 d={`M${object.x - 8} ${object.y - 25}h16v4h-16z M${object.x - 4} ${object.y - 19}h8v4h-8z`}

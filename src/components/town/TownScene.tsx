@@ -5,6 +5,8 @@ import InteriorMap from "./InteriorMap";
 import Player from "./Player";
 import Footprints from "./Footprints";
 import {
+  isWithin,
+  LABEL_HIGHLIGHT_REACH,
   MAP_VIEW_BOX,
   places,
   type Direction,
@@ -94,7 +96,7 @@ export default function TownScene({
         <button
           disabled={!ready}
           key={p.id}
-          class={`map-label ${scene === "town" ? "town-label" : "room-label"} ${activeDestination?.id === p.id ? "is-destination" : ""} ${near?.id === p.id ? "is-actionable" : ""} ${Math.hypot(position.x - p.x, position.y - p.y) < 90 ? "is-near" : ""}`}
+          class={`map-label ${scene === "town" ? "town-label" : "room-label"} ${activeDestination?.id === p.id ? "is-destination" : ""} ${near?.id === p.id ? "is-actionable" : ""} ${isWithin(position, p, LABEL_HIGHLIGHT_REACH) ? "is-near" : ""}`}
           onFocus={(e) => {
             if (e.currentTarget.matches(":focus-visible")) onRevealMap();
           }}

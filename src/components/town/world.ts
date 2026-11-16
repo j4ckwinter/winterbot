@@ -9,6 +9,14 @@ export const GRID_STEP = 10;
 export const TOWN_START: Point = { x: 210, y: 330 };
 export const TOWN_SQUARE: Point = { x: 480, y: 390 };
 export const ROOM_ENTRY: Point = { x: 480, y: 550 };
+export const INTERACTION_REACH = 48;
+export const LABEL_HIGHLIGHT_REACH = 90;
+export const OBJECT_GLOW_REACH = 75;
+export const DOOR_OPEN_REACH = 68;
+export const CAT_ALERT_REACH = 75;
+export function isWithin(a: Point, b: Point, distance: number) {
+  return Math.hypot(a.x - b.x, a.y - b.y) < distance;
+}
 export type Direction = "up" | "down" | "left" | "right";
 export type Action =
   | { kind: "enter"; place: Place }
@@ -215,6 +223,14 @@ export function landmarks(scene: Scene): Landmark[] {
       project: object.project,
     },
   }));
+}
+export function landmarkInReach(
+  scene: Scene,
+  position: Point,
+): Landmark | undefined {
+  return [...landmarks(scene), ...(scene === "town" ? [] : [roomExit])].find(
+    (landmark) => isWithin(position, landmark, INTERACTION_REACH),
+  );
 }
 export function destinationAt(
   scene: Scene,

@@ -1,7 +1,15 @@
 import type { ComponentChildren } from "preact";
 import { useTownCat } from "./useTownCat";
 import { useTrail } from "./useTrail";
-import { fences, MAP_VIEW_BOX, trees, type Point } from "./world";
+import {
+  CAT_ALERT_REACH,
+  DOOR_OPEN_REACH,
+  fences,
+  isWithin,
+  MAP_VIEW_BOX,
+  trees,
+  type Point,
+} from "./world";
 
 export default function TownMap({
   player,
@@ -11,9 +19,13 @@ export default function TownMap({
   destination?: string;
 }) {
   const cat = useTownCat();
-  const near = (x: number, y: number, distance = 68) =>
-    player !== undefined && Math.hypot(player.x - x, player.y - y) < distance;
-  const catAlert = near(cat.position.x + 13, cat.position.y + 26, 75);
+  const near = (x: number, y: number, distance: number) =>
+    player !== undefined && isWithin(player, { x, y }, distance);
+  const catAlert = near(
+    cat.position.x + 13,
+    cat.position.y + 26,
+    CAT_ALERT_REACH,
+  );
   const pawprints = useTrail(
     { x: cat.position.x + 11, y: cat.position.y + 27 },
     6,
@@ -609,7 +621,7 @@ export default function TownMap({
         { x: 630, y: 516, w: 30, h: 50, footX: 645, footY: 595 },
       ].map(
         ({ x, y, w, h, footX, footY }) =>
-          near(footX, footY) && (
+          near(footX, footY, DOOR_OPEN_REACH) && (
             <TownObject
               key={x}
               name="door"

@@ -11,6 +11,7 @@ import { useContentNavigation } from "./useContentNavigation";
 import {
   destinationAt,
   GRID_STEP,
+  landmarkInReach,
   landmarks,
   MAP_HEIGHT,
   MAP_WIDTH,
@@ -141,9 +142,7 @@ export default function WinterTown() {
     return true;
   };
   const destinations = landmarks(scene);
-  const near = [...destinations, ...(scene === "town" ? [] : [roomExit])].find(
-    (p) => Math.hypot(position.x - p.x, position.y - p.y) < 48,
-  );
+  const near = landmarkInReach(scene, position);
   useAgentTools(
     { scene, position, near, reading: content, walking: !!walkTarget },
     { exit: roomExit, reduced, closeContent, walkTo, travel, stop },
