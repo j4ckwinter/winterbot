@@ -1,4 +1,3 @@
-import { ktoCaseStudy } from "../../data/ktoCaseStudy";
 import { contacts, education, experience, profile, skills } from "./profile";
 import { getProject, projects, type ProjectId } from "./projects";
 import { places, type Place } from "./world";
@@ -58,8 +57,7 @@ const bodies: Record<Place, () => string> = {
           `## ${job.company}`,
           `**${job.role}** · ${job.dates} · ${job.location}`,
           job.context,
-          job.company === "KTO Group" &&
-            link("Read the KTO case study", ktoCaseStudy.href),
+          job.caseStudy && link(job.caseStudy.label, job.caseStudy.href),
           list(job.highlights),
         ]),
       ),

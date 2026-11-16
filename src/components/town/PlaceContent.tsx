@@ -5,7 +5,6 @@ import FeaturedWork from "./FeaturedWork";
 import "./place-content.css";
 import type { Place } from "./world";
 import ProjectDemo from "./ProjectDemo";
-import { ktoCaseStudy } from "../../data/ktoCaseStudy";
 
 import {
   projects,
@@ -237,9 +236,9 @@ export function Station({ featured = true }: { featured?: boolean }) {
             <h3>{job.company}</h3>
             <h4>{job.role}</h4>
             <p>{job.context}</p>
-            {job.company === "KTO Group" && (
+            {job.caseStudy && (
               <p>
-                <a href={ktoCaseStudy.href}>Read the KTO case study ↗</a>
+                <a href={job.caseStudy.href}>{job.caseStudy.label} ↗</a>
               </p>
             )}
             <ul>

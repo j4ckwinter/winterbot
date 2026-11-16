@@ -1,3 +1,4 @@
+import { ktoCaseStudy } from "../../data/ktoCaseStudy";
 const jobTitle = "Senior Software Engineer";
 
 export const profile = {
@@ -75,6 +76,10 @@ export const contacts = [
 export const experience = [
   {
     company: "KTO Group",
+    caseStudy: {
+      href: ktoCaseStudy.href,
+      label: "Read the KTO case study",
+    },
     role: "Senior Front-End Developer",
     location: "Remote",
     dates: "Jun 2025 — Present",
