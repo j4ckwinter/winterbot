@@ -4,10 +4,10 @@
   gap: 12px;
   padding: 0 14px;
   font-size: 12px;
-  color: var(--text-muted);
+  color: #647058;
 }
 .keyboard-help span {
-  opacity: 0.8;
+  color: #7d8670;
   margin-left: 8px;
 }
 .touch-help {
@@ -28,35 +28,35 @@
 .d-pad button {
   width: 44px;
   height: 44px;
-  background: var(--surface-muted);
-  border: 2px solid var(--rule);
-  border-bottom-width: 4px;
-  border-radius: 4px;
+  background: #e0e5d5;
+  border: 1px solid #aab69b;
+  border-bottom-width: 3px;
+  border-radius: 9px;
   touch-action: none;
   font-size: 15px;
 }
 .d-pad button:active {
-  background: var(--key-down);
-  border-bottom-width: 2px;
+  background: #b9c9a1;
+  border-bottom-width: 1px;
 }
 .interaction-button {
   display: flex;
   justify-content: space-between;
   gap: 20px;
   align-items: center;
-  border: 2px solid var(--border-soft);
-  background: var(--surface-muted);
+  border: 1px solid var(--border-soft);
+  background: #f7f5e9;
   padding: 10px 14px;
   min-width: 215px;
   min-height: 44px;
-  border-radius: 4px;
-  font: 14px var(--pixel);
+  border-radius: 9px;
+  font-size: 13px;
 }
 .interaction-button span {
-  color: var(--accent);
+  color: #9e4f38;
 }
 .interaction-button:disabled {
-  color: var(--text-muted);
+  color: #8c9480;
   background: transparent;
   border-color: transparent;
 }
@@ -66,12 +66,12 @@
   border: 0;
   padding: 8px 0;
   min-height: 44px;
-  color: var(--notice);
+  color: #87452e;
 }
 .cancel-walk span {
-  border: 1px solid var(--border-soft);
+  border: 1px solid #bac3ad;
   padding: 1px 4px;
-  color: var(--text-muted);
+  color: #5c694e;
   margin-left: 5px;
 }
 .progress-summary {
@@ -89,9 +89,9 @@
   margin-left: 6px;
 }
 .travel-log {
-  border-top: 1px solid var(--border-soft);
+  border-top: 1px solid #bcc8ac;
   padding: 18px 20px;
-  background: var(--surface-muted);
+  background: #e7ebdc;
 }
 .log-heading {
   display: flex;
@@ -130,14 +130,14 @@
   align-items: center;
   gap: 10px;
   padding: 12px;
-  border: 1px dashed var(--border-soft);
+  border: 1px dashed #a6b496;
   font-size: 12px;
-  color: var(--text-muted);
+  color: #6d7862;
 }
 .travel-log li.is-visited {
   border-style: solid;
-  background: var(--surface);
-  color: var(--shell-ink);
+  background: #f5f2df;
+  color: #364c38;
 }
 .travel-log small {
   display: block;
@@ -149,7 +149,7 @@
   place-items: center;
   width: 34px;
   height: 34px;
-  border: 2px solid var(--border-soft);
+  border: 2px solid #a7b097;
   border-radius: 50%;
   font:
     20px DotGothic16,
@@ -157,8 +157,8 @@
   flex-shrink: 0;
 }
 .is-visited .log-stamp {
-  border-color: #6f9a7f;
-  color: #6f9a7f;
+  border-color: #66815d;
+  color: #486f49;
   transform: rotate(-8deg);
 }
 .is-visited .stamp-workshop {
@@ -171,7 +171,7 @@
 }
 .travel-log p {
   font-size: 12px;
-  color: var(--text-muted);
+  color: #727d66;
   margin: 12px 0 0;
 }
 
@@ -252,8 +252,8 @@
     display: block;
     min-height: 44px;
     padding: 8px 12px;
-    border: 2px solid var(--rule);
-    border-radius: 4px;
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-control);
     background: var(--surface-muted);
     font: 500 12px var(--font-ui);
   }

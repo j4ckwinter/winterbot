@@ -43,15 +43,15 @@
   clip-path: polygon(0 0, 100% 0, 50% 100%);
 }
 .interaction-button:not(:disabled) {
-  border-color: var(--rule);
-  background: var(--ready);
-  box-shadow: inset 4px 0 var(--accent);
+  border-color: #83966b;
+  background: #e8edd4;
+  box-shadow: inset 3px 0 #728751;
 }
 .room-note {
   grid-column: 1 / -1;
-  border-top: 1px solid var(--border-soft);
+  border-top: 1px solid #b8c2a7;
   padding: 0 18px;
-  background: var(--surface-muted);
+  background: #eeecd9;
 }
 .room-note summary {
   cursor: pointer;

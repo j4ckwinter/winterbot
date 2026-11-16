@@ -154,26 +154,12 @@
   --look-hill-far: #3a4885;
   --look-hill-mid: #55639f;
   --look-hill-near: #6f7db8;
-  --surface: #1c2536;
-  --surface-muted: #28344a;
-  --border-soft: #46546d;
-  --text-muted: #a3b0c2;
-  --shell-ink: #e9edf2;
-  --rule: #8696ae;
-  --shell-shadow: #05080f66;
-  --hover: #28344a;
-  --key-down: #364560;
-  --ready: #303c56;
   --accent: #ffc95e;
-  --notice: #ffb59e;
-  --pressed: #e9edf2;
-  --pressed-ink: #1c2536;
   --sign: #e3d8bb;
   --sign-lit: #f6ecc9;
   --sign-snow: #c7d1f2;
   --sign-snow-shade: #8c9bd2;
   --route: #fff0a8;
-  --focus: #ffc95e;
 }
 :root[data-light="day"][data-weather="heavy"] .town-app {
   --snow: #e0e6ed;

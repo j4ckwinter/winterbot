@@ -119,5 +119,37 @@ test("a night of heavy snow still takes taps on the map and opens a readable dia
     const style = getComputedStyle(el);
     return [style.backgroundColor, style.color];
   });
-  expect(colours).toEqual(["rgb(253, 253, 251)", "rgb(38, 50, 63)"]);
+  expect(colours).toEqual(["rgb(255, 254, 250)", "rgb(48, 55, 46)"]);
+});
+
+test("night and heavy snow change the town, not the page around it", async ({
+  page,
+}) => {
+  const frameStyles = () =>
+    page.evaluate(() =>
+      [
+        "html",
+        ".world-shell",
+        ".world-toolbar",
+        ".scene-heading h2",
+        ".interaction-button",
+        ".quick-nav button",
+      ].map((selector) => {
+        const style = getComputedStyle(document.querySelector(selector)!);
+        return [
+          selector,
+          style.backgroundColor,
+          style.color,
+          style.borderColor,
+          style.borderRadius,
+          style.boxShadow,
+          style.fontFamily,
+        ];
+      }),
+    );
+  await page.goto("/?time=day&weather=clear");
+  const day = await frameStyles();
+  await page.goto("/?time=night&weather=heavy");
+  await expect(page.locator(".town-weather")).toBeVisible();
+  expect(await frameStyles()).toEqual(day);
 });

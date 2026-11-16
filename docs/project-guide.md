@@ -6,7 +6,7 @@ tap the ground to walk or a building to enter. arrow keys, WASD and direction bu
 
 Menu holds the sound control. explored places are saved on your device; reset discoveries from the travel log. project and section URLs are shareable. the [plain portfolio](https://winterbyte.vercel.app/portfolio) works without JavaScript.
 
-the town is always in winter. day and night follow London’s sunrise and sunset for the current month, and the weather (clear, light snow or heavy snow) changes every three hours, the same for every visitor. add `?time=day` or `?time=night` and `?weather=clear`, `?weather=snow` or `?weather=heavy` to the URL to see a particular state.
+the town is always in winter. day and night follow London’s sunrise and sunset for the current month, and the weather (clear, light snow or heavy snow) changes every three hours, the same for every visitor. add `?time=day` or `?time=night` and `?weather=clear`, `?weather=snow` or `?weather=heavy` to the URL to see a particular state. light and weather recolour only the town and its rooms; the page around them keeps the portfolio’s colours and type.
 
 for the optional station trip, inspect a project and collect a ticket at Winter Station. tickets last while you remain in the station. the ride can be skipped and is instant with reduced motion. at the lookout, walk to the railing or board the return train.
 
