@@ -152,4 +152,8 @@ test("night and heavy snow change the town, not the page around it", async ({
   await page.goto("/?time=night&weather=heavy");
   await expect(page.locator(".town-weather")).toBeVisible();
   expect(await frameStyles()).toEqual(day);
+  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute(
+    "content",
+    "#f6f4eb",
+  );
 });

@@ -47,7 +47,4 @@ export function applyTownAtmosphere() {
   const { light, weather } = townAtmosphere(new Date(), window.location.search);
   document.documentElement.dataset.light = light;
   document.documentElement.dataset.weather = weather;
-  document
-    .querySelector('meta[name="theme-color"]')
-    ?.setAttribute("content", light === "night" ? "#121927" : "#eef2f5");
 }
