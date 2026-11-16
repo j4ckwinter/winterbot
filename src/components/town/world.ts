@@ -181,20 +181,35 @@ export const roomLayouts: Record<
     objects: [{ bounds: [388, 190, 572, 330], x: 480, y: 370, labelY: 170 }],
   },
 };
+const TOWN_BOUNDS: Rect = [60, 75, 940, 615];
+const POND: Rect = [312, 292, 407, 352];
+const NOTICEBOARD: Rect = [72, 428, 122, 479];
+const BRIDGE = { fromX: 800, top: 375, bottom: 405 };
+const fenceFootprint = ([x, y]: number[]): Rect => [x - 4, y, x + 68, y + 38];
+const treeFootprint = ([x, y]: number[]): Rect => [
+  x + 6,
+  y + 25,
+  x + 52,
+  y + 65,
+];
 const townObstacles = [
   ...buildings,
-  [312, 292, 407, 352],
-  ...fences.map(([x, y]) => [x - 4, y, x + 68, y + 38]),
-  ...trees.map(([x, y]) => [x + 6, y + 25, x + 52, y + 65]),
-  [72, 428, 122, 479],
+  POND,
+  ...fences.map(fenceFootprint),
+  ...trees.map(treeFootprint),
+  NOTICEBOARD,
 ];
 export function canWalk(scene: Scene, x: number, y: number) {
   if (!Number.isFinite(x) || !Number.isFinite(y)) return false;
-  const bounds =
-    scene === "town" ? [60, 75, 940, 615] : roomLayouts[scene].bounds;
+  const bounds = scene === "town" ? TOWN_BOUNDS : roomLayouts[scene].bounds;
   if (x < bounds[0] || y < bounds[1] || x > bounds[2] || y > bounds[3])
     return false;
-  if (scene === "town" && x > 800 && (y < 375 || y > 405)) return false;
+  if (
+    scene === "town" &&
+    x > BRIDGE.fromX &&
+    (y < BRIDGE.top || y > BRIDGE.bottom)
+  )
+    return false;
   return !(
     scene === "town" ? townObstacles : roomLayouts[scene].furniture
   ).some(([l, t, r, b]) => x > l && x < r && y > t && y < b);

@@ -1,47 +1,64 @@
 import TownObject from "./TownObject";
-import { DOOR_OPEN_REACH, fences, isWithin, trees, type Point } from "./world";
+import {
+  DOOR_OPEN_REACH,
+  fences,
+  isWithin,
+  places,
+  trees,
+  type Place,
+  type Point,
+} from "./world";
+
+const doorways: Record<Place, { x: number; y: number; w: number; h: number }> =
+  {
+    workshop: { x: 193, y: 216, w: 34, h: 60 },
+    home: { x: 646, y: 205, w: 28, h: 51 },
+    station: { x: 197, y: 513, w: 36, h: 53 },
+    post: { x: 630, y: 516, w: 30, h: 50 },
+  };
 
 export default function TownScenery({ player }: { player?: Point }) {
   const near = (x: number, y: number, distance: number) =>
     player !== undefined && isWithin(player, { x, y }, distance);
   return (
     <>
-      {[
-        { x: 193, y: 216, w: 34, h: 60, footX: 210, footY: 300 },
-        { x: 646, y: 205, w: 28, h: 51, footX: 660, footY: 280 },
-        { x: 197, y: 513, w: 36, h: 53, footX: 215, footY: 595 },
-        { x: 630, y: 516, w: 30, h: 50, footX: 645, footY: 595 },
-      ].map(
-        ({ x, y, w, h, footX, footY }) =>
-          near(footX, footY, DOOR_OPEN_REACH) && (
-            <TownObject
-              key={x}
-              name="door"
-              depth={footY - (footY > 500 ? 20 : 15)}
-            >
-              <g class="town-open-door">
-                <rect
-                  x={x + 3}
-                  y={y + 4}
-                  width={w - 6}
-                  height={h - 4}
-                  fill="var(--door-dark)"
-                />
-                <path
-                  d={`M${x + 3} ${y + 4}l8 5v${h - 12}l-8 3z`}
-                  fill="var(--wood-lit)"
-                />
-                <rect
-                  x={x + 11}
-                  y={y + h - 3}
-                  width={w - 14}
-                  height="3"
-                  fill="var(--glow)"
-                />
-              </g>
-            </TownObject>
-          ),
-      )}
+      {places
+        .map(({ id, x: footX, y: footY }) => ({
+          ...doorways[id],
+          footX,
+          footY,
+        }))
+        .map(
+          ({ x, y, w, h, footX, footY }) =>
+            near(footX, footY, DOOR_OPEN_REACH) && (
+              <TownObject
+                key={x}
+                name="door"
+                depth={footY - (footY > 500 ? 20 : 15)}
+              >
+                <g class="town-open-door">
+                  <rect
+                    x={x + 3}
+                    y={y + 4}
+                    width={w - 6}
+                    height={h - 4}
+                    fill="var(--door-dark)"
+                  />
+                  <path
+                    d={`M${x + 3} ${y + 4}l8 5v${h - 12}l-8 3z`}
+                    fill="var(--wood-lit)"
+                  />
+                  <rect
+                    x={x + 11}
+                    y={y + h - 3}
+                    width={w - 14}
+                    height="3"
+                    fill="var(--glow)"
+                  />
+                </g>
+              </TownObject>
+            ),
+        )}
       {fences.map(([x, y]) => (
         <TownObject key={`fence-${x}-${y}`} name="fence" depth={y + 36}>
           <use href="#town-fence" x={x} y={y} />
