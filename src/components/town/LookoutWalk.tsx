@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from "preact/hooks";
 import LookoutScene from "./LookoutScene";
+import { MAX_FRAME_SECONDS } from "./movement";
 import { isWithin } from "./world";
 
 type Point = { x: number; y: number };
 const start = { x: 490, y: 510 };
 const LOOKOUT_REACH = 35;
+const LOOKOUT_WALK_SPEED = 150;
 const railing = { x: 400, y: 448 };
 const train = { x: 490, y: 520 };
 const movementKeys = [
@@ -66,7 +68,8 @@ export default function LookoutWalk({
   const tick = (time: number) => {
     frame.current = null;
     const step =
-      Math.max(0, Math.min((time - last.current) / 1000, 0.035)) * 150;
+      Math.max(0, Math.min((time - last.current) / 1000, MAX_FRAME_SECONDS)) *
+      LOOKOUT_WALK_SPEED;
     last.current = time;
     const previous = point.current;
     let next: Point;
