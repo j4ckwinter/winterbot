@@ -269,3 +269,31 @@ test("agents can discover the markdown and tools", async ({
     "/llms.txt",
   );
 });
+
+test("a tool the browser refuses to register is reported, and the others still register", async ({
+  page,
+}) => {
+  await page.addInitScript(() => {
+    window.registeredTools = [];
+    Object.defineProperty(document, "modelContext", {
+      value: {
+        registerTool: async (tool: Registered) => {
+          if (tool.name === "read")
+            throw new DOMException("refused", "NotAllowedError");
+          window.registeredTools.push(tool);
+        },
+      },
+    });
+  });
+  const warnings: string[] = [];
+  page.on("console", (message) => {
+    if (message.type() === "warning") warnings.push(message.text());
+  });
+  await page.goto("/");
+  await expect
+    .poll(() => page.evaluate(() => window.registeredTools.length))
+    .toBe(4);
+  await expect
+    .poll(() => warnings.join("\n"))
+    .toContain("Could not register the read tool.");
+});

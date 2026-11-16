@@ -76,7 +76,9 @@ export function useAgentTools(view: TownView, controls: Controls) {
               { signal: registration.signal },
             ),
           )
-          .catch(() => {});
+          .catch((error: unknown) =>
+            console.warn(`Could not register the ${tool.name} tool.`, error),
+          );
     let removePanel = () => {};
     if (import.meta.env.DEV)
       import("./agentPanel").then(({ mountAgentPanel }) => {
