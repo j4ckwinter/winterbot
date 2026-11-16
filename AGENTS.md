@@ -24,32 +24,34 @@ Run `npm run check`, `npm run build` and `npm test` before committing. Set `PLAY
 
 Each decision has one owner. Put new code with the owner of the decision it makes, and update this table in the change that adds or moves one.
 
-| Decision                                                      | Owner                                                  |
-| ------------------------------------------------------------- | ------------------------------------------------------ |
-| Place ids, names, doors and where the town starts             | `src/components/town/world.ts`                         |
-| Terrain, obstacles, room layouts, walkability and pathfinding | `src/components/town/world.ts`                         |
-| Movement and keyboard input                                   | `src/components/town/useMovement.ts`                   |
-| Camera scale, overview and screen-to-map mapping              | `src/components/town/useTownCamera.ts`                 |
-| Light and weather for a moment and URL                        | `src/components/town/townAtmosphere.ts`                |
-| Town colours for each light and weather                       | `src/components/town/town-winter.css`                  |
-| Interior colours                                              | `src/components/town/InteriorMap.tsx` and `interiors/` |
-| Character colours                                             | `src/components/town/characterPalette.ts`              |
-| Town artwork                                                  | `src/components/town/TownMap.tsx`                      |
-| Saved progress format and storage key                         | `src/components/town/useProgress.ts`                   |
-| Content URLs                                                  | `src/components/town/navigation.ts`                    |
-| Opening dialogs, focus and copied links                       | `src/components/town/useContentNavigation.ts`          |
-| Profile, skills, experience and contacts                      | `src/components/town/profile.ts`                       |
-| Projects                                                      | `src/components/town/projects.ts`                      |
-| Case studies                                                  | `src/data/`                                            |
-| Place markdown and its paths                                  | `src/components/town/placeMarkdown.ts`                 |
-| `llms.txt`                                                    | `src/pages/llms.txt.ts`                                |
-| Agent tool names, wording and behaviour                       | `src/components/town/agentTools.ts`                    |
-| WebMCP registration                                           | `src/components/town/useAgentTools.ts`                 |
-| Sound cues                                                    | `src/components/town/useSound.ts`                      |
-| Scene changes and actions                                     | `src/components/town/WinterTown.tsx`                   |
-| Place content in dialogs and the plain portfolio              | `src/components/town/PlaceContent.tsx`                 |
-| Portfolio colours, type and spacing outside the town          | `src/styles/global.css`                                |
-| Performance audit and sharing cards                           | `scripts/`                                             |
+| Decision                                                            | Owner                                                                                                                                     |
+| ------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| Place ids, names, doors and where the town starts                   | `src/components/town/world.ts`                                                                                                            |
+| Terrain, obstacles, room layouts, walkability and pathfinding       | `src/components/town/world.ts`                                                                                                            |
+| Movement and keyboard input                                         | `src/components/town/useMovement.ts`                                                                                                      |
+| Camera scale, overview and screen-to-map mapping                    | `src/components/town/useTownCamera.ts`                                                                                                    |
+| Light and weather for a moment and URL                              | `src/components/town/townAtmosphere.ts`                                                                                                   |
+| Town colours for each light and weather                             | `src/components/town/town-winter.css`                                                                                                     |
+| Interior colours                                                    | `src/components/town/InteriorMap.tsx` and `interiors/`                                                                                    |
+| Character colours                                                   | `src/components/town/characterPalette.ts`                                                                                                 |
+| Town artwork: ground and river, buildings, scenery, cat and bridges | `src/components/town/TownGround.tsx`, `TownBuildings.tsx`, `TownScenery.tsx`, `TownCat.tsx`, `TownBridges.tsx`, composed by `TownMap.tsx` |
+| Shared town sprites and patterns                                    | `src/components/town/TownDefs.tsx`                                                                                                        |
+| Town animations                                                     | `src/components/town/town-map.css`                                                                                                        |
+| Saved progress format and storage key                               | `src/components/town/useProgress.ts`                                                                                                      |
+| Content URLs                                                        | `src/components/town/navigation.ts`                                                                                                       |
+| Opening dialogs, focus and copied links                             | `src/components/town/useContentNavigation.ts`                                                                                             |
+| Profile, skills, experience and contacts                            | `src/components/town/profile.ts`                                                                                                          |
+| Projects                                                            | `src/components/town/projects.ts`                                                                                                         |
+| Case studies                                                        | `src/data/`                                                                                                                               |
+| Place markdown and its paths                                        | `src/components/town/placeMarkdown.ts`                                                                                                    |
+| `llms.txt`                                                          | `src/pages/llms.txt.ts`                                                                                                                   |
+| Agent tool names, wording and behaviour                             | `src/components/town/agentTools.ts`                                                                                                       |
+| WebMCP registration                                                 | `src/components/town/useAgentTools.ts`                                                                                                    |
+| Sound cues                                                          | `src/components/town/useSound.ts`                                                                                                         |
+| Scene changes and actions                                           | `src/components/town/WinterTown.tsx`                                                                                                      |
+| Place content in dialogs and the plain portfolio                    | `src/components/town/PlaceContent.tsx`                                                                                                    |
+| Portfolio colours, type and spacing outside the town                | `src/styles/global.css`                                                                                                                   |
+| Performance audit and sharing cards                                 | `scripts/`                                                                                                                                |
 
 ## Standards
 
