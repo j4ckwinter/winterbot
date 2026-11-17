@@ -1,15 +1,10 @@
 import { test, expect } from "@playwright/test";
 const key = "winter-town:progress:v1";
 
-test("season and discoveries survive reload, reset preserves season", async ({
-  page,
-}) => {
+test("discoveries survive reload and reset", async ({ page }) => {
   test.setTimeout(60000);
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
-  await page.locator(".world-menu > summary").click();
-  await page.getByRole("button", { name: "Switch to autumn" }).click();
-  await page.locator(".world-menu > summary").click();
   await page
     .getByRole("navigation", { name: "Quick access" })
     .getByRole("button", { name: "Projects" })
@@ -18,7 +13,6 @@ test("season and discoveries survive reload, reset preserves season", async ({
     .getByRole("button", { name: "Close details", exact: true })
     .click();
   await page.reload();
-  await expect(page.locator(".town-app")).toHaveClass(/season-fire/);
   const log = page.getByRole("button", {
     name: "Travel log: 1 of 4 places explored",
   });
@@ -32,9 +26,25 @@ test("season and discoveries survive reload, reset preserves season", async ({
     page.getByRole("button", { name: "Travel log: 0 of 4 places explored" }),
   ).toBeVisible();
   await page.reload();
-  await expect(page.locator(".town-app")).toHaveClass(/season-fire/);
   await expect(
     page.getByRole("button", { name: "Travel log: 0 of 4 places explored" }),
+  ).toBeVisible();
+});
+
+test("discoveries saved with a season before the town was always winter still load", async ({
+  page,
+}) => {
+  await page.addInitScript(
+    (key) =>
+      localStorage.setItem(
+        key,
+        JSON.stringify({ version: 1, season: "fire", visited: ["home"] }),
+      ),
+    key,
+  );
+  await page.goto("/");
+  await expect(
+    page.getByRole("button", { name: "Travel log: 1 of 4 places explored" }),
   ).toBeVisible();
 });
 
@@ -52,7 +62,7 @@ test("malformed progress cannot break startup", async ({ page }) => {
   ).toBeDisabled();
   await page.locator(".world-menu > summary").click();
   await expect(
-    page.getByRole("button", { name: "Switch to autumn" }),
+    page.getByRole("button", { name: "Sound", exact: true }),
   ).toBeEnabled();
 });
 
@@ -75,8 +85,4 @@ test("denied storage keeps exploration usable for the current visit", async ({
     .getByRole("button", { name: "Travel log: 1 of 4 places explored" })
     .click();
   await expect(page.getByText("Progress lasts for this visit.")).toBeVisible();
-  await page.locator(".world-menu > summary").click();
-  await page.getByRole("button", { name: "Switch to autumn" }).click();
-  await page.locator(".world-menu > summary").click();
-  await expect(page.locator(".town-app")).toHaveClass(/season-fire/);
 });

@@ -1,26 +1,19 @@
 import { useEffect, useRef, useState } from "preact/hooks";
 import type { RefObject } from "preact";
+import { advance, frameDistance, isMovementKey } from "./movement";
 import {
   canWalk,
   findRoute,
+  GRID_STEP,
   places,
+  ROOM_ENTRY,
+  TOWN_SQUARE,
   TOWN_START,
   type Action,
   type Direction,
   type Point,
   type Scene,
 } from "./world";
-
-const movementKeys = new Set([
-  "arrowup",
-  "arrowdown",
-  "arrowleft",
-  "arrowright",
-  "w",
-  "a",
-  "s",
-  "d",
-]);
 
 export function useMovement(
   dialog: RefObject<HTMLDialogElement>,
@@ -55,10 +48,10 @@ export function useMovement(
   const stepDirection = (direction: Direction) => {
     stop();
     const offsets = {
-      up: [0, -10],
-      down: [0, 10],
-      left: [-10, 0],
-      right: [10, 0],
+      up: [0, -GRID_STEP],
+      down: [0, GRID_STEP],
+      left: [-GRID_STEP, 0],
+      right: [GRID_STEP, 0],
     };
     const [dx, dy] = offsets[direction];
     const next = {
@@ -84,8 +77,8 @@ export function useMovement(
     const door = places.find((place) => place.id === engine.current.scene);
     const point =
       next === "town"
-        ? { x: door?.x ?? 480, y: door?.y ?? 390 }
-        : { x: 480, y: 550 };
+        ? { x: door?.x ?? TOWN_SQUARE.x, y: door?.y ?? TOWN_SQUARE.y }
+        : ROOM_ENTRY;
     engine.current = { scene: next, position: point };
     setScene(next);
     setPosition(point);
@@ -115,7 +108,7 @@ export function useMovement(
     return true;
   };
   const pressKey = (key: string) => {
-    if (!movementKeys.has(key)) return false;
+    if (!isMovementKey(key)) return false;
     cancelRoute();
     keys.current.add(key);
     wake();
@@ -134,55 +127,23 @@ export function useMovement(
   };
   const tick = (time: number) => {
     frame.current = null;
-    const step =
-      Math.max(0, Math.min((time - last.current) / 1000, 0.035)) * 190;
+    const step = frameDistance(time - last.current);
     last.current = time;
     if (!dialog.current?.open) {
-      const old = engine.current.position;
-      let { x, y } = old;
-      let dx = 0,
-        dy = 0;
       const target = route.current[0];
-      if (target) {
-        const distance = Math.hypot(target.x - x, target.y - y);
-        if (distance <= step) {
-          x = target.x;
-          y = target.y;
-          route.current.shift();
-        } else {
-          dx = (target.x - x) / distance;
-          dy = (target.y - y) / distance;
-        }
-      } else {
-        dx =
-          Number(keys.current.has("arrowright") || keys.current.has("d")) -
-          Number(keys.current.has("arrowleft") || keys.current.has("a"));
-        dy =
-          Number(keys.current.has("arrowdown") || keys.current.has("s")) -
-          Number(keys.current.has("arrowup") || keys.current.has("w"));
-        const length = Math.hypot(dx, dy);
-        if (length) {
-          dx /= length;
-          dy /= length;
-        }
-      }
-      if (canWalk(engine.current.scene, x + dx * step, y)) x += dx * step;
-      if (canWalk(engine.current.scene, x, y + dy * step)) y += dy * step;
-      const moved = x !== old.x || y !== old.y;
-      if (moved) {
-        const mx = x - old.x,
-          my = y - old.y;
-        setDirection(
-          Math.abs(mx) > Math.abs(my)
-            ? mx > 0
-              ? "right"
-              : "left"
-            : my > 0
-              ? "down"
-              : "up",
-        );
-        engine.current.position = { x, y };
-        setPosition({ x, y });
+      const next = advance(
+        engine.current.scene,
+        engine.current.position,
+        target,
+        keys.current,
+        step,
+      );
+      if (next.reachedTarget) route.current.shift();
+      const moved = next.facing !== undefined;
+      if (next.facing) {
+        setDirection(next.facing);
+        engine.current.position = next.position;
+        setPosition(next.position);
       }
       setWalking(moved);
       if (!route.current.length && target) {

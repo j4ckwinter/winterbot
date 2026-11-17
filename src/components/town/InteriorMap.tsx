@@ -3,7 +3,17 @@ import WorkshopInterior from "./interiors/WorkshopInterior";
 import HomeInterior from "./interiors/HomeInterior";
 import StationInterior from "./interiors/StationInterior";
 import PostInterior from "./interiors/PostInterior";
-import { landmarks, roomLayouts, type Place, type Point } from "./world";
+import {
+  isWithin,
+  landmarks,
+  MAP_HEIGHT,
+  MAP_VIEW_BOX,
+  MAP_WIDTH,
+  OBJECT_GLOW_REACH,
+  roomLayouts,
+  type Place,
+  type Point,
+} from "./world";
 
 const palettes = {
   workshop: {
@@ -38,7 +48,7 @@ export default function InteriorMap({
   return (
     <svg
       class="interior-map"
-      viewBox="0 0 960 640"
+      viewBox={MAP_VIEW_BOX}
       width="100%"
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
@@ -71,13 +81,13 @@ export default function InteriorMap({
           <path d="M0 0h48v2H0z M0 0h2v48H0z" fill="#7b8878" opacity=".5" />
         </pattern>
       </defs>
-      <rect width="960" height="640" fill="#303e35" />
+      <rect width={MAP_WIDTH} height={MAP_HEIGHT} fill="var(--letterbox)" />
       <rect
         x={shellLeft - 16}
         y="48"
         width={shellWidth + 32}
         height="560"
-        fill="#232e28"
+        fill="#161d26"
       />
       <rect
         x={shellLeft}
@@ -142,7 +152,7 @@ export default function InteriorMap({
       {landmarks(room).map(
         (object) =>
           player &&
-          Math.hypot(player.x - object.x, player.y - object.y) < 75 && (
+          isWithin(player, object, OBJECT_GLOW_REACH) && (
             <g key={object.id} class="interior-ready" fill="#f3dfa0">
               <path
                 d={`M${object.x - 8} ${object.y - 25}h16v4h-16z M${object.x - 4} ${object.y - 19}h8v4h-8z`}
@@ -157,7 +167,7 @@ export default function InteriorMap({
         d={`M${shellLeft} 600h${435 - shellLeft}v8H${shellLeft}z M525 600h${right + 10 - 525}v8H525z`}
         fill={palette.trim}
       />
-      <style>{`.interior-cursor{animation:interior-blink 1.8s steps(2,end) infinite}.exhibit-route-dot{animation:exhibit-route 5s steps(8,end) infinite}@keyframes exhibit-route{0%,10%{transform:translate(0,0)}50%{transform:translate(24px,0)}70%{transform:translate(24px,10px)}90%,100%{transform:translate(36px,10px)}}@keyframes interior-blink{50%{opacity:.35}}@media(prefers-reduced-motion:reduce){.interior-cursor,.exhibit-route-dot{animation:none}}`}</style>
+      <style>{`.interior-cursor{animation:interior-blink 1.8s steps(2,end) infinite}.exhibit-route-dot{animation:exhibit-route 5s steps(8,end) infinite}.interior-daylight{opacity:var(--pane-light-o,.2)}.interior-moon{opacity:var(--moon-o,0)}.interior-snow{display:none}:root:is([data-weather="snow"],[data-weather="heavy"]) .interior-snow{display:inline}.interior-snow g{animation:interior-snow 7s steps(37) infinite}.interior-flame{animation:interior-flame .9s steps(1) infinite}.interior-flame-late{animation-delay:-.45s}.interior-glow{animation:interior-glow 2.7s steps(1) infinite}@keyframes exhibit-route{0%,10%{transform:translate(0,0)}50%{transform:translate(24px,0)}70%{transform:translate(24px,10px)}90%,100%{transform:translate(36px,10px)}}@keyframes interior-blink{50%{opacity:.35}}@keyframes interior-snow{to{transform:translateY(74px)}}@keyframes interior-flame{50%{opacity:0}}@keyframes interior-glow{40%{transform:translateY(1px)}70%{transform:translateY(0)}}@media(prefers-reduced-motion:reduce){.interior-cursor,.exhibit-route-dot,.interior-snow g,.interior-flame,.interior-glow{animation:none}.interior-flame-late{opacity:0}}`}</style>
     </svg>
   );
 }

@@ -1,8 +1,11 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import WinterTown from "../components/town/WinterTown";
+import { townAtmosphere } from "../components/town/townAtmosphere";
+const applyAtmosphereBeforePaint = `(function(){var a=(${townAtmosphere.toString()})(new Date(),location.search);document.documentElement.dataset.light=a.light;document.documentElement.dataset.weather=a.weather})()`;
 ---
 
 <Layout>
+  <script is:inline set:html={applyAtmosphereBeforePaint} />
   <WinterTown client:load />
 </Layout>

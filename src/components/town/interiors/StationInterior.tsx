@@ -1,3 +1,11 @@
+import { Sconce } from "./InteriorFurniture";
+
+const trackFlakes = Array.from({ length: 44 }, (_, i) => {
+  const x = 84 + ((i * 7919) % 787);
+  const y = (i * 4513) % 74;
+  return `M${x} ${y}h2v2h-2z`;
+}).join("");
+
 function Board({ x }: { x: number }) {
   return (
     <g transform={`translate(${x - 72} 194)`}>
@@ -69,6 +77,21 @@ export default function StationInterior() {
         <path key={i} d={`M${92 + i * 40} 211h14v78h-14z`} fill="#7c7259" />
       ))}
       <path d="M80 221h800v7H80z M80 278h800v7H80z" fill="#aeb3a0" />
+      <path
+        d="M80 200h800v6h-90v4h-70v-4h-180v5h-80v-5h-200v4h-90v-4H80z"
+        fill="var(--cap)"
+      />
+      <path
+        d="M80 219h800v2H80z M80 276h800v2H80z M130 244h12v3h-12z M290 262h10v3h-10z M452 240h14v3h-14z M610 258h10v3h-10z M770 246h12v3h-12z"
+        fill="var(--cap)"
+      />
+      <svg class="interior-snow" x="0" y="200" width="960" height="103">
+        <g fill="#fff">
+          <path d={trackFlakes} />
+          <path d={trackFlakes} transform="translate(0 -74)" />
+          <path d={trackFlakes} transform="translate(0 74)" />
+        </g>
+      </svg>
       <path d="M80 303h800v14H80z" fill="#d4b970" />
       {Array.from({ length: 25 }, (_, i) => (
         <path key={i} d={`M${88 + i * 31} 307h14v4h-14z`} fill="#f0d793" />
@@ -77,6 +100,8 @@ export default function StationInterior() {
       <g transform="translate(-96 1.2) scale(1.2)">
         <Board x={480} />
       </g>
+      <Sconce x={170} poolY={326} />
+      <Sconce x={790} poolY={326} />
       <path d="M390 412h180v22H390z" fill="#789184" opacity=".5" />
       {[140, 640].map((x) => (
         <g key={x} transform={`translate(${x} 422)`}>

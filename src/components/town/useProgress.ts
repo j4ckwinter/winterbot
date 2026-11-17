@@ -6,16 +6,11 @@ import {
 } from "preact/hooks";
 import { places, type Place } from "./world";
 
-type Season = "leaf" | "fire";
-type Progress = { version: 1; season: Season; visited: Place[] };
+type Progress = { version: 1; visited: Place[] };
 
 export const PROGRESS_KEY = "winter-town:progress:v1";
 
-const emptyProgress = (): Progress => ({
-  version: 1,
-  season: "leaf",
-  visited: [],
-});
+const emptyProgress = (): Progress => ({ version: 1, visited: [] });
 
 function isPlace(value: unknown): value is Place {
   return places.some((place) => place.id === value);
@@ -31,8 +26,6 @@ export function parseProgress(value: string | null): Progress {
       Array.isArray(parsed) ||
       !("version" in parsed) ||
       parsed.version !== 1 ||
-      !("season" in parsed) ||
-      (parsed.season !== "leaf" && parsed.season !== "fire") ||
       !("visited" in parsed) ||
       !Array.isArray(parsed.visited)
     ) {
@@ -40,7 +33,6 @@ export function parseProgress(value: string | null): Progress {
     }
     return {
       version: 1,
-      season: parsed.season,
       visited: [...new Set(parsed.visited.filter(isPlace))],
     };
   } catch {
@@ -75,16 +67,6 @@ export function useProgress() {
     }
   }, [loaded, progress, storageAvailable]);
 
-  const setSeason = useCallback(
-    (next: Season | ((previous: Season) => Season)) => {
-      setProgress((current) => ({
-        ...current,
-        season: typeof next === "function" ? next(current.season) : next,
-      }));
-    },
-    [],
-  );
-
   const markVisited = useCallback((place: Place) => {
     setProgress((current) =>
       current.visited.includes(place)
@@ -98,8 +80,6 @@ export function useProgress() {
   }, []);
 
   return {
-    season: progress.season,
-    setSeason,
     visited: progress.visited,
     markVisited,
     resetExploration,

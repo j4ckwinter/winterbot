@@ -1,10 +1,12 @@
-import { Window, Plant } from "./InteriorFurniture";
+import { Window, Plant, Sconce } from "./InteriorFurniture";
 
 export default function PostInterior() {
   return (
     <>
       <Window x={126} />
       <Window x={741} />
+      <Sconce x={266} />
+      <Sconce x={696} />
       <g transform="translate(310 83)">
         {Array.from({ length: 12 }, (_, i) => (
           <g

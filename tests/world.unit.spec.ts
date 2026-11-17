@@ -6,6 +6,9 @@ import {
   roomLayouts,
   findRoute,
   landmarks,
+  landmarkInReach,
+  INTERACTION_REACH,
+  roomExit,
   places,
   trees,
   fences,
@@ -113,4 +116,17 @@ test("routes reach points beside furniture without clipping the final segment", 
       }
     }
   }
+});
+
+test("the landmark in reach is the one within interaction reach, and rooms offer their exit", () => {
+  const workshop = places.find((place) => place.id === "workshop")!;
+  expect(landmarkInReach("town", workshop)?.id).toBe("workshop");
+  expect(
+    landmarkInReach("town", {
+      x: workshop.x,
+      y: workshop.y + INTERACTION_REACH,
+    }),
+  ).toBeUndefined();
+  expect(landmarkInReach("home", roomExit)?.action).toEqual({ kind: "exit" });
+  expect(landmarkInReach("town", roomExit)).toBeUndefined();
 });

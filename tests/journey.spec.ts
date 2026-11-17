@@ -17,9 +17,6 @@ test("mobile overview fits its frame and menu keeps controls accessible", async 
   await expect(
     page.getByRole("button", { name: "Sound", exact: true }),
   ).toBeVisible();
-  await expect(
-    page.getByRole("button", { name: "Switch to autumn" }),
-  ).toBeVisible();
   expect(
     await page.evaluate(() => document.documentElement.scrollWidth),
   ).toBeLessThanOrEqual(320);
@@ -67,8 +64,7 @@ for (const reduced of [false, true]) {
     ).toBeFocused();
     await page.getByRole("button", { name: "Take the train" }).click();
     await page.getByRole("button", { name: "Return to station" }).click();
-    await page.waitForTimeout(1900);
-    await expect(trip).not.toBeVisible();
+    await expect(trip).toBeHidden();
   });
 }
 

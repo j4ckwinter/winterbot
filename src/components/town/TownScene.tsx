@@ -3,7 +3,11 @@ import { memo } from "preact/compat";
 import TownMap from "./TownMap";
 import InteriorMap from "./InteriorMap";
 import Player from "./Player";
+import Footprints from "./Footprints";
 import {
+  isWithin,
+  LABEL_HIGHLIGHT_REACH,
+  MAP_VIEW_BOX,
   places,
   type Direction,
   type Landmark,
@@ -64,18 +68,26 @@ export default function TownScene({
           inspectedProjects={inspectedProjects}
         />
       )}
+      {scene === "town" && <Footprints walker={position} />}
+      {scene === "town" && (
+        <div class="town-weather" aria-hidden="true">
+          <i class="snow-far" />
+          <i class="snow-near" />
+          <i class="snow-gust" />
+        </div>
+      )}
       {tap && (
         <svg
           key={tap.id}
           class="tap-feedback"
-          viewBox="0 0 960 640"
+          viewBox={MAP_VIEW_BOX}
           aria-hidden="true"
         >
           <circle cx={tap.x} cy={tap.y} r="12" />
         </svg>
       )}
       {walkTarget && (
-        <svg class="walk-route" viewBox="0 0 960 640" aria-hidden="true">
+        <svg class="walk-route" viewBox={MAP_VIEW_BOX} aria-hidden="true">
           <polyline points={walkPath.map((p) => `${p.x},${p.y}`).join(" ")} />
           <circle cx={walkTarget.x} cy={walkTarget.y} r="9" />
         </svg>
@@ -84,7 +96,7 @@ export default function TownScene({
         <button
           disabled={!ready}
           key={p.id}
-          class={`map-label ${scene === "town" ? "town-label" : "room-label"} ${activeDestination?.id === p.id ? "is-destination" : ""} ${near?.id === p.id ? "is-actionable" : ""} ${Math.hypot(position.x - p.x, position.y - p.y) < 90 ? "is-near" : ""}`}
+          class={`map-label ${scene === "town" ? "town-label" : "room-label"} ${activeDestination?.id === p.id ? "is-destination" : ""} ${near?.id === p.id ? "is-actionable" : ""} ${isWithin(position, p, LABEL_HIGHLIGHT_REACH) ? "is-near" : ""}`}
           onFocus={(e) => {
             if (e.currentTarget.matches(":focus-visible")) onRevealMap();
           }}

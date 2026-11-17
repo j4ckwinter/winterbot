@@ -133,7 +133,7 @@
   min-width: 44px;
   touch-action: none;
 }
-.lookout-message {
+.lookout-dialog .lookout-message {
   margin: 12px 16px 0;
   line-height: 1.6;
 }

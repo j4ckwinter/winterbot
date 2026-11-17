@@ -2,7 +2,27 @@ import { getProject, type ProjectId } from "./projects";
 export type Place = "workshop" | "home" | "station" | "post";
 export type Scene = "town" | Place;
 export type Point = { x: number; y: number };
+export const MAP_WIDTH = 960;
+export const MAP_HEIGHT = 640;
+export const MAP_VIEW_BOX = `0 0 ${MAP_WIDTH} ${MAP_HEIGHT}`;
+export const GRID_STEP = 10;
 export const TOWN_START: Point = { x: 210, y: 330 };
+export const TOWN_SQUARE: Point = { x: 480, y: 390 };
+export const ROOM_ENTRY: Point = { x: 480, y: 550 };
+export const INTERACTION_REACH = 48;
+export const LABEL_HIGHLIGHT_REACH = 90;
+export const OBJECT_GLOW_REACH = 75;
+export const DOOR_OPEN_REACH = 68;
+export const CAT_ALERT_REACH = 75;
+export function snapToGrid({ x, y }: Point): Point {
+  return {
+    x: Math.round(x / GRID_STEP) * GRID_STEP,
+    y: Math.round(y / GRID_STEP) * GRID_STEP,
+  };
+}
+export function isWithin(a: Point, b: Point, distance: number) {
+  return Math.hypot(a.x - b.x, a.y - b.y) < distance;
+}
 export type Direction = "up" | "down" | "left" | "right";
 export type Action =
   | { kind: "enter"; place: Place }
@@ -13,6 +33,14 @@ export type Landmark = Point & {
   name: string;
   labelY: number;
   action: Action;
+};
+export const roomExit: Landmark = {
+  id: "exit",
+  name: "Return to town",
+  x: 480,
+  y: 590,
+  labelY: 590,
+  action: { kind: "exit" },
 };
 export const places: {
   id: Place;
@@ -95,6 +123,7 @@ export const roomLayouts: Record<
       y: number;
       labelY: number;
       project?: ProjectId;
+      name?: string;
     }[];
   }
 > = {
@@ -147,7 +176,15 @@ export const roomLayouts: Record<
       [140, 450, 320, 490],
       [640, 450, 820, 490],
     ],
-    objects: [{ bounds: [390, 230, 570, 400], x: 480, y: 430, labelY: 205 }],
+    objects: [
+      {
+        bounds: [390, 230, 570, 400],
+        x: 480,
+        y: 430,
+        labelY: 205,
+        name: "Career history",
+      },
+    ],
   },
   post: {
     bounds: [90, 190, 870, 605],
@@ -159,20 +196,35 @@ export const roomLayouts: Record<
     objects: [{ bounds: [388, 190, 572, 330], x: 480, y: 370, labelY: 170 }],
   },
 };
+const TOWN_BOUNDS: Rect = [60, 75, 940, 615];
+const POND: Rect = [312, 292, 407, 352];
+const NOTICEBOARD: Rect = [72, 428, 122, 479];
+const BRIDGE = { fromX: 800, top: 375, bottom: 405 };
+const fenceFootprint = ([x, y]: number[]): Rect => [x - 4, y, x + 68, y + 38];
+const treeFootprint = ([x, y]: number[]): Rect => [
+  x + 6,
+  y + 25,
+  x + 52,
+  y + 65,
+];
 const townObstacles = [
   ...buildings,
-  [312, 292, 407, 352],
-  ...fences.map(([x, y]) => [x - 4, y, x + 68, y + 38]),
-  ...trees.map(([x, y]) => [x + 6, y + 25, x + 52, y + 65]),
-  [72, 428, 122, 479],
+  POND,
+  ...fences.map(fenceFootprint),
+  ...trees.map(treeFootprint),
+  NOTICEBOARD,
 ];
 export function canWalk(scene: Scene, x: number, y: number) {
   if (!Number.isFinite(x) || !Number.isFinite(y)) return false;
-  const bounds =
-    scene === "town" ? [60, 75, 940, 615] : roomLayouts[scene].bounds;
+  const bounds = scene === "town" ? TOWN_BOUNDS : roomLayouts[scene].bounds;
   if (x < bounds[0] || y < bounds[1] || x > bounds[2] || y > bounds[3])
     return false;
-  if (scene === "town" && x > 800 && (y < 375 || y > 405)) return false;
+  if (
+    scene === "town" &&
+    x > BRIDGE.fromX &&
+    (y < BRIDGE.top || y > BRIDGE.bottom)
+  )
+    return false;
   return !(
     scene === "town" ? townObstacles : roomLayouts[scene].furniture
   ).some(([l, t, r, b]) => x > l && x < r && y > t && y < b);
@@ -183,15 +235,12 @@ export function landmarks(scene: Scene): Landmark[] {
       ...p,
       action: { kind: "enter", place: p.id },
     }));
-  const name =
-    scene === "home"
-      ? "About & skills"
-      : scene === "station"
-        ? "Career history"
-        : "Contact";
+  const placeContent = places.find((place) => place.id === scene)!.content;
   return roomLayouts[scene].objects.map((object, i) => ({
     id: `${scene}-${object.project ?? i}`,
-    name: object.project ? getProject(object.project).name : name,
+    name: object.project
+      ? getProject(object.project).name
+      : (object.name ?? placeContent),
     x: object.x,
     y: object.y,
     labelY: object.labelY,
@@ -201,6 +250,14 @@ export function landmarks(scene: Scene): Landmark[] {
       project: object.project,
     },
   }));
+}
+export function landmarkInReach(
+  scene: Scene,
+  position: Point,
+): Landmark | undefined {
+  return [...landmarks(scene), ...(scene === "town" ? [] : [roomExit])].find(
+    (landmark) => isWithin(position, landmark, INTERACTION_REACH),
+  );
 }
 export function destinationAt(
   scene: Scene,
@@ -231,13 +288,11 @@ function canTraverse(scene: Scene, start: Point, end: Point) {
 }
 export function findRoute(scene: Scene, start: Point, end: Point): Point[] {
   const nearbyGridPoints = (point: Point) => {
-    const snapped = {
-      x: Math.round(point.x / 10) * 10,
-      y: Math.round(point.y / 10) * 10,
-    };
-    return [-10, 0, 10]
+    const snapped = snapToGrid(point);
+    const offsets = [-GRID_STEP, 0, GRID_STEP];
+    return offsets
       .flatMap((dx) =>
-        [-10, 0, 10].map((dy) => ({ x: snapped.x + dx, y: snapped.y + dy })),
+        offsets.map((dy) => ({ x: snapped.x + dx, y: snapped.y + dy })),
       )
       .filter((candidate) => canTraverse(scene, point, candidate))
       .sort(
@@ -264,10 +319,10 @@ export function findRoute(scene: Scene, start: Point, end: Point): Point[] {
       return path;
     }
     for (const [dx, dy] of [
-      [10, 0],
-      [-10, 0],
-      [0, 10],
-      [0, -10],
+      [GRID_STEP, 0],
+      [-GRID_STEP, 0],
+      [0, GRID_STEP],
+      [0, -GRID_STEP],
     ]) {
       const next = { x: current.x + dx, y: current.y + dy };
       if (canTraverse(scene, current, next) && !previous.has(key(next))) {

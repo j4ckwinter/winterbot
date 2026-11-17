@@ -16,9 +16,7 @@ test("town renders with destinations and no browser errors", async ({
   );
   await expect(page.getByRole("button", { name: /^Walk to/ })).toHaveCount(4);
   await page.locator(".world-menu > summary").click();
-  await page.getByRole("button", { name: "Switch to autumn" }).click();
-  await page.locator(".world-menu > summary").click();
-  await expect(page.locator(".town-app")).toHaveClass(/season-fire/);
+  await expect(page.getByRole("button", { name: /^Switch to/ })).toHaveCount(0);
   expect(errors).toEqual([]);
 });
 
@@ -243,16 +241,21 @@ test("mobile movement follows the player without shrinking the map", async ({
   await expect(right).toBeEnabled();
   await right.hover();
   await page.mouse.down();
-  await page.waitForTimeout(220);
+  await expect(page.locator(".player")).toHaveAttribute(
+    "data-direction",
+    "right",
+  );
   await page.mouse.up();
   await expect(camera).not.toHaveAttribute("style", before!);
   await expect(page.locator(".player")).toHaveAttribute(
     "data-direction",
     "right",
   );
+  await expect
+    .poll(async () => (await page.locator(".player").boundingBox())!.width)
+    .toBeGreaterThanOrEqual(24);
   const player = await page.locator(".player").boundingBox(),
     world = await page.locator(".world").boundingBox();
-  expect(player!.width).toBeGreaterThanOrEqual(24);
   expect(player!.x).toBeGreaterThan(world!.x);
   expect(player!.x + player!.width).toBeLessThan(world!.x + world!.width);
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(
@@ -309,8 +312,13 @@ test("keyboard focus reveals map signs without scrolling the camera container", 
     { timeout: 10000 },
   );
   await page.getByRole("group", { name: /Workshop room/ }).focus();
+  const playerTop = () =>
+    page
+      .locator(".player")
+      .evaluate((el) => parseFloat((el as HTMLElement).style.top));
+  const enteredAt = await playerTop();
   await page.keyboard.down("ArrowUp");
-  await page.waitForTimeout(1300);
+  await expect.poll(playerTop).toBeLessThan(enteredAt - 100);
   await page.keyboard.up("ArrowUp");
   await page.getByRole("button", { name: "Move up", exact: true }).focus();
   await page.keyboard.press("Shift+Tab");
@@ -432,29 +440,45 @@ test("movement sleeps when idle and stops when the page loses focus", async ({
       (window as unknown as { frameRequests: number }).frameRequests++;
       return original(callback);
     };
+    (
+      window as unknown as { waitFrames: (n: number) => Promise<void> }
+    ).waitFrames = (frames) =>
+      new Promise((resolve) => {
+        const next = (left: number) =>
+          left ? original(() => next(left - 1)) : resolve();
+        next(frames);
+      });
   });
   await page.goto("/");
   await expect(
     page.getByRole("button", { name: "Move up", exact: true }),
   ).toBeEnabled();
+  const waitFrames = (frames: number) =>
+    page.evaluate(
+      (n) =>
+        (
+          window as unknown as { waitFrames: (n: number) => Promise<void> }
+        ).waitFrames(n),
+      frames,
+    );
   const count = () =>
     page.evaluate(
       () => (window as unknown as { frameRequests: number }).frameRequests,
     );
-  await page.waitForTimeout(150);
+  await waitFrames(10);
   const idle = await count();
-  await page.waitForTimeout(200);
+  await waitFrames(12);
   expect(await count()).toBe(idle);
   await page.getByRole("group", { name: /^Town map/ }).focus();
   await page.keyboard.down("ArrowRight");
-  await page.waitForTimeout(100);
+  await waitFrames(6);
   expect(await count()).toBeGreaterThan(idle);
   await page.evaluate(() => window.dispatchEvent(new Event("blur")));
   await page.keyboard.up("ArrowRight");
-  await page.waitForTimeout(100);
+  await waitFrames(6);
   const stopped = await count();
   const position = await page.locator(".player").getAttribute("style");
-  await page.waitForTimeout(200);
+  await waitFrames(12);
   expect(await count()).toBe(stopped);
   await expect(page.locator(".player")).toHaveAttribute("style", position!);
 });

@@ -1,17 +1,16 @@
-import { DEFAULT_PROJECT, type ProjectId } from "./projects";
 import TownScene from "./TownScene";
 import { useTownCamera } from "./useTownCamera";
 import TownToolbar from "./TownToolbar";
 import ContentDialog from "./ContentDialog";
 import TownControls, { TravelLog } from "./TownControls";
 import { useEffect, useRef, useState } from "preact/hooks";
-import { profile } from "./profile";
-import type { Content } from "./navigation";
 import { useContentNavigation } from "./useContentNavigation";
 import {
   destinationAt,
+  landmarkInReach,
   landmarks,
   places,
+  roomExit,
   type Action,
   type Landmark,
   type Point,
@@ -21,39 +20,23 @@ import { useProgress } from "./useProgress";
 import { useSound } from "./useSound";
 import { useMovement } from "./useMovement";
 import { useAgentTools } from "./useAgentTools";
+import { useTownAtmosphere } from "./useTownAtmosphere";
+import { useInspectedProjects } from "./useInspectedProjects";
+import IdentityBar from "./IdentityBar";
 import StationAttendant from "./StationAttendant";
 import RoomNote from "./RoomNote";
 import StationTrip from "./StationTrip";
 import "./town.css";
+import "./town-winter.css";
 import "./journey.css";
 import "./interaction-feedback.css";
 
-const exit: Landmark = {
-  id: "exit",
-  name: "Return to town",
-  x: 480,
-  y: 590,
-  labelY: 590,
-  action: { kind: "exit" },
-};
 export default function WinterTown() {
   const sound = useSound();
-  const {
-    season,
-    setSeason,
-    visited,
-    markVisited,
-    resetExploration,
-    storageAvailable,
-  } = useProgress();
-  const [inspectedProjects, setInspectedProjects] = useState<ProjectId[]>([]);
-  const recordInspection = (value: Content | null) => {
-    if (value?.place !== "workshop") return;
-    const project = value.project ?? DEFAULT_PROJECT;
-    setInspectedProjects((current) =>
-      current.includes(project) ? current : [...current, project],
-    );
-  };
+  const { visited, markVisited, resetExploration, storageAvailable } =
+    useProgress();
+  const { inspectedProjects, recordInspection } = useInspectedProjects();
+  useTownAtmosphere();
   const [logOpen, setLogOpen] = useState(false);
   const [manualControls, setManualControls] = useState(false);
   const [notice, setNotice] = useState("");
@@ -84,8 +67,15 @@ export default function WinterTown() {
     stop,
     stepDirection,
   } = useMovement(dialog, onArrival);
-  const { ready, reduced, overview, setOverview, size, cameraStyle } =
-    useTownCamera(world, position);
+  const {
+    ready,
+    reduced,
+    overview,
+    setOverview,
+    size,
+    cameraStyle,
+    mapPointAt,
+  } = useTownCamera(world, position);
   const {
     content,
     copyState,
@@ -144,18 +134,16 @@ export default function WinterTown() {
     return true;
   };
   const destinations = landmarks(scene);
-  const near = [...destinations, ...(scene === "town" ? [] : [exit])].find(
-    (p) => Math.hypot(position.x - p.x, position.y - p.y) < 48,
-  );
+  const near = landmarkInReach(scene, position);
   useAgentTools(
     { scene, position, near, reading: content, walking: !!walkTarget },
-    { exit, reduced, closeContent, walkTo, travel, stop },
+    { exit: roomExit, reduced, closeContent, walkTo, travel, stop },
   );
   const sceneName =
     scene === "town" ? "Winter Town" : places.find((p) => p.id === scene)!.name;
   return (
     <div
-      class={`town-app season-${season} ${overview || reduced ? "is-overview" : ""}`}
+      class={`town-app ${overview || reduced ? "is-overview" : ""}`}
       onPointerDownCapture={(event) => {
         event.currentTarget.dataset.inputMethod = "pointer";
       }}
@@ -163,18 +151,7 @@ export default function WinterTown() {
         event.currentTarget.dataset.inputMethod = "keyboard";
       }}
     >
-      <header class="identity-bar">
-        <div>
-          <h1>
-            Jack Winter<span class="identity-dot">.</span>
-          </h1>
-          <span class="identity-role">{profile.jobTitle}</span>
-        </div>
-        <div class="identity-links">
-          <a href="/portfolio">Plain portfolio</a>
-          <a href={`mailto:${profile.email}`}>Get in touch ↗</a>
-        </div>
-      </header>
+      <IdentityBar />
       <main id="main">
         <section class="world-shell" aria-label="Explore Winter Town">
           <TownToolbar
@@ -183,14 +160,10 @@ export default function WinterTown() {
             sceneName={sceneName}
             overview={overview}
             soundEnabled={sound.enabled}
-            season={season}
             onOpenProfile={() => openContent({ place: "profile" })}
             onLeaveRoom={() => changeScene("town")}
             onToggleOverview={() => setOverview((value) => !value)}
             onToggleSound={sound.toggle}
-            onToggleSeason={() =>
-              setSeason((value) => (value === "leaf" ? "fire" : "leaf"))
-            }
           />
           <div
             class="world"
@@ -200,20 +173,8 @@ export default function WinterTown() {
             aria-label={`${scene === "town" ? "Town map" : sceneName + " room"}. Arrow keys or WASD to walk. Enter to interact.`}
             onClick={(e) => {
               if (!ready || (e.target as Element).closest("button")) return;
-              const layer = world.current
-                ?.querySelector(".camera-layer")
-                ?.getBoundingClientRect();
-              if (!layer) return;
-              walkTo({
-                x:
-                  Math.round(
-                    (e.clientX - layer.left) / (layer.width / 960) / 10,
-                  ) * 10,
-                y:
-                  Math.round(
-                    (e.clientY - layer.top) / (layer.height / 640) / 10,
-                  ) * 10,
-              });
+              const point = mapPointAt(e.clientX, e.clientY);
+              if (point) walkTo(point);
             }}
             onBlur={releaseKeys}
             onKeyDown={(e) => {
@@ -250,7 +211,7 @@ export default function WinterTown() {
                 walkPath={walkPath}
                 tap={tap}
                 onTravel={travel}
-                onExit={() => travel(exit)}
+                onExit={() => travel(roomExit)}
                 onRevealMap={() => setOverview(true)}
               />
             </div>

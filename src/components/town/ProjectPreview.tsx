@@ -22,7 +22,7 @@ export default function ProjectPreview({
           src="/previews/winter-town.png"
           width="960"
           height="640"
-          alt="Winter Town’s paths, buildings and gardens"
+          alt="Winter Town’s snowy paths and buildings"
           loading="lazy"
         />
       ) : (
